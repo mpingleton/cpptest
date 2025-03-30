@@ -29,33 +29,4 @@
 
 ## Component Tasks
 
-- [ ] Assertion() class
-  - [ ] Prototype definition
-  - [ ] Constructor/Destructor
-  - [ ] Methods 
-    - [ ] isComplete() and isPassing()
-    - [ ] toString()
 
-- [ ] Case() class
-  - [ ] Prototype definition
-  - [ ] Constructor/Destructor
-  - [ ] Methods
-    - [ ] expect()
-    - [ ] expectToEqual() (overrides for comparing integers, floats, and strings)
-    - [ ] skip(), isPassing()
-    - [ ] numberTotalAssertions() and numberFailingAssertions()
-    - [ ] toString()
-
-- [ ] Suite() class
-  - [ ] Prototype definition
-  - [ ] Constructor/Destructor
-  - [ ] Methods
-    - [ ] toString() method
-
-- [ ] Runner() class
-  - [ ] Prototype definition
-  - [ ] Constructor/Destructor
-  - [ ] Methods
-    - [ ] run()
-    - [ ] numberTotalSuites()
-    - [ ] toString()
