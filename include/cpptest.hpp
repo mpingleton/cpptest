@@ -13,6 +13,8 @@
 #ifndef CPPTEST_HPP
 #define CPPTEST_HPP
 
+#include "./cpptest.h"
+
 #include <iostream>
 #include <vector>
 
@@ -20,17 +22,75 @@ namespace cpptest
 {
 	using namespace std;
 
-	class Runner
-	{};
-
-	class Section
-	{};
-
 	class ExpectationResult
-	{};
+	{
+		int index;
+		bool passing;
+
+	public:
+		ExpectationResult();
+		virtual ~ExpectationResult();
+
+		virtual bool didPass();
+		virtual void print();
+	};
 
 	class Scenario
-	{};
+	{
+		char status;
+		string desc;
+		vector<ExpectationResult*> results;
+
+	protected:
+		void cancel();
+
+	public:
+		Scenario();
+		Scenario(string inputDesc);
+		virtual ~Scenario();
+
+		virtual void test();
+		bool isCanceled();
+
+		void expect(bool shouldBeTrue);
+		void expectPointerNull(void* pointer);
+		void expectPointerInitialized(void* pointer);
+		void expectToEqual(void* pActual, void* pExpected);
+		void expectToEqual(int actual, int expected);
+		void expectToEqual(float actual, float expected);
+		void expectToEqual(double actual, double expected);
+
+		bool didPass();
+		void print();
+	};
+
+	class Section
+	{
+		string desc;
+		vector<Scenario*> scenarios;
+
+	public:
+		Section();
+		Section(string inputDesc);
+		virtual ~Section();
+
+		void run();
+		bool didPass();
+		void print();
+	};
+
+	class Runner
+	{
+		vector<Section*> sections;
+
+	public:
+		Runner();
+		~Runner();
+
+		void run(bool show);
+		bool didPass();
+		void print();
+	};
 };
 
 #endif
