@@ -60,6 +60,7 @@ namespace cpptest
 		void expectToEqual(float actual, float expected);
 		void expectToEqual(double actual, double expected);
 
+		void run();
 		bool didPass();
 		void print();
 	};
