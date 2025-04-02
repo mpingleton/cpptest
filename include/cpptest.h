@@ -43,6 +43,7 @@ struct CTestExpectationResult
 	union CTestExpectationValue expected;
 };
 
+// expectation_result.c
 void freeExpectationResult(struct CTestExpectationResult* pResult);
 char didExpectationResultPass(struct CTestExpectationResult* pResult);
 void printExpectationResult(struct CTestExpectationResult* pResult);
@@ -55,21 +56,22 @@ struct CTestScenario
 	void (*pFunc)(struct CTestScenario* pScenario);
 };
 
+// scenario.c
 void initScenario(struct CTestScenario* pScenario, const char* pDesc, void (*pFunc)(struct CTestScenario* pScenario));
 void freeScenario(struct CTestScenario* pScenario);
 void runScenario(struct CTestScenario* pScenario);
 void cancelScenario(struct CTestScenario* pScenario);
 char isScenarioCanceled(struct CTestScenario* pScenario);
+char didScenarioPass(struct CTestScenario* pScenario);
+void printScenario(struct CTestScenario* pScenario);
 
+// expectation.c
 void expectPointerNull(struct CTestScenario* pScenario, void* pointer);
 void expectPointerInitialized(struct CTestScenario* pScenario, void* pointer);
 void expectToEqualPointer(void* pActual, void* pExpected);
 void expectToEqualInt(int actual, int expected);
 void expectToEqualFloat(float actual, float expected);
 void expectToEqualDouble(double actual, double expected);
-
-char didScenarioPass(struct CTestScenario* pScenario);
-void printScenario(struct CTestScenario* pScenario);
 
 struct CTestSection
 {
@@ -78,6 +80,7 @@ struct CTestSection
 	struct CTestScenario* pScenarios;
 };
 
+// section.c
 void initSection(struct CTestSection* pSection, const char* pDesc, int numberScenarios);
 void freeSection(struct CTestSection* pSection);
 void runSection(struct CTestSection* pSection);
@@ -90,6 +93,7 @@ struct CTestRunner
 	struct CTestSection* pSection;
 };
 
+// runner.c
 void initTests(struct CTestRunner* pRunner, int numberSections);
 void freeTests(struct CTestRunner* pRunner);
 void runTests(struct CTestRunner* pRunner, char show);
