@@ -16,6 +16,11 @@
 
 #include <stdio.h>
 
+#define EXPECTATION_POINTER 1
+#define EXPECTATION_INT 2
+#define EXPECTATION_FLOAT 3
+#define EXPECTATION_DOUBLE 4
+
 #define EXPECTATION_FAIL 0
 #define EXPECTATION_PASS 1
 
@@ -38,6 +43,7 @@ struct CTestExpectationResult
 	int expectationId;
 	struct CTestExpectationResult* pNext;
 
+	char type;
 	char result;
 	union CTestExpectationValue actual;
 	union CTestExpectationValue expected;
