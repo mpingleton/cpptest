@@ -43,7 +43,7 @@ namespace cpptest
 		void* pExpected;
 
 	public:
-		ExpectationResultPointer();
+		ExpectationResultPointer(int i, int id, void* pA, void* pE, bool pass);
 		~ExpectationResultPointer();
 
 		void print();
@@ -55,7 +55,7 @@ namespace cpptest
 		int expected;
 
 	public:
-		ExpectationResultInt();
+		ExpectationResultInt(int i, int id, int a, int e, bool pass);
 		~ExpectationResultInt();
 
 		void print();
@@ -67,7 +67,7 @@ namespace cpptest
 		float expected;
 
 	public:
-		ExpectationResultFloat();
+		ExpectationResultFloat(int i, int id, float a, float e, bool pass);
 		~ExpectationResultFloat();
 
 		void print();
@@ -79,7 +79,7 @@ namespace cpptest
 		double expected;
 
 	public:
-		ExpectationResultDouble();
+		ExpectationResultDouble(int i, int id, double a, double e, bool pass);
 		~ExpectationResultDouble();
 
 		void print();
