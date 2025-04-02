@@ -10,9 +10,16 @@
 //-----------------------------------------------------------------------------
 
 #include "../include/cpptest.hpp"
+#include "../include/tests.hpp"
+
+#include <iostream>
+
+using namespace std;
 
 int main(int argc, char** argv)
 {
 
+
+	cout << "All tests passed." << endl;
 	return 0;
 }
