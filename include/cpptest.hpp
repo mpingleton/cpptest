@@ -24,15 +24,65 @@ namespace cpptest
 
 	class ExpectationResult
 	{
+	protected:
 		int index;
+		int expectationId;
 		bool passing;
 
 	public:
 		ExpectationResult();
 		virtual ~ExpectationResult();
 
-		virtual bool didPass();
+		bool didPass();
 		virtual void print();
+	};
+
+	class ExpectationResultPointer : public ExpectationResult
+	{
+		void* pActual;
+		void* pExpected;
+
+	public:
+		ExpectationResultPointer();
+		~ExpectationResultPointer();
+
+		void print();
+	};
+
+	class ExpectationResultInt : public ExpectationResult
+	{
+		int actual;
+		int expected;
+
+	public:
+		ExpectationResultInt();
+		~ExpectationResultInt();
+
+		void print();
+	};
+
+	class ExpectationResultFloat : public ExpectationResult
+	{
+		float actual;
+		float expected;
+
+	public:
+		ExpectationResultFloat();
+		~ExpectationResultFloat();
+
+		void print();
+	};
+
+	class ExpectationResultDouble : public ExpectationResult
+	{
+		double actual;
+		double expected;
+
+	public:
+		ExpectationResultDouble();
+		~ExpectationResultDouble();
+
+		void print();
 	};
 
 	class Scenario

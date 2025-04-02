@@ -35,6 +35,7 @@ union CTestExpectationValue
 struct CTestExpectationResult
 {
 	int index;
+	int expectationId;
 	struct CTestExpectationResult* pNext;
 
 	char result;
