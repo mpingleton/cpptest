@@ -3,7 +3,7 @@
 //
 // main.cpp
 //
-// Entry point for performing basic tests on the framework.
+// Entry point for performing basic tests on the C++ framework.
 //
 // Created	: 31 March 2025
 // Author	: Michael Pingleton
@@ -18,7 +18,11 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-
+	if (!cppTestExpectationResult())
+	{
+		cout << "Test Section Failed: Expectation Result" << endl;
+		return -1;
+	}
 
 	cout << "All tests passed." << endl;
 	return 0;

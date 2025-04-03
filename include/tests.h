@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // CPPTEST
 //
-// tests.hpp
+// tests.h
 //
 // Definitions for unit tests.
 //
@@ -9,9 +9,9 @@
 // Author	: Michael Pingleton
 //-----------------------------------------------------------------------------
 
-#ifndef CPPTEST_TESTS_HPP
-#define CPPTEST_TESTS_HPP
+#ifndef CPPTEST_TESTS_H
+#define CPPTEST_TESTS_H
 
-bool cppTestExpectationResult();
+int cTestExpectationResult();
 
 #endif
