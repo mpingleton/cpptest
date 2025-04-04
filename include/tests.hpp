@@ -13,5 +13,6 @@
 #define CPPTEST_TESTS_HPP
 
 bool cppTestExpectationResult();
+bool cppTestScenario();
 
 #endif

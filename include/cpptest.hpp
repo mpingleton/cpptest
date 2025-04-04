@@ -92,6 +92,7 @@ namespace cpptest
 		vector<ExpectationResult*> results;
 
 	protected:
+		virtual void test();
 		void cancel();
 
 	public:
@@ -99,7 +100,6 @@ namespace cpptest
 		Scenario(string inputDesc);
 		virtual ~Scenario();
 
-		virtual void test();
 		bool isCanceled();
 
 		void expect(bool shouldBeTrue);

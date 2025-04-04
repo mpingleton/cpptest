@@ -74,10 +74,10 @@ void printScenario(struct CTestScenario* pScenario);
 // expectation.c
 void expectPointerNull(struct CTestScenario* pScenario, void* pointer);
 void expectPointerInitialized(struct CTestScenario* pScenario, void* pointer);
-void expectToEqualPointer(void* pActual, void* pExpected);
-void expectToEqualInt(int actual, int expected);
-void expectToEqualFloat(float actual, float expected);
-void expectToEqualDouble(double actual, double expected);
+void expectToEqualPointer(struct CTestScenario* pScenario, void* pActual, void* pExpected);
+void expectToEqualInt(struct CTestScenario* pScenario, int actual, int expected);
+void expectToEqualFloat(struct CTestScenario* pScenario, float actual, float expected);
+void expectToEqualDouble(struct CTestScenario* pScenario, double actual, double expected);
 
 struct CTestSection
 {

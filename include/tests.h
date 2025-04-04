@@ -13,5 +13,6 @@
 #define CPPTEST_TESTS_H
 
 int cTestExpectationResult();
+int cTestScenario();
 
 #endif

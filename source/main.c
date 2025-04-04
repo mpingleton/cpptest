@@ -22,6 +22,12 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
+	if (!cTestScenario())
+	{
+		printf("Test Section Failed: Scenario\n");
+		return -2;
+	}
+
 	printf("All tests passed.\n");
 	return 0;
 }

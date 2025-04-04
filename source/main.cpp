@@ -24,6 +24,12 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
+	if (!cppTestScenario())
+	{
+		cout << "Test Section Failed: Scenario" << endl;
+		return -2;
+	}
+
 	cout << "All tests passed." << endl;
 	return 0;
 }
