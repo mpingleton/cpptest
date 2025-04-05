@@ -46,6 +46,14 @@ int main(int argc, char** argv)
 		return -3;
 	}
 
+	printf("4. Runners: ");
+	printSep();
+	if (!cTestRunner())
+	{
+		printf("Test Section Failed: Runner\n");
+		return -4;
+	}
+
 	printSep();
 	printSep();
 	printf("All tests passed.\n");

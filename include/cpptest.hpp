@@ -141,6 +141,7 @@ namespace cpptest
 		Runner();
 		~Runner();
 
+		void add(Section* pSection);
 		void run(bool show);
 		bool didPass();
 		void print();

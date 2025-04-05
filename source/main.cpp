@@ -48,6 +48,14 @@ int main(int argc, char** argv)
 		return -3;
 	}
 
+	cout << "4. Runner: ";
+	printSep();
+	if (!cppTestRunner())
+	{
+		cout << "Test Section Failed: Runner" << endl;
+		return -4;
+	}
+
 	printSep();
 	printSep();
 	cout << "All tests passed." << endl;

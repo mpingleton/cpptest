@@ -15,5 +15,6 @@
 int cTestExpectationResult();
 int cTestScenario();
 int cTestSection();
+int cTestRunner();
 
 #endif
