@@ -88,6 +88,7 @@ namespace cpptest
 
 	void Scenario::print()
 	{
+		cout << " ";
 		if (status == SCENARIO_STATUS_RUNNING)
 			cout << "[      ]\t";
 		else if (status == SCENARIO_STATUS_CANCELED)

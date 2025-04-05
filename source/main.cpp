@@ -30,6 +30,12 @@ int main(int argc, char** argv)
 		return -2;
 	}
 
+	if (!cppTestSection())
+	{
+		cout << "Test Section Failed: Section" << endl;
+		return -3;
+	}
+
 	cout << "All tests passed." << endl;
 	return 0;
 }

@@ -28,6 +28,12 @@ int main(int argc, char** argv)
 		return -2;
 	}
 
+	if (!cTestSection())
+	{
+		printf("Test Section Failed: Section\n");
+		return -3;
+	}
+
 	printf("All tests passed.\n");
 	return 0;
 }

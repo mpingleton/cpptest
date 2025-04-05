@@ -14,5 +14,6 @@
 
 bool cppTestExpectationResult();
 bool cppTestScenario();
+bool cppTestSection();
 
 #endif

@@ -92,6 +92,7 @@ char didScenarioPass(struct CTestScenario* pScenario)
 
 void printScenario(struct CTestScenario* pScenario)
 {
+	putchar(' ');
 	if (pScenario->status == SCENARIO_STATUS_RUNNING)
 		printf("[      ]");
 	else if (pScenario->status == SCENARIO_STATUS_CANCELED)

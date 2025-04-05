@@ -120,12 +120,15 @@ namespace cpptest
 		string desc;
 		vector<Scenario*> scenarios;
 
+	protected:
+		void add(Scenario* pScenario);
+
 	public:
 		Section();
 		Section(string inputDesc);
 		virtual ~Section();
 
-		void run();
+		void run(bool show);
 		bool didPass();
 		void print();
 	};
