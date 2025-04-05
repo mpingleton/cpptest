@@ -56,7 +56,7 @@ namespace cpptest
 				scenarios[i]->print();
 			}
 
-			scenarios[i]->run();
+			scenarios[i]->run(show);
 
 			if (show)
 			{

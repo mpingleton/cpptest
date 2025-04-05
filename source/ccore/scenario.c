@@ -43,14 +43,18 @@ void freeScenario(struct CTestScenario* pScenario)
 	memset(pScenario, 0, sizeof(struct CTestScenario));
 }
 
-void runScenario(struct CTestScenario* pScenario)
+void runScenario(struct CTestScenario* pScenario, char show)
 {
 	if (pScenario->status == SCENARIO_STATUS_PENDING)
 	{
 		pScenario->status = SCENARIO_STATUS_RUNNING;
+		if (show) printScenario(pScenario);
+
 		pScenario->pFunc(pScenario);
 		if (pScenario->status == SCENARIO_STATUS_RUNNING)
 			pScenario->status = SCENARIO_STATUS_COMPLETE;
+
+		if (show) printScenario(pScenario);
 	}
 }
 

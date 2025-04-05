@@ -110,7 +110,7 @@ namespace cpptest
 		void expectToEqual(float actual, float expected);
 		void expectToEqual(double actual, double expected);
 
-		void run();
+		void run(bool show);
 		bool didPass();
 		void print();
 	};

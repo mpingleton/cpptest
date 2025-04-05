@@ -65,7 +65,7 @@ struct CTestScenario
 // scenario.c
 void initScenario(struct CTestScenario* pScenario, const char* pDesc, void (*pFunc)(struct CTestScenario* pScenario));
 void freeScenario(struct CTestScenario* pScenario);
-void runScenario(struct CTestScenario* pScenario);
+void runScenario(struct CTestScenario* pScenario, char show);
 void cancelScenario(struct CTestScenario* pScenario);
 char isScenarioCanceled(struct CTestScenario* pScenario);
 char didScenarioPass(struct CTestScenario* pScenario);

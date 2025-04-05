@@ -72,7 +72,7 @@ void runSection(struct CTestSection* pSection, char show)
 			printScenario(&pSection->pScenarios[i]);
 		}
 
-		runScenario(&pSection->pScenarios[i]);
+		runScenario(&pSection->pScenarios[i], show);
 
 		if (show)
 		{

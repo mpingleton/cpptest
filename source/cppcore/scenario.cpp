@@ -55,14 +55,18 @@ namespace cpptest
 			return false;
 	}
 
-	void Scenario::run()
+	void Scenario::run(bool show)
 	{
 		if (status == SCENARIO_STATUS_PENDING)
 		{
 			status = SCENARIO_STATUS_RUNNING;
+			if (show) print();
+
 			test();
 			if (status == SCENARIO_STATUS_RUNNING)
 				status = SCENARIO_STATUS_COMPLETE;
+
+			if (show) print();
 		}
 	}
 
