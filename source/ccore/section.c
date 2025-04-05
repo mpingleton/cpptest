@@ -108,10 +108,13 @@ void printSection(struct CTestSection* pSection)
 	else
 		printf("[ FAIL ]");
 
-	if (pSection->pDesc) printf("\t%s\n", pSection->pDesc);
-	else printf("\n");
+	if (pSection->pDesc)
+		printf("\t%s\n", pSection->pDesc);
+	else
+		printf("\n");
 
-	for (int i = 0; i < pSection->numberScenarios; i++) printScenario(&pSection->pScenarios[i]);
+	for (int i = 0; i < pSection->numberScenarios; i++)
+		printScenario(&pSection->pScenarios[i]);
 
 	for (int i = 0; i < 80; i++) printf("+");
 	printf("\n");

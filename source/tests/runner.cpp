@@ -17,120 +17,120 @@
 using namespace std;
 using namespace cpptest;
 
-class SomeScenario : public Scenario
+class SomeScenario1 : public Scenario
 {
 public:
-	SomeScenario() : Scenario("Test 1")
+	SomeScenario1() : Scenario("Test 1")
 	{}
 
-	~SomeScenario()
+	~SomeScenario1()
 	{}
 
 	void test()
 	{
-		expectToEqual(10, 10);
-		expectToEqual(3, 2);
-		expectToEqual(3.14f, 3.14f);
+		expectToEqual(1, 10, 10);
+		expectToEqual(1, 3, 2);
+		expectToEqual(2, 3.14f, 3.14f);
 
 		if (isCanceled()) return;
 
-		expectToEqual(1.2, 1.2);
+		expectToEqual(3, 1.2, 1.2);
 	}
 };
 
-class AnotherScenario : public Scenario
+class AnotherScenario1 : public Scenario
 {
 public:
-	AnotherScenario() : Scenario("Test 2")
+	AnotherScenario1() : Scenario("Test 2")
 	{}
 
-	~AnotherScenario()
+	~AnotherScenario1()
 	{}
 
 	void test()
 	{
-		expectToEqual(10, 10);
-		expectToEqual(2, 2);
-		expectToEqual(3.14f, 3.14f);
+		expectToEqual(1, 10, 10);
+		expectToEqual(1, 2, 2);
+		expectToEqual(2, 3.14f, 3.14f);
 
 		if (isCanceled()) return;
 
-		expectToEqual(1.2, 1.2);
+		expectToEqual(3, 1.2, 1.2);
 
 		int a = 0;
 		int* b = 0;
 		int* c = &a;
-		expectPointerNull(b);
-		expectPointerInitialized(c);
-		expectToEqual(c, &a);
+		expectPointerNull(4, b);
+		expectPointerInitialized(5, c);
+		expectToEqual(6, c, &a);
 	}
 };
 
-class SomeOtherScenario : public Scenario
+class SomeOtherScenario1 : public Scenario
 {
 public:
-	SomeOtherScenario() : Scenario("Test 3")
+	SomeOtherScenario1() : Scenario("Test 3")
 	{}
 
-	~SomeOtherScenario()
-	{}
-
-	void test()
-	{
-		expectToEqual(1, 1);
-		expectToEqual(2, 2);
-	}
-};
-
-class YetOtherScenario : public Scenario
-{
-public:
-	YetOtherScenario() : Scenario("Test 4")
-	{}
-
-	~YetOtherScenario()
+	~SomeOtherScenario1()
 	{}
 
 	void test()
 	{
-		expectToEqual(3.14f, 3.14f);
-		expectToEqual(1.4, 1.4);
+		expectToEqual(1, 1, 1);
+		expectToEqual(2, 2, 2);
 	}
 };
 
-class SectionOne : public Section
+class YetOtherScenario1 : public Scenario
 {
 public:
-	SectionOne() : Section("Section One")
+	YetOtherScenario1() : Scenario("Test 4")
+	{}
+
+	~YetOtherScenario1()
+	{}
+
+	void test()
 	{
-		add(new SomeScenario());
+		expectToEqual(1, 3.14f, 3.14f);
+		expectToEqual(2, 1.4, 1.4);
 	}
 };
 
-class SectionTwo : public Section
+class SectionOne1 : public Section
 {
 public:
-	SectionTwo() : Section("Section Two")
+	SectionOne1() : Section("Section One")
 	{
-		add(new AnotherScenario());
+		add(new SomeScenario1());
 	}
 };
 
-class SectionThr : public Section
+class SectionTwo1 : public Section
 {
 public:
-	SectionThr() : Section("Section Three")
+	SectionTwo1() : Section("Section Two")
 	{
-		add(new SomeOtherScenario());
-		add(new YetOtherScenario());
+		add(new AnotherScenario1());
+	}
+};
+
+class SectionThr1 : public Section
+{
+public:
+	SectionThr1() : Section("Section Three")
+	{
+		add(new SomeOtherScenario1());
+		add(new YetOtherScenario1());
 	}
 };
 
 bool cppTestRunner()
 {
 	Runner runner1 = Runner();
-	runner1.add(new SectionOne());
-	runner1.add(new SectionTwo());
+	runner1.add(new SectionOne1());
+	runner1.add(new SectionTwo1());
 
 	runner1.print();
 	runner1.run(true);
@@ -141,7 +141,7 @@ bool cppTestRunner()
 	}
 
 	Runner runner2 = Runner();
-	runner2.add(new SectionThr());
+	runner2.add(new SectionThr1());
 
 	runner2.print();
 	runner2.run(true);
@@ -150,6 +150,9 @@ bool cppTestRunner()
 		cout << "Tests should have passed" << endl;
 		return false;
 	}
+
+	runner1.print();
+	runner2.print();
 
 	return true;
 }

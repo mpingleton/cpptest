@@ -17,43 +17,43 @@
 
 void someScenario1(struct CTestScenario* pScenario)
 {
-	expectToEqualInt(pScenario, 10, 10);
-	expectToEqualInt(pScenario, 3, 2);
-	expectToEqualFloat(pScenario, 3.14f, 3.14f);
+	expectToEqualInt(pScenario, 1, 10, 10);
+	expectToEqualInt(pScenario, 1, 3, 2);
+	expectToEqualFloat(pScenario, 2, 3.14f, 3.14f);
 
 	if (isScenarioCanceled(pScenario)) return;
 
-	expectToEqualDouble(pScenario, 1.2, 1.2);
+	expectToEqualDouble(pScenario, 3, 1.2, 1.2);
 }
 
 void anotherScenario1(struct CTestScenario* pScenario)
 {
-	expectToEqualInt(pScenario, 10, 10);
-	expectToEqualInt(pScenario, 2, 2);
-	expectToEqualFloat(pScenario, 3.14f, 3.14f);
+	expectToEqualInt(pScenario, 1, 10, 10);
+	expectToEqualInt(pScenario, 1, 2, 2);
+	expectToEqualFloat(pScenario, 2, 3.14f, 3.14f);
 
 	if (isScenarioCanceled(pScenario)) return;
 
-	expectToEqualDouble(pScenario, 1.2, 1.2);
+	expectToEqualDouble(pScenario, 3, 1.2, 1.2);
 
 	int a = 0;
 	int* b = 0;
 	int* c = &a;
-	expectPointerNull(pScenario, b);
-	expectPointerInitialized(pScenario, c);
-	expectToEqualPointer(pScenario, c, &a);
+	expectPointerNull(pScenario, 4, b);
+	expectPointerInitialized(pScenario, 5, c);
+	expectToEqualPointer(pScenario, 6, c, &a);
 }
 
 void someotherScenario1(struct CTestScenario* pScenario)
 {
-	expectToEqualInt(pScenario, 1, 1);
-	expectToEqualInt(pScenario, 2, 2);
+	expectToEqualInt(pScenario, 1, 1, 1);
+	expectToEqualInt(pScenario, 2, 2, 2);
 }
 
 void yetotherScenario1(struct CTestScenario* pScenario)
 {
-	expectToEqualFloat(pScenario, 3.14f, 3.14f);
-	expectToEqualDouble(pScenario, 1.4, 1.4);
+	expectToEqualFloat(pScenario, 1, 3.14f, 3.14f);
+	expectToEqualDouble(pScenario, 2, 1.4, 1.4);
 }
 
 void initSectionOne(struct CTestSection* pSection)
@@ -77,7 +77,7 @@ void initSectionThr(struct CTestSection* pSection)
 
 int cTestRunner()
 {
-	struct CTestRunner runner1;
+	struct CTestRunner runner1 = {};
 	initTests(&runner1, 2);
 	initSectionOne(&runner1.pSection[0]);
 	initSectionTwo(&runner1.pSection[1]);
@@ -90,7 +90,7 @@ int cTestRunner()
 		return 0;
 	}
 
-	struct CTestRunner runner2;
+	struct CTestRunner runner2 = {};
 	initTests(&runner2, 1);
 	initSectionThr(&runner2.pSection[0]);
 
@@ -101,6 +101,9 @@ int cTestRunner()
 		printf("Tests should have passed\n");
 		return 0;
 	}
+
+	printTests(&runner1);
+	printTests(&runner2);
 
 	freeTests(&runner1);
 	freeTests(&runner2);

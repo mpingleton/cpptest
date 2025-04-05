@@ -33,6 +33,7 @@ namespace cpptest
 		ExpectationResult();
 		virtual ~ExpectationResult();
 
+		int getId();
 		bool didPass();
 		virtual void print();
 	};
@@ -102,13 +103,13 @@ namespace cpptest
 
 		bool isCanceled();
 
-		void expect(bool shouldBeTrue);
-		void expectPointerNull(void* pointer);
-		void expectPointerInitialized(void* pointer);
-		void expectToEqual(void* pActual, void* pExpected);
-		void expectToEqual(int actual, int expected);
-		void expectToEqual(float actual, float expected);
-		void expectToEqual(double actual, double expected);
+		void expect(int id, bool shouldBeTrue);
+		void expectPointerNull(int id, void* pointer);
+		void expectPointerInitialized(int id, void* pointer);
+		void expectToEqual(int id, void* pActual, void* pExpected);
+		void expectToEqual(int id, int actual, int expected);
+		void expectToEqual(int id, float actual, float expected);
+		void expectToEqual(int id, double actual, double expected);
 
 		void run(bool show);
 		bool didPass();

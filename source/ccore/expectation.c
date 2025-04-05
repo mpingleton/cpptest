@@ -14,11 +14,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-void expectPointerNull(struct CTestScenario* pScenario, void* pointer)
+void expectPointerNull(struct CTestScenario* pScenario, int id, void* pointer)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
 	pR->index = 0;
-	pR->expectationId = 0;
+	pR->expectationId = id;
 	pR->type = EXPECTATION_POINTER;
 	pR->actual.pointerValue = pointer;
 	pR->expected.pointerValue = 0;
@@ -34,18 +34,23 @@ void expectPointerNull(struct CTestScenario* pScenario, void* pointer)
 	if (pScenario->pResults)
 	{
 		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext) pRes = pRes->pNext;
+		while (pRes->pNext)
+		{
+			if (pRes->expectationId == id) pR->index++;
+			pRes = pRes->pNext;
+		}
+		if (pRes->expectationId == id) pR->index++;
 		pRes->pNext = pR;
 	}
 	else
 		pScenario->pResults = pR;
 }
 
-void expectPointerInitialized(struct CTestScenario* pScenario, void* pointer)
+void expectPointerInitialized(struct CTestScenario* pScenario, int id, void* pointer)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
 	pR->index = 0;
-	pR->expectationId = 0;
+	pR->expectationId = id;
 	pR->type = EXPECTATION_POINTER;
 	pR->actual.pointerValue = pointer;
 	pR->expected.pointerValue = 0;
@@ -61,18 +66,23 @@ void expectPointerInitialized(struct CTestScenario* pScenario, void* pointer)
 	if (pScenario->pResults)
 	{
 		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext) pRes = pRes->pNext;
+		while (pRes->pNext)
+		{
+			if (pRes->expectationId == id) pR->index++;
+			pRes = pRes->pNext;
+		}
+		if (pRes->expectationId == id) pR->index++;
 		pRes->pNext = pR;
 	}
 	else
 		pScenario->pResults = pR;
 }
 
-void expectToEqualPointer(struct CTestScenario* pScenario, void* pActual, void* pExpected)
+void expectToEqualPointer(struct CTestScenario* pScenario, int id, void* pActual, void* pExpected)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
 	pR->index = 0;
-	pR->expectationId = 0;
+	pR->expectationId = id;
 	pR->type = EXPECTATION_POINTER;
 	pR->actual.pointerValue = pActual;
 	pR->expected.pointerValue = pExpected;
@@ -88,18 +98,23 @@ void expectToEqualPointer(struct CTestScenario* pScenario, void* pActual, void* 
 	if (pScenario->pResults)
 	{
 		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext) pRes = pRes->pNext;
+		while (pRes->pNext)
+		{
+			if (pRes->expectationId == id) pR->index++;
+			pRes = pRes->pNext;
+		}
+		if (pRes->expectationId == id) pR->index++;
 		pRes->pNext = pR;
 	}
 	else
 		pScenario->pResults = pR;
 }
 
-void expectToEqualInt(struct CTestScenario* pScenario, int actual, int expected)
+void expectToEqualInt(struct CTestScenario* pScenario, int id, int actual, int expected)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
 	pR->index = 0;
-	pR->expectationId = 0;
+	pR->expectationId = id;
 	pR->type = EXPECTATION_INT;
 	pR->actual.intValue = actual;
 	pR->expected.intValue = expected;
@@ -115,18 +130,23 @@ void expectToEqualInt(struct CTestScenario* pScenario, int actual, int expected)
 	if (pScenario->pResults)
 	{
 		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext) pRes = pRes->pNext;
+		while (pRes->pNext)
+		{
+			if (pRes->expectationId == id) pR->index++;
+			pRes = pRes->pNext;
+		}
+		if (pRes->expectationId == id) pR->index++;
 		pRes->pNext = pR;
 	}
 	else
 		pScenario->pResults = pR;
 }
 
-void expectToEqualFloat(struct CTestScenario* pScenario, float actual, float expected)
+void expectToEqualFloat(struct CTestScenario* pScenario, int id, float actual, float expected)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
 	pR->index = 0;
-	pR->expectationId = 0;
+	pR->expectationId = id;
 	pR->type = EXPECTATION_FLOAT;
 	pR->actual.floatValue = actual;
 	pR->expected.floatValue = expected;
@@ -142,18 +162,23 @@ void expectToEqualFloat(struct CTestScenario* pScenario, float actual, float exp
 	if (pScenario->pResults)
 	{
 		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext) pRes = pRes->pNext;
+		while (pRes->pNext)
+		{
+			if (pRes->expectationId == id) pR->index++;
+			pRes = pRes->pNext;
+		}
+		if (pRes->expectationId == id) pR->index++;
 		pRes->pNext = pR;
 	}
 	else
 		pScenario->pResults = pR;
 }
 
-void expectToEqualDouble(struct CTestScenario* pScenario, double actual, double expected)
+void expectToEqualDouble(struct CTestScenario* pScenario, int id, double actual, double expected)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
 	pR->index = 0;
-	pR->expectationId = 0;
+	pR->expectationId = id;
 	pR->type = EXPECTATION_DOUBLE;
 	pR->actual.doubleValue = actual;
 	pR->expected.doubleValue = expected;
@@ -169,7 +194,12 @@ void expectToEqualDouble(struct CTestScenario* pScenario, double actual, double 
 	if (pScenario->pResults)
 	{
 		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext) pRes = pRes->pNext;
+		while (pRes->pNext)
+		{
+			if (pRes->expectationId == id) pR->index++;
+			pRes = pRes->pNext;
+		}
+		if (pRes->expectationId == id) pR->index++;
 		pRes->pNext = pR;
 	}
 	else

@@ -27,6 +27,11 @@ namespace cpptest
 		passing = false;
 	}
 
+	int ExpectationResult::getId()
+	{
+		return expectationId;
+	}
+
 	bool ExpectationResult::didPass()
 	{
 		return passing;

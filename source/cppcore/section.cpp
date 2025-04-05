@@ -92,10 +92,13 @@ namespace cpptest
 		else
 			cout << "[ FAIL ]";
 
-		if (!desc.empty()) cout << "\t" << desc << endl;
-		else cout << endl;
+		if (!desc.empty())
+			cout << "\t" << desc << endl;
+		else
+			cout << endl;
 
-		for (int i = 0; i < scenarios.size(); i++) scenarios[i]->print();
+		for (int i = 0; i < scenarios.size(); i++)
+			scenarios[i]->print();
 
 		for (int i = 0; i < 80; i++) cout << "+";
 		cout << endl;

@@ -28,13 +28,13 @@ public:
 
 	void test()
 	{
-		expectToEqual(10, 10);
-		expectToEqual(3, 2);
-		expectToEqual(3.14f, 3.14f);
+		expectToEqual(1, 10, 10);
+		expectToEqual(1, 3, 2);
+		expectToEqual(1, 3.14f, 3.14f);
 
 		if (isCanceled()) return;
 
-		expectToEqual(1.2, 1.2);
+		expectToEqual(1, 1.2, 1.2);
 	}
 };
 
@@ -49,20 +49,20 @@ public:
 
 	void test()
 	{
-		expectToEqual(10, 10);
-		expectToEqual(2, 2);
-		expectToEqual(3.14f, 3.14f);
+		expectToEqual(1, 10, 10);
+		expectToEqual(1, 2, 2);
+		expectToEqual(1, 3.14f, 3.14f);
 
 		if (isCanceled()) return;
 
-		expectToEqual(1.2, 1.2);
+		expectToEqual(1, 1.2, 1.2);
 
 		int a = 0;
 		int* b = 0;
 		int* c = &a;
-		expectPointerNull(b);
-		expectPointerInitialized(c);
-		expectToEqual(c, &a);
+		expectPointerNull(1, b);
+		expectPointerInitialized(1, c);
+		expectToEqual(1, c, &a);
 	}
 };
 

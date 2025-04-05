@@ -28,8 +28,8 @@ public:
 
 	void test()
 	{
-		expectToEqual(10, 10);
-		expectToEqual(3.14f, 3.14f);
+		expectToEqual(1, 10, 10);
+		expectToEqual(2, 3.14f, 3.14f);
 	}
 };
 
@@ -44,8 +44,8 @@ public:
 
 	void test()
 	{
-		expectToEqual(10, 10);
-		expectToEqual(3.14f, 3.0f);
+		expectToEqual(1, 10, 10);
+		expectToEqual(2, 3.14f, 3.0f);
 	}
 };
 
@@ -60,8 +60,8 @@ public:
 
 	void test()
 	{
-		expectToEqual(10, 12);
-		expectToEqual(3.14f, 3.14f);
+		expectToEqual(1, 10, 12);
+		expectToEqual(1, 3.14f, 3.14f);
 	}
 };
 
@@ -76,8 +76,8 @@ public:
 
 	void test()
 	{
-		expectToEqual(10, 10);
-		expectToEqual(3.14f, 3.14f);
+		expectToEqual(1, 10, 10);
+		expectToEqual(1, 3.14f, 3.14f);
 	}
 };
 
