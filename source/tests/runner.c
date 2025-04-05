@@ -14,9 +14,12 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 void someScenario1(struct CTestScenario* pScenario)
 {
+	sleep(3);
+
 	expectToEqualInt(pScenario, 1, 10, 10);
 	expectToEqualInt(pScenario, 1, 3, 2);
 	expectToEqualFloat(pScenario, 2, 3.14f, 3.14f);
@@ -28,6 +31,8 @@ void someScenario1(struct CTestScenario* pScenario)
 
 void anotherScenario1(struct CTestScenario* pScenario)
 {
+	sleep(3);
+
 	expectToEqualInt(pScenario, 1, 10, 10);
 	expectToEqualInt(pScenario, 1, 2, 2);
 	expectToEqualFloat(pScenario, 2, 3.14f, 3.14f);
@@ -46,12 +51,16 @@ void anotherScenario1(struct CTestScenario* pScenario)
 
 void someotherScenario1(struct CTestScenario* pScenario)
 {
+	sleep(3);
+
 	expectToEqualInt(pScenario, 1, 1, 1);
 	expectToEqualInt(pScenario, 2, 2, 2);
 }
 
 void yetotherScenario1(struct CTestScenario* pScenario)
 {
+	sleep(3);
+
 	expectToEqualFloat(pScenario, 1, 3.14f, 3.14f);
 	expectToEqualDouble(pScenario, 2, 1.4, 1.4);
 }
@@ -82,7 +91,6 @@ int cTestRunner()
 	initSectionOne(&runner1.pSection[0]);
 	initSectionTwo(&runner1.pSection[1]);
 
-	printTests(&runner1);
 	runTests(&runner1, 1);
 	if (didTestsPass(&runner1))
 	{
@@ -94,7 +102,6 @@ int cTestRunner()
 	initTests(&runner2, 1);
 	initSectionThr(&runner2.pSection[0]);
 
-	printTests(&runner2);
 	runTests(&runner2, 1);
 	if (!didTestsPass(&runner2))
 	{

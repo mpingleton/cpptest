@@ -48,7 +48,11 @@ void runScenario(struct CTestScenario* pScenario, char show)
 	if (pScenario->status == SCENARIO_STATUS_PENDING)
 	{
 		pScenario->status = SCENARIO_STATUS_RUNNING;
-		if (show) printScenario(pScenario);
+		if (show)
+		{
+			printScenario(pScenario);
+			fflush(0);
+		}
 
 		pScenario->pFunc(pScenario);
 		if (pScenario->status == SCENARIO_STATUS_RUNNING)
@@ -122,8 +126,5 @@ void printScenario(struct CTestScenario* pScenario)
 			printExpectationResult(pR);
 			pR = pR->pNext;
 		}
-
-		for (int i = 0; i < 80; i++) printf("-");
-		printf("\n");
 	}
 }

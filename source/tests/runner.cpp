@@ -12,6 +12,7 @@
 #include "../../include/cpptest.hpp"
 #include "../../include/tests.hpp"
 
+#include <unistd.h>
 #include <iostream>
 
 using namespace std;
@@ -28,6 +29,8 @@ public:
 
 	void test()
 	{
+		sleep(3);
+
 		expectToEqual(1, 10, 10);
 		expectToEqual(1, 3, 2);
 		expectToEqual(2, 3.14f, 3.14f);
@@ -49,6 +52,8 @@ public:
 
 	void test()
 	{
+		sleep(3);
+
 		expectToEqual(1, 10, 10);
 		expectToEqual(1, 2, 2);
 		expectToEqual(2, 3.14f, 3.14f);
@@ -77,6 +82,8 @@ public:
 
 	void test()
 	{
+		sleep(3);
+
 		expectToEqual(1, 1, 1);
 		expectToEqual(2, 2, 2);
 	}
@@ -93,6 +100,8 @@ public:
 
 	void test()
 	{
+		sleep(3);
+
 		expectToEqual(1, 3.14f, 3.14f);
 		expectToEqual(2, 1.4, 1.4);
 	}
@@ -132,7 +141,6 @@ bool cppTestRunner()
 	runner1.add(new SectionOne1());
 	runner1.add(new SectionTwo1());
 
-	runner1.print();
 	runner1.run(true);
 	if (runner1.didPass())
 	{
@@ -143,7 +151,6 @@ bool cppTestRunner()
 	Runner runner2 = Runner();
 	runner2.add(new SectionThr1());
 
-	runner2.print();
 	runner2.run(true);
 	if (!runner2.didPass())
 	{

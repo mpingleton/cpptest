@@ -60,7 +60,11 @@ namespace cpptest
 		if (status == SCENARIO_STATUS_PENDING)
 		{
 			status = SCENARIO_STATUS_RUNNING;
-			if (show) print();
+			if (show)
+			{
+				print();
+				fflush(0);
+			}
 
 			test();
 			if (status == SCENARIO_STATUS_RUNNING)
@@ -114,9 +118,6 @@ namespace cpptest
 			cout << endl;
 			for (int i = 0; i < results.size(); i++)
 				results[i]->print();
-
-			for (int i = 0; i < 80; i++) cout << "-";
-			cout << endl;
 		}
 	}
 };

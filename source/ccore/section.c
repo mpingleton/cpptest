@@ -65,21 +65,7 @@ void runSection(struct CTestSection* pSection, char show)
 	}
 
 	for (int i = 0; i < pSection->numberScenarios; i++)
-	{
-		if (show)
-		{
-			if (pSection->pDesc) printf("%s: ", pSection->pDesc);
-			printScenario(&pSection->pScenarios[i]);
-		}
-
 		runScenario(&pSection->pScenarios[i], show);
-
-		if (show)
-		{
-			if (pSection->pDesc) printf("%s: ", pSection->pDesc);
-			printScenario(&pSection->pScenarios[i]);
-		}
-	}
 }
 
 char didSectionPass(struct CTestSection* pSection)
@@ -115,7 +101,4 @@ void printSection(struct CTestSection* pSection)
 
 	for (int i = 0; i < pSection->numberScenarios; i++)
 		printScenario(&pSection->pScenarios[i]);
-
-	for (int i = 0; i < 80; i++) printf("+");
-	printf("\n");
 }

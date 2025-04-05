@@ -49,21 +49,7 @@ namespace cpptest
 		}
 
 		for (int i = 0; i < scenarios.size(); i++)
-		{
-			if (show)
-			{
-				if (!desc.empty()) cout << desc << ": ";
-				scenarios[i]->print();
-			}
-
 			scenarios[i]->run(show);
-
-			if (show)
-			{
-				if (!desc.empty()) cout << desc << ": ";
-				scenarios[i]->print();
-			}
-		}
 	}
 
 	bool Section::didPass()
@@ -99,8 +85,5 @@ namespace cpptest
 
 		for (int i = 0; i < scenarios.size(); i++)
 			scenarios[i]->print();
-
-		for (int i = 0; i < 80; i++) cout << "+";
-		cout << endl;
 	}
 };
