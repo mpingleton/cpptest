@@ -14,26 +14,40 @@
 
 #include <stdio.h>
 
+void printSep()
+{
+	for (int i = 0; i < 80; i++) printf("#");
+	printf("\n");
+}
+
 int main(int argc, char** argv)
 {
+	printf("1. Expectation Results: ");
+	printSep();
 	if (!cTestExpectationResult())
 	{
 		printf("Test Section Failed: Expectation Result\n");
 		return -1;
 	}
 
+	printf("2. Scenarios: ");
+	printSep();
 	if (!cTestScenario())
 	{
 		printf("Test Section Failed: Scenario\n");
 		return -2;
 	}
 
+	printf("3. Sections: ");
+	printSep();
 	if (!cTestSection())
 	{
 		printf("Test Section Failed: Section\n");
 		return -3;
 	}
 
+	printSep();
+	printSep();
 	printf("All tests passed.\n");
 	return 0;
 }
