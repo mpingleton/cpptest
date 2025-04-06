@@ -28,14 +28,14 @@ clean:
 install: binary/ccore.a binary/cppcore.a
 	cp include/cpptest.h /usr/include
 	cp include/cpptest.hpp /usr/include
-	cp binary/ccore.a /usr/lib
-	cp binary/cppcore.a /usr/lib
+	cp binary/ccore.a /usr/lib/libccore.a
+	cp binary/cppcore.a /usr/lib/libcppcore.a
 
 uninstall:
 	rm /usr/include/cpptest.h
 	rm /usr/include/cpptest.hpp
-	rm /usr/lib/ccore.a
-	rm /usr/lib/cppcore.a
+	rm /usr/lib/libccore.a
+	rm /usr/lib/libcppcore.a
 
 binary/ccore.a: objects/ccore/expectation_result.o objects/ccore/scenario.o objects/ccore/expectation.o objects/ccore/section.o objects/ccore/runner.o
 	ar rc binary/ccore.a objects/ccore/expectation_result.o objects/ccore/scenario.o objects/ccore/expectation.o objects/ccore/section.o objects/ccore/runner.o
