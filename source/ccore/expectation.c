@@ -16,6 +16,8 @@
 
 char* expectId(char* pBuffer, size_t maxLen, const char* pParentId, const char* pChildId)
 {
+	memset(pBuffer, 0, maxLen);
+
 	size_t lenParentId = strlen(pParentId);
 	size_t lenChildId = strlen(pChildId);
 
@@ -47,15 +49,27 @@ char* expectId(char* pBuffer, size_t maxLen, const char* pParentId, const char* 
 char expectPointerNull(struct CTestScenario* pScenario, const char* id, void* pointer)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	if (pR == 0)
+	{
+		cancelScenario(pScenario);
+		return EXPECTATION_FAIL;
+	}
+
 	pR->index = 0;
 	pR->type = EXPECTATION_POINTER;
 	pR->actual.pointerValue = pointer;
 	pR->expected.pointerValue = 0;
+	pR->pNext = 0;
 
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
 		pR->pId = (char*)malloc(sizeId);
+		if (pR->pId == 0)
+		{
+			cancelScenario(pScenario);
+			return EXPECTATION_FAIL;
+		}
 		strcpy(pR->pId, id);
 	}
 	else pR->pId = 0;
@@ -88,15 +102,27 @@ char expectPointerNull(struct CTestScenario* pScenario, const char* id, void* po
 char expectPointerInitialized(struct CTestScenario* pScenario, const char* id, void* pointer)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	if (pR == 0)
+	{
+		cancelScenario(pScenario);
+		return EXPECTATION_FAIL;
+	}
+
 	pR->index = 0;
 	pR->type = EXPECTATION_POINTER;
 	pR->actual.pointerValue = pointer;
 	pR->expected.pointerValue = 0;
+	pR->pNext = 0;
 
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
 		pR->pId = (char*)malloc(sizeId);
+		if (pR->pId == 0)
+		{
+			cancelScenario(pScenario);
+			return EXPECTATION_FAIL;
+		}
 		strcpy(pR->pId, id);
 	}
 	else pR->pId = 0;
@@ -129,15 +155,27 @@ char expectPointerInitialized(struct CTestScenario* pScenario, const char* id, v
 char expectToEqualPointer(struct CTestScenario* pScenario, const char* id, void* pActual, void* pExpected)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	if (pR == 0)
+	{
+		cancelScenario(pScenario);
+		return EXPECTATION_FAIL;
+	}
+
 	pR->index = 0;
 	pR->type = EXPECTATION_POINTER;
 	pR->actual.pointerValue = pActual;
 	pR->expected.pointerValue = pExpected;
+	pR->pNext = 0;
 
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
 		pR->pId = (char*)malloc(sizeId);
+		if (pR->pId == 0)
+		{
+			cancelScenario(pScenario);
+			return EXPECTATION_FAIL;
+		}
 		strcpy(pR->pId, id);
 	}
 	else pR->pId = 0;
@@ -170,15 +208,27 @@ char expectToEqualPointer(struct CTestScenario* pScenario, const char* id, void*
 char expectToEqualInt(struct CTestScenario* pScenario, const char* id, int actual, int expected)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	if (pR == 0)
+	{
+		cancelScenario(pScenario);
+		return EXPECTATION_FAIL;
+	}
+
 	pR->index = 0;
 	pR->type = EXPECTATION_INT;
 	pR->actual.intValue = actual;
 	pR->expected.intValue = expected;
+	pR->pNext = 0;
 
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
 		pR->pId = (char*)malloc(sizeId);
+		if (pR->pId == 0)
+		{
+			cancelScenario(pScenario);
+			return EXPECTATION_FAIL;
+		}
 		strcpy(pR->pId, id);
 	}
 	else pR->pId = 0;
@@ -211,15 +261,27 @@ char expectToEqualInt(struct CTestScenario* pScenario, const char* id, int actua
 char expectToEqualFloat(struct CTestScenario* pScenario, const char* id, float actual, float expected)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	if (pR == 0)
+	{
+		cancelScenario(pScenario);
+		return EXPECTATION_FAIL;
+	}
+
 	pR->index = 0;
 	pR->type = EXPECTATION_FLOAT;
 	pR->actual.floatValue = actual;
 	pR->expected.floatValue = expected;
+	pR->pNext = 0;
 
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
 		pR->pId = (char*)malloc(sizeId);
+		if (pR->pId == 0)
+		{
+			cancelScenario(pScenario);
+			return EXPECTATION_FAIL;
+		}
 		strcpy(pR->pId, id);
 	}
 	else pR->pId = 0;
@@ -252,15 +314,27 @@ char expectToEqualFloat(struct CTestScenario* pScenario, const char* id, float a
 char expectToEqualDouble(struct CTestScenario* pScenario, const char* id, double actual, double expected)
 {
 	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	if (pR == 0)
+	{
+		cancelScenario(pScenario);
+		return EXPECTATION_FAIL;
+	}
+
 	pR->index = 0;
 	pR->type = EXPECTATION_DOUBLE;
 	pR->actual.doubleValue = actual;
 	pR->expected.doubleValue = expected;
+	pR->pNext = 0;
 
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
 		pR->pId = (char*)malloc(sizeId);
+		if (pR->pId == 0)
+		{
+			cancelScenario(pScenario);
+			return EXPECTATION_FAIL;
+		}
 		strcpy(pR->pId, id);
 	}
 	else pR->pId = 0;
