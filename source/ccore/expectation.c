@@ -18,30 +18,9 @@ char* expectId(char* pBuffer, size_t maxLen, const char* pParentId, const char* 
 {
 	memset(pBuffer, 0, maxLen);
 
-	size_t lenParentId = strlen(pParentId);
-	size_t lenChildId = strlen(pChildId);
-
-	int c = 0;
-	for (int i = 0; i < lenParentId; i++)
-	{
-		if (c >= maxLen) return pBuffer;
-		pBuffer[c] = pParentId[i];
-		c++;
-	}
-
-	if (c >= maxLen) return pBuffer;
-	pBuffer[c] = '\\';
-	c++;
-
-	for (int i = 0; i <  lenChildId; i++)
-	{
-		if (c >= maxLen) return pBuffer;
-		pBuffer[c] = pChildId[i];
-		c++;
-	}
-
-	if (c >= maxLen) return pBuffer;
-	pBuffer[c] = '\0';
+	strcpy(pBuffer, pParentId);
+	strcat(pBuffer, "\\");
+	strcat(pBuffer, pChildId);
 
 	return pBuffer;
 }
