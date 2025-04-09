@@ -31,13 +31,13 @@ public:
 	{
 		sleep(3);
 
-		expectToEqual(1, 10, 10);
-		expectToEqual(1, 3, 2);
-		expectToEqual(2, 3.14f, 3.14f);
+		expectToEqual("TEST", "1", 10, 10);
+		expectToEqual("TEST", "1", 3, 2);
+		expectToEqual("TEST", "2", 3.14f, 3.14f);
 
 		if (isCanceled()) return;
 
-		expectToEqual(3, 1.2, 1.2);
+		expectToEqual("TEST", "3", 1.2, 1.2);
 	}
 };
 
@@ -54,20 +54,20 @@ public:
 	{
 		sleep(3);
 
-		expectToEqual(1, 10, 10);
-		expectToEqual(1, 2, 2);
-		expectToEqual(2, 3.14f, 3.14f);
+		expectToEqual("", "1", 10, 10);
+		expectToEqual("", "1", 2, 2);
+		expectToEqual("", "2", 3.14f, 3.14f);
 
 		if (isCanceled()) return;
 
-		expectToEqual(3, 1.2, 1.2);
+		expectToEqual("", "3", 1.2, 1.2);
 
 		int a = 0;
 		int* b = 0;
 		int* c = &a;
-		expectPointerNull(4, b);
-		expectPointerInitialized(5, c);
-		expectToEqual(6, c, &a);
+		expectPointerNull("", "4", b);
+		expectPointerInitialized("", "5", c);
+		expectToEqual("", "6", c, &a);
 	}
 };
 
@@ -84,8 +84,8 @@ public:
 	{
 		sleep(3);
 
-		expectToEqual(1, 1, 1);
-		expectToEqual(2, 2, 2);
+		expectToEqual("", "1", 1, 1);
+		expectToEqual("", "2", 2, 2);
 	}
 };
 
@@ -102,8 +102,8 @@ public:
 	{
 		sleep(3);
 
-		expectToEqual(1, 3.14f, 3.14f);
-		expectToEqual(2, 1.4, 1.4);
+		expectToEqual("", "1", 3.14f, 3.14f);
+		expectToEqual("", "2", 1.4, 1.4);
 	}
 };
 

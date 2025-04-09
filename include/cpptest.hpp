@@ -26,14 +26,14 @@ namespace cpptest
 	{
 	protected:
 		int index;
-		int expectationId;
+		string id;
 		bool passing;
 
 	public:
 		ExpectationResult();
 		virtual ~ExpectationResult();
 
-		int getId();
+		string getId();
 		bool didPass();
 		virtual void print();
 	};
@@ -44,7 +44,7 @@ namespace cpptest
 		void* pExpected;
 
 	public:
-		ExpectationResultPointer(int i, int id, void* pA, void* pE, bool pass);
+		ExpectationResultPointer(int i, string inputId, void* pA, void* pE, bool pass);
 		~ExpectationResultPointer();
 
 		void print();
@@ -56,7 +56,7 @@ namespace cpptest
 		int expected;
 
 	public:
-		ExpectationResultInt(int i, int id, int a, int e, bool pass);
+		ExpectationResultInt(int i, string inputId, int a, int e, bool pass);
 		~ExpectationResultInt();
 
 		void print();
@@ -68,7 +68,7 @@ namespace cpptest
 		float expected;
 
 	public:
-		ExpectationResultFloat(int i, int id, float a, float e, bool pass);
+		ExpectationResultFloat(int i, string inputId, float a, float e, bool pass);
 		~ExpectationResultFloat();
 
 		void print();
@@ -80,7 +80,7 @@ namespace cpptest
 		double expected;
 
 	public:
-		ExpectationResultDouble(int i, int id, double a, double e, bool pass);
+		ExpectationResultDouble(int i, string inputId, double a, double e, bool pass);
 		~ExpectationResultDouble();
 
 		void print();
@@ -103,13 +103,13 @@ namespace cpptest
 
 		bool isCanceled();
 
-		void expect(int id, bool shouldBeTrue);
-		void expectPointerNull(int id, void* pointer);
-		void expectPointerInitialized(int id, void* pointer);
-		void expectToEqual(int id, void* pActual, void* pExpected);
-		void expectToEqual(int id, int actual, int expected);
-		void expectToEqual(int id, float actual, float expected);
-		void expectToEqual(int id, double actual, double expected);
+		bool expect(string parentId, string inputId, bool shouldBeTrue);
+		bool expectPointerNull(string parentId, string inputId, void* pointer);
+		bool expectPointerInitialized(string parentId, string inputId, void* pointer);
+		bool expectToEqual(string parentId, string inputId, void* pActual, void* pExpected);
+		bool expectToEqual(string parentId, string inputId, int actual, int expected);
+		bool expectToEqual(string parentId, string inputId, float actual, float expected);
+		bool expectToEqual(string parentId, string inputId, double actual, double expected);
 
 		void run(bool show);
 		bool didPass();

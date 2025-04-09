@@ -11,14 +11,24 @@
 
 #include "../../include/cpptest.hpp"
 
+#include <string>
+
 namespace cpptest
 {
-	void Scenario::expect(int id, bool shouldBeTrue)
+	bool Scenario::expect(string parentId, string inputId, bool shouldBeTrue)
 	{
+		string id = "";
+		if (!parentId.empty())
+		{
+			id.append(parentId);
+			id.append("\\");
+		}
+		id.append(inputId);
+
 		int i = 0;
 		for (int e = 0; e < results.size(); e++)
 		{
-			if (results[e]->getId() == id) i++;
+			if (id.compare(results[e]->getId()) == 0) i++;
 		}
 
 		int a = 0;
@@ -28,14 +38,24 @@ namespace cpptest
 		results.push_back(pR);
 
 		if (!shouldBeTrue) cancel();
+
+		return shouldBeTrue;
 	}
 
-	void Scenario::expectPointerNull(int id, void* pointer)
+	bool Scenario::expectPointerNull(string parentId, string inputId, void* pointer)
 	{
+		string id = "";
+		if (!parentId.empty())
+		{
+			id.append(parentId);
+			id.append("\\");
+		}
+		id.append(inputId);
+
 		int i = 0;
 		for (int e = 0; e < results.size(); e++)
 		{
-			if (results[e]->getId() == id) i++;
+			if (id.compare(results[e]->getId()) == 0) i++;
 		}
 
 		bool p = pointer == 0;
@@ -43,14 +63,24 @@ namespace cpptest
 		results.push_back(pR);
 
 		if (!p) cancel();
+
+		return p;
 	}
 
-	void Scenario::expectPointerInitialized(int id, void* pointer)
+	bool Scenario::expectPointerInitialized(string parentId, string inputId, void* pointer)
 	{
+		string id = "";
+		if (!parentId.empty())
+		{
+			id.append(parentId);
+			id.append("\\");
+		}
+		id.append(inputId);
+
 		int i = 0;
 		for (int e = 0; e < results.size(); e++)
 		{
-			if (results[e]->getId() == id) i++;
+			if (id.compare(results[e]->getId()) == 0) i++;
 		}
 
 		bool p = pointer != 0;
@@ -58,14 +88,24 @@ namespace cpptest
 		results.push_back(pR);
 
 		if (!p) cancel();
+
+		return p;
 	}
 
-	void Scenario::expectToEqual(int id, void* pActual, void* pExpected)
+	bool Scenario::expectToEqual(string parentId, string inputId, void* pActual, void* pExpected)
 	{
+		string id = "";
+		if (!parentId.empty())
+		{
+			id.append(parentId);
+			id.append("\\");
+		}
+		id.append(inputId);
+
 		int i = 0;
 		for (int e = 0; e < results.size(); e++)
 		{
-			if (results[e]->getId() == id) i++;
+			if (id.compare(results[e]->getId()) == 0) i++;
 		}
 
 		bool p = pActual == pExpected;
@@ -73,14 +113,24 @@ namespace cpptest
 		results.push_back(pR);
 
 		if (!p) cancel();
+
+		return p;
 	}
 
-	void Scenario::expectToEqual(int id, int actual, int expected)
+	bool Scenario::expectToEqual(string parentId, string inputId, int actual, int expected)
 	{
+		string id = "";
+		if (!parentId.empty())
+		{
+			id.append(parentId);
+			id.append("\\");
+		}
+		id.append(inputId);
+
 		int i = 0;
 		for (int e = 0; e < results.size(); e++)
 		{
-			if (results[e]->getId() == id) i++;
+			if (id.compare(results[e]->getId()) == 0) i++;
 		}
 
 		bool p = actual == expected;
@@ -88,14 +138,24 @@ namespace cpptest
 		results.push_back(pR);
 
 		if (!p) cancel();
+
+		return p;
 	}
 
-	void Scenario::expectToEqual(int id, float actual, float expected)
+	bool Scenario::expectToEqual(string parentId, string inputId, float actual, float expected)
 	{
+		string id = "";
+		if (!parentId.empty())
+		{
+			id.append(parentId);
+			id.append("\\");
+		}
+		id.append(inputId);
+
 		int i = 0;
 		for (int e = 0; e < results.size(); e++)
 		{
-			if (results[e]->getId() == id) i++;
+			if (id.compare(results[e]->getId()) == 0) i++;
 		}
 
 		bool p = actual == expected;
@@ -103,14 +163,24 @@ namespace cpptest
 		results.push_back(pR);
 
 		if (!p) cancel();
+
+		return p;
 	}
 
-	void Scenario::expectToEqual(int id, double actual, double expected)
+	bool Scenario::expectToEqual(string parentId, string inputId, double actual, double expected)
 	{
+		string id = "";
+		if (!parentId.empty())
+		{
+			id.append(parentId);
+			id.append("\\");
+		}
+		id.append(inputId);
+
 		int i = 0;
 		for (int e = 0; e < results.size(); e++)
 		{
-			if (results[e]->getId() == id) i++;
+			if (id.compare(results[e]->getId()) == 0) i++;
 		}
 
 		bool p = actual == expected;
@@ -118,5 +188,7 @@ namespace cpptest
 		results.push_back(pR);
 
 		if (!p) cancel();
+
+		return p;
 	}
 };
