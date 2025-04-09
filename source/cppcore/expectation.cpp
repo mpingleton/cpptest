@@ -158,7 +158,7 @@ namespace cpptest
 			if (id.compare(results[e]->getId()) == 0) i++;
 		}
 
-		bool p = actual == expected;
+		bool p = (actual >= expected - 0.01f) && (actual <= expected + 0.01f);
 		ExpectationResultFloat* pR = new ExpectationResultFloat(i, id, actual, expected, p);
 		results.push_back(pR);
 
@@ -183,7 +183,7 @@ namespace cpptest
 			if (id.compare(results[e]->getId()) == 0) i++;
 		}
 
-		bool p = actual == expected;
+		bool p = (actual >= expected - 0.01) && (actual <= expected + 0.01);
 		ExpectationResultDouble* pR = new ExpectationResultDouble(i, id, actual, expected, p);
 		results.push_back(pR);
 

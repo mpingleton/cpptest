@@ -224,7 +224,7 @@ char expectToEqualFloat(struct CTestScenario* pScenario, const char* id, float a
 	}
 	else pR->pId = 0;
 
-	if (actual == expected)
+	if ((actual >= expected - 0.01) && (actual <= expected + 0.01))
 		pR->result = EXPECTATION_PASS;
 	else
 	{
@@ -265,7 +265,7 @@ char expectToEqualDouble(struct CTestScenario* pScenario, const char* id, double
 	}
 	else pR->pId = 0;
 
-	if (actual == expected)
+	if ((actual >= expected - 0.01) && (actual <= expected + 0.01))
 		pR->result = EXPECTATION_PASS;
 	else
 	{
