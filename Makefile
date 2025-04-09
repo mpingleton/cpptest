@@ -11,12 +11,12 @@ binary/cpptests: source/main.cpp binary/cpptests.a binary/cppcore.a
 	clang++ source/main.cpp binary/cpptests.a binary/cppcore.a -o binary/cpptests
 
 init:
-	mkdir binary
-	mkdir objects
-	mkdir objects/ccore
-	mkdir objects/ctests
-	mkdir objects/cppcore
-	mkdir objects/cpptests
+	mkdir -p binary
+	mkdir -p objects
+	mkdir -p objects/ccore
+	mkdir -p objects/ctests
+	mkdir -p objects/cppcore
+	mkdir -p objects/cpptests
 
 clean:
 	rm -rf binary/*
