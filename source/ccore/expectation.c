@@ -43,7 +43,7 @@ char expectPointerNull(struct CTestScenario* pScenario, const char* id, void* po
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
-		pR->pId = (char*)malloc(sizeId);
+		pR->pId = (char*) malloc(sizeId + 1);
 		if (pR->pId == 0)
 		{
 			cancelScenario(pScenario);
@@ -96,7 +96,7 @@ char expectPointerInitialized(struct CTestScenario* pScenario, const char* id, v
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
-		pR->pId = (char*)malloc(sizeId);
+		pR->pId = (char*) malloc(sizeId + 1);
 		if (pR->pId == 0)
 		{
 			cancelScenario(pScenario);
@@ -149,7 +149,7 @@ char expectToEqualPointer(struct CTestScenario* pScenario, const char* id, void*
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
-		pR->pId = (char*)malloc(sizeId);
+		pR->pId = (char*) malloc(sizeId + 1);
 		if (pR->pId == 0)
 		{
 			cancelScenario(pScenario);
@@ -202,7 +202,7 @@ char expectToEqualInt(struct CTestScenario* pScenario, const char* id, int actua
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
-		pR->pId = (char*)malloc(sizeId);
+		pR->pId = (char*) malloc(sizeId + 1);
 		if (pR->pId == 0)
 		{
 			cancelScenario(pScenario);
@@ -255,7 +255,7 @@ char expectToEqualFloat(struct CTestScenario* pScenario, const char* id, float a
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
-		pR->pId = (char*)malloc(sizeId);
+		pR->pId = (char*) malloc(sizeId + 1);
 		if (pR->pId == 0)
 		{
 			cancelScenario(pScenario);
@@ -308,7 +308,7 @@ char expectToEqualDouble(struct CTestScenario* pScenario, const char* id, double
 	size_t sizeId = strlen(id);
 	if (sizeId > 0)
 	{
-		pR->pId = (char*)malloc(sizeId);
+		pR->pId = (char*) malloc(sizeId + 1);
 		if (pR->pId == 0)
 		{
 			cancelScenario(pScenario);
