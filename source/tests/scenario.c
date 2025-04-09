@@ -17,31 +17,33 @@
 
 void someScenario(struct CTestScenario* pScenario)
 {
-	expectToEqualInt(pScenario, 1, 10, 10);
-	expectToEqualInt(pScenario, 1, 3, 2);
-	expectToEqualFloat(pScenario, 1, 3.14f, 3.14f);
+	char b[100] = {};
+
+	expectToEqualInt(pScenario, expectId((char*)&b, 100, "TEST", "1"), 10, 10);
+	expectToEqualInt(pScenario, expectId((char*)&b, 100, "TEST", "1"), 3, 2);
+	expectToEqualFloat(pScenario, expectId((char*)&b, 100, "TEST", "1"), 3.14f, 3.14f);
 
 	if (isScenarioCanceled(pScenario)) return;
 
-	expectToEqualDouble(pScenario, 1, 1.2, 1.2);
+	expectToEqualDouble(pScenario, expectId((char*)&b, 100, "TEST", "1"), 1.2, 1.2);
 }
 
 void anotherScenario(struct CTestScenario* pScenario)
 {
-	expectToEqualInt(pScenario, 1, 10, 10);
-	expectToEqualInt(pScenario, 1, 2, 2);
-	expectToEqualFloat(pScenario, 1, 3.14f, 3.14f);
+	expectToEqualInt(pScenario, "1", 10, 10);
+	expectToEqualInt(pScenario, "1", 2, 2);
+	expectToEqualFloat(pScenario, "1", 3.14f, 3.14f);
 
 	if (isScenarioCanceled(pScenario)) return;
 
-	expectToEqualDouble(pScenario, 1, 1.2, 1.2);
+	expectToEqualDouble(pScenario, "1", 1.2, 1.2);
 
 	int a = 0;
 	int* b = 0;
 	int* c = &a;
-	expectPointerNull(pScenario, 1, b);
-	expectPointerInitialized(pScenario, 1, c);
-	expectToEqualPointer(pScenario, 1, c, &a);
+	expectPointerNull(pScenario, "1", b);
+	expectPointerInitialized(pScenario, "1", c);
+	expectToEqualPointer(pScenario, "1", c, &a);
 }
 
 int cTestScenario()

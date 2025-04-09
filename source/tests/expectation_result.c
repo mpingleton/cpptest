@@ -13,13 +13,14 @@
 #include "../../include/tests.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 int cTestExpectationResult()
 {
-	// TODO: Create a few expectation results in a linked list.
 	struct CTestExpectationResult* pResult1 = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
 	pResult1->index = 0;
-	pResult1->expectationId = 1;
+	pResult1->pId = (char*)malloc(sizeof("TEST1"));
+	strcpy(pResult1->pId, "TEST1");
 	pResult1->type = EXPECTATION_INT;
 	pResult1->result = EXPECTATION_PASS;
 	pResult1->actual.intValue = 2;
@@ -27,8 +28,9 @@ int cTestExpectationResult()
 
 	struct CTestExpectationResult* pResult2 = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
 	pResult1->pNext = pResult2;
-	pResult2->index = 1;
-	pResult2->expectationId = 2;
+	pResult2->index = 0;
+	pResult2->pId = (char*)malloc(sizeof("TEST2"));
+	strcpy(pResult2->pId, "TEST2");
 	pResult2->type = EXPECTATION_DOUBLE;
 	pResult2->result = EXPECTATION_FAIL;
 	pResult2->actual.doubleValue = 2.0;
@@ -36,8 +38,9 @@ int cTestExpectationResult()
 
 	struct CTestExpectationResult* pResult3 = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
 	pResult2->pNext = pResult3;
-	pResult3->index = 2;
-	pResult3->expectationId = 3;
+	pResult3->index = 0;
+	pResult3->pId = (char*)malloc(sizeof("TEST3"));
+	strcpy(pResult3->pId, "TEST3");
 	pResult3->type = EXPECTATION_DOUBLE;
 	pResult3->result = EXPECTATION_PASS;
 	pResult3->actual.doubleValue = 3.0;

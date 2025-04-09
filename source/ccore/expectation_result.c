@@ -22,6 +22,13 @@ void freeExpectationResult(struct CTestExpectationResult* pResult)
 	{
 		pNext = pCurrent->pNext;
 
+		if (pCurrent->pId)
+		{
+			size_t l = strlen(pCurrent->pId);
+			memset(pCurrent->pId, 0, l);
+			free(pCurrent->pId);
+		}
+
 		memset(pCurrent, 0, sizeof(struct CTestExpectationResult));
 		free(pCurrent);
 
@@ -43,7 +50,7 @@ void printExpectationResult(struct CTestExpectationResult* pResult)
 	else
 		printf("[ FAIL ]");
 
-	printf(" (%i - %i)\t", pResult->expectationId, pResult->index);
+	printf(" (%s - %i)\t", pResult->pId, pResult->index);
 
 	switch (pResult->type)
 	{

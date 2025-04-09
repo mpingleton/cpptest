@@ -17,26 +17,26 @@
 
 void scenario1(struct CTestScenario* pScenario)
 {
-	expectToEqualInt(pScenario, 1, 10, 10);
-	expectToEqualFloat(pScenario, 2, 3.14f, 3.14f);
+	expectToEqualInt(pScenario, "1", 10, 10);
+	expectToEqualFloat(pScenario, "2", 3.14f, 3.14f);
 }
 
 void scenario2(struct CTestScenario* pScenario)
 {
-	expectToEqualInt(pScenario, 1, 10, 10);
-	expectToEqualFloat(pScenario, 2, 3.14f, 3.0f);
+	expectToEqualInt(pScenario, "1", 10, 10);
+	expectToEqualFloat(pScenario, "2", 3.14f, 3.0f);
 }
 
 void scenario3(struct CTestScenario* pScenario)
 {
-	expectToEqualInt(pScenario, 1, 10, 12);
-	expectToEqualFloat(pScenario, 1, 3.14f, 3.14f);
+	expectToEqualInt(pScenario, "1", 10, 12);
+	expectToEqualFloat(pScenario, "1", 3.14f, 3.14f);
 }
 
 void scenario4(struct CTestScenario* pScenario)
 {
-	expectToEqualInt(pScenario, 1, 10, 10);
-	expectToEqualFloat(pScenario, 1, 3.14f, 3.14f);
+	expectToEqualInt(pScenario, "1", 10, 10);
+	expectToEqualFloat(pScenario, "1", 3.14f, 3.14f);
 }
 
 void initSection1(struct CTestSection* pSection)

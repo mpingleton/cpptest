@@ -40,7 +40,7 @@ union CTestExpectationValue
 struct CTestExpectationResult
 {
 	int index;
-	int expectationId;
+	char* pId;
 	struct CTestExpectationResult* pNext;
 
 	char type;
@@ -72,12 +72,13 @@ char didScenarioPass(struct CTestScenario* pScenario);
 void printScenario(struct CTestScenario* pScenario);
 
 // expectation.c
-void expectPointerNull(struct CTestScenario* pScenario, int id, void* pointer);
-void expectPointerInitialized(struct CTestScenario* pScenario, int id, void* pointer);
-void expectToEqualPointer(struct CTestScenario* pScenario, int id, void* pActual, void* pExpected);
-void expectToEqualInt(struct CTestScenario* pScenario, int id, int actual, int expected);
-void expectToEqualFloat(struct CTestScenario* pScenario, int id, float actual, float expected);
-void expectToEqualDouble(struct CTestScenario* pScenario, int id, double actual, double expected);
+char* expectId(char* pBuffer, size_t maxLen, const char* pParentId, const char* pChildId);
+char expectPointerNull(struct CTestScenario* pScenario, const char* id, void* pointer);
+char expectPointerInitialized(struct CTestScenario* pScenario, const char* id, void* pointer);
+char expectToEqualPointer(struct CTestScenario* pScenario, const char* id, void* pActual, void* pExpected);
+char expectToEqualInt(struct CTestScenario* pScenario, const char* id, int actual, int expected);
+char expectToEqualFloat(struct CTestScenario* pScenario, const char* id, float actual, float expected);
+char expectToEqualDouble(struct CTestScenario* pScenario, const char* id, double actual, double expected);
 
 struct CTestSection
 {
