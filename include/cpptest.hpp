@@ -111,27 +111,29 @@ namespace cpptest
 		bool expectToEqual(string parentId, string inputId, float actual, float expected);
 		bool expectToEqual(string parentId, string inputId, double actual, double expected);
 
-		void run(bool show);
+		void run(char show);
 		bool didPass();
-		void print();
+		void print(char show);
 	};
 
 	class Section
 	{
 		string desc;
 		vector<Scenario*> scenarios;
+		vector<Section*> subsections;
 
 	protected:
 		void add(Scenario* pScenario);
+		void add(Section* pSection);
 
 	public:
 		Section();
 		Section(string inputDesc);
 		virtual ~Section();
 
-		void run(bool show);
+		void run(char show);
 		bool didPass();
-		void print();
+		void print(char show);
 	};
 
 	class Runner
@@ -143,9 +145,9 @@ namespace cpptest
 		~Runner();
 
 		void add(Section* pSection);
-		void run(bool show);
+		void run(char show);
 		bool didPass();
-		void print();
+		void print(char show);
 	};
 };
 

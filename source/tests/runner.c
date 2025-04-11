@@ -91,7 +91,7 @@ int cTestRunner()
 	initSectionOne(&runner1.pSection[0]);
 	initSectionTwo(&runner1.pSection[1]);
 
-	runTests(&runner1, 1);
+	runTests(&runner1, SHOW_EVERYTHING);
 	if (didTestsPass(&runner1))
 	{
 		printf("Tests should not have passed\n");
@@ -102,15 +102,15 @@ int cTestRunner()
 	initTests(&runner2, 1);
 	initSectionThr(&runner2.pSection[0]);
 
-	runTests(&runner2, 1);
+	runTests(&runner2, SHOW_EVERYTHING);
 	if (!didTestsPass(&runner2))
 	{
 		printf("Tests should have passed\n");
 		return 0;
 	}
 
-	printTests(&runner1);
-	printTests(&runner2);
+	printTests(&runner1, SHOW_EVERYTHING);
+	printTests(&runner2, SHOW_EVERYTHING);
 
 	freeTests(&runner1);
 	freeTests(&runner2);

@@ -69,7 +69,7 @@ public:
 bool cppTestScenario()
 {
 	Scenario* pScenario1 = new SomeScenario();
-	pScenario1->run(true);
+	pScenario1->run(SHOW_EVERYTHING);
 	if (!pScenario1->isCanceled())
 	{
 		cout << "Scenario should have been canceled" << endl;
@@ -80,11 +80,11 @@ bool cppTestScenario()
 		cout << "Scenario is passing when it shouldn't" << endl;
 		return false;
 	}
-	pScenario1->print();
+	pScenario1->print(SHOW_EVERYTHING);
 	delete pScenario1;
 
 	Scenario* pScenario2 = new AnotherScenario();
-	pScenario2->run(true);
+	pScenario2->run(SHOW_EVERYTHING);
 	if (pScenario2->isCanceled())
 	{
 		cout << "Scenario was unduly canceled" << endl;
@@ -95,7 +95,7 @@ bool cppTestScenario()
 		cout << "Scenario failed when it should have passed" << endl;
 		return false;
 	}
-	pScenario2->print();
+	pScenario2->print(SHOW_EVERYTHING);
 	delete pScenario2;
 
 	return true;

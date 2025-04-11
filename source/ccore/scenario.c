@@ -50,7 +50,7 @@ void runScenario(struct CTestScenario* pScenario, char show)
 		pScenario->status = SCENARIO_STATUS_RUNNING;
 		if (show)
 		{
-			printScenario(pScenario);
+			if (show > SHOW_NOTHING) printScenario(pScenario, show);
 			fflush(0);
 		}
 
@@ -58,7 +58,7 @@ void runScenario(struct CTestScenario* pScenario, char show)
 		if (pScenario->status == SCENARIO_STATUS_RUNNING)
 			pScenario->status = SCENARIO_STATUS_COMPLETE;
 
-		if (show) printScenario(pScenario);
+		if (show > SHOW_NOTHING) printScenario(pScenario, show);
 	}
 }
 
@@ -98,11 +98,11 @@ char didScenarioPass(struct CTestScenario* pScenario)
 	return EXPECTATION_FAIL;
 }
 
-void printScenario(struct CTestScenario* pScenario)
+void printScenario(struct CTestScenario* pScenario, char show)
 {
 	putchar(' ');
 	if (pScenario->status == SCENARIO_STATUS_RUNNING)
-		printf("[      ]");
+		printf("[  ++  ]");
 	else if (pScenario->status == SCENARIO_STATUS_CANCELED)
 		printf("[CANCEL]");
 	else if (pScenario->status == SCENARIO_STATUS_COMPLETE)
@@ -120,11 +120,26 @@ void printScenario(struct CTestScenario* pScenario)
 	else
 	{
 		printf("\n");
-		struct CTestExpectationResult* pR = pScenario->pResults;
-		while (pR)
+
+		if (show == SHOW_EVERYTHING)
 		{
-			printExpectationResult(pR);
-			pR = pR->pNext;
+			struct CTestExpectationResult* pR = pScenario->pResults;
+			while (pR)
+			{
+				printExpectationResult(pR);
+				pR = pR->pNext;
+			}
+		}
+		else if (show == SHOW_ONLY_FAILING)
+		{
+			struct CTestExpectationResult* pR = pScenario->pResults;
+			while (pR)
+			{
+				if (!didExpectationResultPass(pR))
+					printExpectationResult(pR);
+
+				pR = pR->pNext;
+			}
 		}
 	}
 }

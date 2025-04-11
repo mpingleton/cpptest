@@ -29,6 +29,11 @@
 #define SCENARIO_STATUS_CANCELED 2
 #define SCENARIO_STATUS_COMPLETE 3
 
+#define SHOW_NOTHING 0
+#define SHOW_ONLY_SECTIONS 1
+#define SHOW_ONLY_FAILING 2
+#define SHOW_EVERYTHING 3
+
 union CTestExpectationValue
 {
 	void* pointerValue;
@@ -69,7 +74,7 @@ void runScenario(struct CTestScenario* pScenario, char show);
 void cancelScenario(struct CTestScenario* pScenario);
 char isScenarioCanceled(struct CTestScenario* pScenario);
 char didScenarioPass(struct CTestScenario* pScenario);
-void printScenario(struct CTestScenario* pScenario);
+void printScenario(struct CTestScenario* pScenario, char show);
 
 // expectation.c
 char* expectId(char* pBuffer, size_t maxLen, const char* pParentId, const char* pChildId);
@@ -83,16 +88,19 @@ char expectToEqualDouble(struct CTestScenario* pScenario, const char* id, double
 struct CTestSection
 {
 	char* pDesc;
-	int numberScenarios;
+	int numberScenarios, numberSubsections;
 	struct CTestScenario* pScenarios;
+	struct CTestScenario* pSubsections;
 };
 
 // section.c
 void initSection(struct CTestSection* pSection, const char* pDesc, int numberScenarios);
+void addScenarioToSection(struct CTestSection* pSection, const char* pDesc, void (*pFunc)(struct CTestScenario* pScenario));
+void addSubsectionToSection(struct CTestSection* pSection, struct CTestSection* pSubsection);
 void freeSection(struct CTestSection* pSection);
 void runSection(struct CTestSection* pSection, char show);
 char didSectionPass(struct CTestSection* pSection);
-void printSection(struct CTestSection* pSection);
+void printSection(struct CTestSection* pSection, char show);
 
 struct CTestRunner
 {
@@ -105,6 +113,6 @@ void initTests(struct CTestRunner* pRunner, int numberSections);
 void freeTests(struct CTestRunner* pRunner);
 void runTests(struct CTestRunner* pRunner, char show);
 char didTestsPass(struct CTestRunner* pRunner);
-void printTests(struct CTestRunner* pRunner);
+void printTests(struct CTestRunner* pRunner, char show);
 
 #endif

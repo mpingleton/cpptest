@@ -55,14 +55,14 @@ namespace cpptest
 			return false;
 	}
 
-	void Scenario::run(bool show)
+	void Scenario::run(char show)
 	{
 		if (status == SCENARIO_STATUS_PENDING)
 		{
 			status = SCENARIO_STATUS_RUNNING;
 			if (show)
 			{
-				print();
+				if (show > SHOW_NOTHING) print(show);
 				fflush(0);
 			}
 
@@ -70,7 +70,7 @@ namespace cpptest
 			if (status == SCENARIO_STATUS_RUNNING)
 				status = SCENARIO_STATUS_COMPLETE;
 
-			if (show) print();
+			if (show > SHOW_NOTHING) print(show);
 		}
 	}
 
@@ -94,11 +94,11 @@ namespace cpptest
 		return false;
 	}
 
-	void Scenario::print()
+	void Scenario::print(char show)
 	{
 		cout << " ";
 		if (status == SCENARIO_STATUS_RUNNING)
-			cout << "[      ]\t";
+			cout << "[  ++  ]\t";
 		else if (status == SCENARIO_STATUS_CANCELED)
 			cout << "[CANCEL]\t";
 		else if (status == SCENARIO_STATUS_COMPLETE)
@@ -116,8 +116,20 @@ namespace cpptest
 		else
 		{
 			cout << endl;
-			for (int i = 0; i < results.size(); i++)
-				results[i]->print();
+
+			if (show == SHOW_EVERYTHING)
+			{
+				for (int i = 0; i < results.size(); i++)
+					results[i]->print();
+			}
+			else if (show == SHOW_ONLY_FAILING)
+			{
+				for (int i = 0; i < results.size(); i++)
+				{
+					if (!results[i]->didPass())
+						results[i]->print();
+				}
+			}
 		}
 	}
 };

@@ -90,7 +90,7 @@ int cTestScenario()
 		return 0;
 	}
 
-	printScenario(pScenario1);
+	printScenario(pScenario1, SHOW_EVERYTHING);
 	freeScenario(pScenario1);
 	free(pScenario1);
 
@@ -98,7 +98,7 @@ int cTestScenario()
 	memset(pScenario2, 0, sizeof(struct CTestScenario));
 	initScenario(pScenario2, "Test 2", &anotherScenario);
 
-	runScenario(pScenario2, 1);
+	runScenario(pScenario2, SHOW_EVERYTHING);
 	if (isScenarioCanceled(pScenario2))
 	{
 		printf("Scenario was unduly canceled\n");
@@ -136,7 +136,7 @@ int cTestScenario()
 		return 0;
 	}
 
-	printScenario(pScenario2);
+	printScenario(pScenario2, SHOW_EVERYTHING);
 	freeScenario(pScenario2);
 	free(pScenario2);
 

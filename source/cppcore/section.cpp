@@ -17,12 +17,14 @@ namespace cpptest
 	{
 		desc = "";
 		scenarios.clear();
+		subsections.clear();
 	}
 
 	Section::Section(string inputDesc)
 	{
 		desc = inputDesc;
 		scenarios.clear();
+		subsections.clear();
 	}
 
 	Section::~Section()
@@ -32,7 +34,11 @@ namespace cpptest
 		for (int i = 0; i < scenarios.size(); i++)
 			delete scenarios[i];
 
+		for (int i = 0; i < subsections.size(); i++)
+			delete subsections[i];
+
 		scenarios.clear();
+		subsections.clear();
 	}
 
 	void Section::add(Scenario* pScenario)
@@ -40,9 +46,14 @@ namespace cpptest
 		scenarios.push_back(pScenario);
 	}
 
-	void Section::run(bool show)
+	void Section::add(Section* pSection)
 	{
-		if (show)
+		subsections.push_back(pSection);
+	}
+
+	void Section::run(char show)
+	{
+		if (show > SHOW_NOTHING)
 		{
 			if (!desc.empty()) cout << "Section: " << desc << endl;
 			else cout << "Section: " << endl;
@@ -69,7 +80,7 @@ namespace cpptest
 		return false;
 	}
 
-	void Section::print()
+	void Section::print(char show)
 	{
 		if (scenarios.empty())
 			cout << "[      ]";
@@ -84,6 +95,6 @@ namespace cpptest
 			cout << endl;
 
 		for (int i = 0; i < scenarios.size(); i++)
-			scenarios[i]->print();
+			scenarios[i]->print(show);
 	}
 };

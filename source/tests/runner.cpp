@@ -158,8 +158,8 @@ bool cppTestRunner()
 		return false;
 	}
 
-	runner1.print();
-	runner2.print();
+	runner1.print(SHOW_EVERYTHING);
+	runner2.print(SHOW_EVERYTHING);
 
 	return true;
 }

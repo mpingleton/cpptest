@@ -31,7 +31,7 @@ namespace cpptest
 		sections.push_back(pSection);
 	}
 
-	void Runner::run(bool show)
+	void Runner::run(char show)
 	{
 		for (int i = 0; i < sections.size(); i++)
 			sections[i]->run(show);
@@ -54,9 +54,10 @@ namespace cpptest
 		return false;
 	}
 
-	void Runner::print()
+	void Runner::print(char show)
 	{
+		if (show == SHOW_NOTHING) return;
 		for (int i = 0; i < sections.size(); i++)
-			sections[i]->print();
+			sections[i]->print(show);
 	}
 };

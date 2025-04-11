@@ -65,8 +65,9 @@ char didTestsPass(struct CTestRunner* pRunner)
 	return EXPECTATION_FAIL;
 }
 
-void printTests(struct CTestRunner* pRunner)
+void printTests(struct CTestRunner* pRunner, char show)
 {
+	if (show == SHOW_NOTHING) return;
 	for (int i = 0; i < pRunner->numberSections; i++)
-		printSection(&pRunner->pSection[i]);
+		printSection(&pRunner->pSection[i], show);
 }

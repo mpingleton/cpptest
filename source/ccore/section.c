@@ -85,7 +85,7 @@ char didSectionPass(struct CTestSection* pSection)
 	return EXPECTATION_FAIL;
 }
 
-void printSection(struct CTestSection* pSection)
+void printSection(struct CTestSection* pSection, char show)
 {
 	if (pSection->numberScenarios == 0)
 		printf("[      ]");
@@ -100,5 +100,5 @@ void printSection(struct CTestSection* pSection)
 		printf("\n");
 
 	for (int i = 0; i < pSection->numberScenarios; i++)
-		printScenario(&pSection->pScenarios[i]);
+		printScenario(&pSection->pScenarios[i], show);
 }
