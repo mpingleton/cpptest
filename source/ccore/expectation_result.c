@@ -14,6 +14,23 @@
 #include <stdlib.h>
 #include <string.h>
 
+struct CTestExpectationResult* initExpectationResult(const char* pId)
+{
+	struct CTestExpectationResult* pNew = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	if (pNew == 0) return 0;
+
+	memset(pNew, 0, sizeof(struct CTestExpectationResult));
+
+	if (pId)
+	{
+		size_t l = strlen(pId);
+		pNew->pId = (char*)malloc(l + 1);
+		strcpy(pNew->pId, pId);
+	}
+
+	return pNew;
+}
+
 void freeExpectationResult(struct CTestExpectationResult* pResult)
 {
 	struct CTestExpectationResult* pCurrent = pResult;

@@ -34,6 +34,7 @@ namespace cpptest
 		ExpectationResult* pNext;
 
 		ExpectationResult();
+		ExpectationResult(string inputId);
 		virtual ~ExpectationResult();
 
 		string getId();

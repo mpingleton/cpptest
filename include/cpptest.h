@@ -63,6 +63,7 @@ struct CTestExpectationResult
 };
 
 // expectation_result.c
+struct CTestExpectationResult* initExpectationResult(const char* pId);
 void freeExpectationResult(struct CTestExpectationResult* pResult);
 char didExpectationResultPass(struct CTestExpectationResult* pResult);
 void printExpectationResult(struct CTestExpectationResult* pResult);

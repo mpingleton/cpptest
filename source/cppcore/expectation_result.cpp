@@ -33,7 +33,16 @@ namespace cpptest
 	{
 		index = 0;
 		id = "";
-		comparison = EXPECTATION_EQUAL;
+		comparison = 0;
+		passing = false;
+		pNext = 0;
+	}
+
+	ExpectationResult::ExpectationResult(string inputId)
+	{
+		index = 0;
+		id = "";
+		comparison = 0;
 		passing = false;
 		pNext = 0;
 	}
@@ -68,10 +77,9 @@ namespace cpptest
 		cout << " (" << id << " - " << to_string(index) << ")\t";
 	}
 
-	ExpectationResultPointer::ExpectationResultPointer(int i, string inputId, void* pA, void* pE, bool pass) : ExpectationResult()
+	ExpectationResultPointer::ExpectationResultPointer(int i, string inputId, void* pA, void* pE, bool pass) : ExpectationResult(inputId)
 	{
 		index = i;
-		id = inputId;
 		passing = pass;
 		pActual = pA;
 		pExpected = pE;
@@ -93,10 +101,9 @@ namespace cpptest
 			cout << "Pointers Don't Match" << endl;
 	}
 
-	ExpectationResultInt::ExpectationResultInt(int i, string inputId, int a, int e, bool pass) : ExpectationResult()
+	ExpectationResultInt::ExpectationResultInt(int i, string inputId, int a, int e, bool pass) : ExpectationResult(inputId)
 	{
 		index = i;
-		id = inputId;
 		passing = pass;
 		actual = a;
 		expected = e;
@@ -114,10 +121,9 @@ namespace cpptest
 		cout << "Actual: " << to_string(actual) << "\tExpected: " << comp(comparison) << to_string(expected) << endl;
 	}
 
-	ExpectationResultFloat::ExpectationResultFloat(int i, string inputId, float a, float e, bool pass) : ExpectationResult()
+	ExpectationResultFloat::ExpectationResultFloat(int i, string inputId, float a, float e, bool pass) : ExpectationResult(inputId)
 	{
 		index = i;
-		id = inputId;
 		passing = pass;
 		actual = a;
 		expected = e;
@@ -135,10 +141,9 @@ namespace cpptest
 		cout << "Actual: " << to_string(actual) << "\tExpected: " << comp(comparison) << to_string(expected) << endl;
 	}
 
-	ExpectationResultDouble::ExpectationResultDouble(int i, string inputId, double a, double e, bool pass) : ExpectationResult()
+	ExpectationResultDouble::ExpectationResultDouble(int i, string inputId, double a, double e, bool pass) : ExpectationResult(inputId)
 	{
 		index = i;
-		id = inputId;
 		passing = pass;
 		actual = a;
 		expected = e;
