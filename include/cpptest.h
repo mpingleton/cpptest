@@ -101,11 +101,11 @@ struct CTestSection
 	char* pDesc;
 	int numberScenarios, numberSubsections;
 	struct CTestScenario* pScenarios;
-	struct CTestScenario* pSubsections; // TODO
+	struct CTestSection** pSubsections;
 };
 
 // section.c
-void initSection(struct CTestSection* pSection, const char* pDesc, int numberScenarios);
+void initSection(struct CTestSection* pSection, const char* pDesc);
 void addScenarioToSection(struct CTestSection* pSection, const char* pDesc, void (*pFunc)(struct CTestScenario* pScenario));
 void addSubsectionToSection(struct CTestSection* pSection, struct CTestSection* pSubsection);
 void freeSection(struct CTestSection* pSection);
@@ -116,7 +116,7 @@ void printSection(struct CTestSection* pSection, char show);
 struct CTestRunner
 {
 	int numberSections;
-	struct CTestSection* pSection;
+	struct CTestSection** pSection;
 };
 
 // runner.c

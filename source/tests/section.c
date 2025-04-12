@@ -41,21 +41,21 @@ void scenario4(struct CTestScenario* pScenario)
 
 void initSection1(struct CTestSection* pSection)
 {
-	initSection(pSection, "Section One", 2);
-	initScenario(&pSection->pScenarios[0], "Test 1", &scenario1);
-	initScenario(&pSection->pScenarios[1], "Test 2", &scenario2);
+	initSection(pSection, "Section One");
+	addScenarioToSection(pSection, "Test 1", &scenario1);
+	addScenarioToSection(pSection, "Test 2", &scenario2);
 }
 
 void initSection2(struct CTestSection* pSection)
 {
-	initSection(pSection, "Section Two", 1);
-	initScenario(&pSection->pScenarios[0], "Test 3", &scenario3);
+	initSection(pSection, "Section Two");
+	addScenarioToSection(pSection, "Test 3", &scenario3);
 }
 
 void initSection3(struct CTestSection* pSection)
 {
-	initSection(pSection, "Section Three", 1);
-	initScenario(&pSection->pScenarios[0], "Test 4", &scenario4);
+	initSection(pSection, "Section Three");
+	addScenarioToSection(pSection, "Test 4", &scenario4);
 }
 
 int cTestSection()

@@ -14,26 +14,49 @@
 #include <stdlib.h>
 #include <string.h>
 
-void initSection(struct CTestSection* pSection, const char* pDesc, int numberScenarios)
+void initSection(struct CTestSection* pSection, const char* pDesc)
 {
 	size_t lenDesc = strlen(pDesc);
 	if (lenDesc > 0)
 	{
-		pSection->pDesc = (char*)malloc(lenDesc);
+		pSection->pDesc = (char*)malloc(lenDesc + 1);
 		strcpy(pSection->pDesc, pDesc);
 	}
 
-	if (numberScenarios > 0)
+	pSection->numberScenarios = 0;
+	pSection->numberSubsections = 0;
+	pSection->pScenarios = 0;
+	pSection->pSubsections = 0;
+}
+
+void addScenarioToSection(struct CTestSection* pSection, const char* pDesc, void (*pFunc)(struct CTestScenario* pScenario))
+{
+	int i = pSection->numberScenarios;
+	pSection->numberScenarios++;
+
+	if (i == 0)
 	{
-		pSection->numberScenarios = numberScenarios;
-		pSection->pScenarios = (struct CTestScenario*)malloc(sizeof(struct CTestScenario) * numberScenarios);
-		memset(pSection->pScenarios, 0, sizeof(struct CTestScenario) * numberScenarios);
+		pSection->pScenarios = (struct CTestScenario*)malloc(sizeof(struct CTestScenario));
+		initScenario(pSection->pScenarios, pDesc, pFunc);
 	}
 	else
 	{
-		pSection->numberScenarios = 0;
-		pSection->pScenarios = 0;
+		pSection->pScenarios = (struct CTestScenario*)realloc(pSection->pScenarios, sizeof(struct CTestScenario) * pSection->numberScenarios);
+		initScenario(&pSection->pScenarios[i], pDesc, pFunc);
 	}
+}
+
+void addSubsectionToSection(struct CTestSection* pSection, struct CTestSection* pSubsection)
+{
+	int i = pSection->numberSubsections;
+	pSection->numberSubsections++;
+
+	if (i == 0)
+		pSection->pSubsections = (struct CTestSection**)malloc(sizeof(struct CTestSection*));
+	else
+		pSection->pSubsections = (struct CTestSection**)realloc(pSection->pSubsections, sizeof(struct CTestSection*) * pSection->numberSubsections);
+
+	pSection->pSubsections[i] = pSubsection;
 }
 
 void freeSection(struct CTestSection* pSection)
@@ -53,12 +76,24 @@ void freeSection(struct CTestSection* pSection)
 		free(pSection->pScenarios);
 	}
 
+	if (pSection->pSubsections)
+	{
+		for (int i = 0; i < pSection->numberSubsections; i++)
+		{
+			freeSection(pSection->pSubsections[i]);
+			free(pSection->pSubsections[i]);
+		}
+
+		memset(pSection->pSubsections, 0, sizeof(struct CTestSection*) * pSection->numberSubsections);
+		free(pSection->pSubsections);
+	}
+
 	memset(pSection, 0, sizeof(struct CTestSection));
 }
 
 void runSection(struct CTestSection* pSection, char show)
 {
-	if (show)
+	if (show > SHOW_NOTHING)
 	{
 		if (pSection->pDesc) printf("Section: %s\n", pSection->pDesc);
 		else printf("Section: \n");
@@ -66,6 +101,9 @@ void runSection(struct CTestSection* pSection, char show)
 
 	for (int i = 0; i < pSection->numberScenarios; i++)
 		runScenario(&pSection->pScenarios[i], show);
+
+	for (int i = 0; i < pSection->numberSubsections; i++)
+		runSection(pSection->pSubsections[i], show);
 }
 
 char didSectionPass(struct CTestSection* pSection)
@@ -79,6 +117,14 @@ char didSectionPass(struct CTestSection* pSection)
 			numberFail++;
 	}
 
+	for (int i = 0; i < pSection->numberSubsections; i++)
+	{
+		if (didSectionPass(pSection->pSubsections[i]))
+			numberPass++;
+		else
+			numberFail++;
+	}
+
 	if (numberPass > 0 && numberFail == 0)
 		return EXPECTATION_PASS;
 
@@ -87,7 +133,7 @@ char didSectionPass(struct CTestSection* pSection)
 
 void printSection(struct CTestSection* pSection, char show)
 {
-	if (pSection->numberScenarios == 0)
+	if (pSection->numberScenarios == 0 && pSection->numberSubsections == 0)
 		printf("[      ]");
 	else if (didSectionPass(pSection))
 		printf("[  OK  ]");
@@ -101,4 +147,7 @@ void printSection(struct CTestSection* pSection, char show)
 
 	for (int i = 0; i < pSection->numberScenarios; i++)
 		printScenario(&pSection->pScenarios[i], show);
+
+	for (int i = 0; i < pSection->numberSubsections; i++)
+		printSection(pSection->pSubsections[i], show);
 }

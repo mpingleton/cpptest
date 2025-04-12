@@ -61,6 +61,9 @@ namespace cpptest
 
 		for (int i = 0; i < scenarios.size(); i++)
 			scenarios[i]->run(show);
+
+		for (int i = 0; i < subsections.size(); i++)
+			subsections[i]->run(show);
 	}
 
 	bool Section::didPass()
@@ -74,6 +77,14 @@ namespace cpptest
 				numberFail++;
 		}
 
+		for (int i = 0; i < subsections.size(); i++)
+		{
+			if (subsections[i]->didPass())
+				numberPass++;
+			else
+				numberFail++;
+		}
+
 		if (numberPass > 0 && numberFail == 0)
 			return true;
 
@@ -82,7 +93,7 @@ namespace cpptest
 
 	void Section::print(char show)
 	{
-		if (scenarios.empty())
+		if (scenarios.empty() && subsections.empty())
 			cout << "[      ]";
 		else if (didPass())
 			cout << "[  OK  ]";
@@ -96,5 +107,8 @@ namespace cpptest
 
 		for (int i = 0; i < scenarios.size(); i++)
 			scenarios[i]->print(show);
+
+		for (int i = 0; i < subsections.size(); i++)
+			subsections[i]->print(show);
 	}
 };
