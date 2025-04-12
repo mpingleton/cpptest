@@ -90,7 +90,7 @@ struct CTestSection
 	char* pDesc;
 	int numberScenarios, numberSubsections;
 	struct CTestScenario* pScenarios;
-	struct CTestScenario* pSubsections;
+	struct CTestScenario* pSubsections; // TODO
 };
 
 // section.c

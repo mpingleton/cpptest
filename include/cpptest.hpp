@@ -120,7 +120,7 @@ namespace cpptest
 	{
 		string desc;
 		vector<Scenario*> scenarios;
-		vector<Section*> subsections;
+		vector<Section*> subsections; // TODO
 
 	protected:
 		void add(Scenario* pScenario);
