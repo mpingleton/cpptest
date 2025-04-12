@@ -48,7 +48,22 @@ void freeScenario(struct CTestScenario* pScenario)
 void addResultToScenario(struct CTestScenario* pScenario, struct CTestExpectationResult* pResult)
 {
 	if (pScenario->pFirstResult)
+	{
+		struct CTestExpectationResult* pCurrent = pScenario->pFirstResult;
+		while (pCurrent)
+		{
+			if (pCurrent->pId == 0 && pResult->pId == 0)
+				pResult->index++;
+			else if (pCurrent->pId == 0 || pResult->pId == 0)
+				continue;
+			else if (strcmp(pCurrent->pId, pResult->pId) == 0)
+				pResult->index++;
+
+			pCurrent = pCurrent->pNext;
+		}
+
 		pScenario->pLastResult->pNext = pResult;
+	}
 	else
 		pScenario->pFirstResult = pResult;
 

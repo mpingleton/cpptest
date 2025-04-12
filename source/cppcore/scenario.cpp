@@ -67,7 +67,18 @@ namespace cpptest
 	void Scenario::addResult(ExpectationResult* pResult)
 	{
 		if (pFirstResult)
+		{
+			ExpectationResult* pCurrent = pFirstResult;
+			while (pCurrent)
+			{
+				if (pCurrent->getId().compare(pResult->getId()) == 0)
+					pResult->index++;
+
+				pCurrent = pCurrent->pNext;
+			}
+
 			pLastResult->pNext = pResult;
+		}
 		else
 			pFirstResult = pResult;
 
