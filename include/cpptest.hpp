@@ -25,16 +25,16 @@ namespace cpptest
 	class ExpectationResult
 	{
 	protected:
-		int index;
 		string id;
 		char comparison;
 		bool passing;
 
 	public:
+		int index;
 		ExpectationResult* pNext;
 
 		ExpectationResult();
-		ExpectationResult(string inputId);
+		ExpectationResult(string inputId, char c, bool pass);
 		virtual ~ExpectationResult();
 
 		string getId();
@@ -48,7 +48,7 @@ namespace cpptest
 		void* pExpected;
 
 	public:
-		ExpectationResultPointer(int i, string inputId, void* pA, void* pE, bool pass);
+		ExpectationResultPointer(string inputId, void* pA, void* pE, char c, bool pass);
 		~ExpectationResultPointer();
 
 		void print();
@@ -60,7 +60,7 @@ namespace cpptest
 		int expected;
 
 	public:
-		ExpectationResultInt(int i, string inputId, int a, int e, bool pass);
+		ExpectationResultInt(string inputId, int a, int e, char c, bool pass);
 		~ExpectationResultInt();
 
 		void print();
@@ -72,7 +72,7 @@ namespace cpptest
 		float expected;
 
 	public:
-		ExpectationResultFloat(int i, string inputId, float a, float e, bool pass);
+		ExpectationResultFloat(string inputId, float a, float e, char c, bool pass);
 		~ExpectationResultFloat();
 
 		void print();
@@ -84,7 +84,7 @@ namespace cpptest
 		double expected;
 
 	public:
-		ExpectationResultDouble(int i, string inputId, double a, double e, bool pass);
+		ExpectationResultDouble(string inputId, double a, double e, char c, bool pass);
 		~ExpectationResultDouble();
 
 		void print();

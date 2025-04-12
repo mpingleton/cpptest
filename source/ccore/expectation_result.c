@@ -71,6 +71,11 @@ void printExpectationResult(struct CTestExpectationResult* pResult)
 	char comp[4] = {};
 	switch (pResult->comparison)
 	{
+	case EXPECTATION_NOT_EQUAL:
+	{
+		strcpy((char*)&comp, "!");
+		break;
+	}
 	case EXPECTATION_GREATER:
 	{
 		strcpy((char*)&comp, ">");

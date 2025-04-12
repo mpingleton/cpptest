@@ -22,6 +22,7 @@ int cTestExpectationResult()
 	pResult1->pId = (char*)malloc(sizeof("TEST1"));
 	strcpy(pResult1->pId, "TEST1");
 	pResult1->type = EXPECTATION_INT;
+	pResult1->comparison = EXPECTATION_EQUAL;
 	pResult1->result = EXPECTATION_PASS;
 	pResult1->actual.intValue = 2;
 	pResult1->expected.intValue = 2;
@@ -32,6 +33,7 @@ int cTestExpectationResult()
 	pResult2->pId = (char*)malloc(sizeof("TEST2"));
 	strcpy(pResult2->pId, "TEST2");
 	pResult2->type = EXPECTATION_DOUBLE;
+	pResult2->comparison = EXPECTATION_EQUAL;
 	pResult2->result = EXPECTATION_FAIL;
 	pResult2->actual.doubleValue = 2.0;
 	pResult2->expected.doubleValue = 3.0;
@@ -42,6 +44,7 @@ int cTestExpectationResult()
 	pResult3->pId = (char*)malloc(sizeof("TEST3"));
 	strcpy(pResult3->pId, "TEST3");
 	pResult3->type = EXPECTATION_DOUBLE;
+	pResult3->comparison = EXPECTATION_EQUAL;
 	pResult3->result = EXPECTATION_PASS;
 	pResult3->actual.doubleValue = 3.0;
 	pResult3->expected.doubleValue = 3.0;

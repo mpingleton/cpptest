@@ -19,9 +19,9 @@ using namespace cpptest;
 
 bool cppTestExpectationResult()
 {
-	ExpectationResultInt result1 = ExpectationResultInt(0, "1", 2, 2, true);
-	ExpectationResultDouble result2 = ExpectationResultDouble(1, "2", 2.0, 3.0, false);
-	ExpectationResultDouble result3 = ExpectationResultDouble(2, "3", 3.0, 3.0, true);
+	ExpectationResultInt result1 = ExpectationResultInt("1", 2, 2, EXPECTATION_EQUAL, true);
+	ExpectationResultDouble result2 = ExpectationResultDouble("2", 2.0, 3.0, EXPECTATION_EQUAL, false);
+	ExpectationResultDouble result3 = ExpectationResultDouble("3", 3.0, 3.0, EXPECTATION_EQUAL, true);
 
 	result1.print();
 	result2.print();

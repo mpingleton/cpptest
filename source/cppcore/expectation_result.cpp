@@ -19,6 +19,7 @@ string comp(int comparison)
 {
 	switch (comparison)
 	{
+	case EXPECTATION_NOT_EQUAL: return "!";
 	case EXPECTATION_GREATER: return ">";
 	case EXPECTATION_GREATER_OR_EQUAL: return ">=";
 	case EXPECTATION_SMALLER: return "<";
@@ -38,12 +39,12 @@ namespace cpptest
 		pNext = 0;
 	}
 
-	ExpectationResult::ExpectationResult(string inputId)
+	ExpectationResult::ExpectationResult(string inputId, char c, bool pass)
 	{
 		index = 0;
 		id = "";
-		comparison = 0;
-		passing = false;
+		comparison = c;
+		passing = pass;
 		pNext = 0;
 	}
 
@@ -77,10 +78,8 @@ namespace cpptest
 		cout << " (" << id << " - " << to_string(index) << ")\t";
 	}
 
-	ExpectationResultPointer::ExpectationResultPointer(int i, string inputId, void* pA, void* pE, bool pass) : ExpectationResult(inputId)
+	ExpectationResultPointer::ExpectationResultPointer(string inputId, void* pA, void* pE, char c, bool pass) : ExpectationResult(inputId, c, pass)
 	{
-		index = i;
-		passing = pass;
 		pActual = pA;
 		pExpected = pE;
 	}
@@ -101,10 +100,8 @@ namespace cpptest
 			cout << "Pointers Don't Match" << endl;
 	}
 
-	ExpectationResultInt::ExpectationResultInt(int i, string inputId, int a, int e, bool pass) : ExpectationResult(inputId)
+	ExpectationResultInt::ExpectationResultInt(string inputId, int a, int e, char c, bool pass) : ExpectationResult(inputId, c, pass)
 	{
-		index = i;
-		passing = pass;
 		actual = a;
 		expected = e;
 	}
@@ -121,10 +118,8 @@ namespace cpptest
 		cout << "Actual: " << to_string(actual) << "\tExpected: " << comp(comparison) << to_string(expected) << endl;
 	}
 
-	ExpectationResultFloat::ExpectationResultFloat(int i, string inputId, float a, float e, bool pass) : ExpectationResult(inputId)
+	ExpectationResultFloat::ExpectationResultFloat(string inputId, float a, float e, char c, bool pass) : ExpectationResult(inputId, c, pass)
 	{
-		index = i;
-		passing = pass;
 		actual = a;
 		expected = e;
 	}
@@ -141,10 +136,8 @@ namespace cpptest
 		cout << "Actual: " << to_string(actual) << "\tExpected: " << comp(comparison) << to_string(expected) << endl;
 	}
 
-	ExpectationResultDouble::ExpectationResultDouble(int i, string inputId, double a, double e, bool pass) : ExpectationResult(inputId)
+	ExpectationResultDouble::ExpectationResultDouble(string inputId, double a, double e, char c, bool pass) : ExpectationResult(inputId, c, pass)
 	{
-		index = i;
-		passing = pass;
 		actual = a;
 		expected = e;
 	}
