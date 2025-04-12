@@ -27,31 +27,17 @@ char* expectId(char* pBuffer, size_t maxLen, const char* pParentId, const char* 
 
 char expectPointerNull(struct CTestScenario* pScenario, const char* id, void* pointer)
 {
-	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	struct CTestExpectationResult* pR = initExpectationResult(id);
 	if (pR == 0)
 	{
 		cancelScenario(pScenario);
 		return EXPECTATION_FAIL;
 	}
 
-	pR->index = 0;
 	pR->type = EXPECTATION_POINTER;
+	pR->comparison = EXPECTATION_EQUAL;
 	pR->actual.pointerValue = pointer;
 	pR->expected.pointerValue = 0;
-	pR->pNext = 0;
-
-	size_t sizeId = strlen(id);
-	if (sizeId > 0)
-	{
-		pR->pId = (char*) malloc(sizeId + 1);
-		if (pR->pId == 0)
-		{
-			cancelScenario(pScenario);
-			return EXPECTATION_FAIL;
-		}
-		strcpy(pR->pId, id);
-	}
-	else pR->pId = 0;
 
 	if (pointer == 0)
 		pR->result = EXPECTATION_PASS;
@@ -61,50 +47,23 @@ char expectPointerNull(struct CTestScenario* pScenario, const char* id, void* po
 		cancelScenario(pScenario);
 	}
 
-	if (pScenario->pResults)
-	{
-		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext)
-		{
-			if (strcmp(pRes->pId, id) == 0) pR->index++;
-			pRes = pRes->pNext;
-		}
-		if (strcmp(pRes->pId, id) == 0) pR->index++;
-		pRes->pNext = pR;
-	}
-	else
-		pScenario->pResults = pR;
-
+	addResultToScenario(pScenario, pR);
 	return pR->result;
 }
 
 char expectPointerInitialized(struct CTestScenario* pScenario, const char* id, void* pointer)
 {
-	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	struct CTestExpectationResult* pR = initExpectationResult(id);
 	if (pR == 0)
 	{
 		cancelScenario(pScenario);
 		return EXPECTATION_FAIL;
 	}
 
-	pR->index = 0;
 	pR->type = EXPECTATION_POINTER;
+	pR->comparison = EXPECTATION_NOT_EQUAL;
 	pR->actual.pointerValue = pointer;
 	pR->expected.pointerValue = 0;
-	pR->pNext = 0;
-
-	size_t sizeId = strlen(id);
-	if (sizeId > 0)
-	{
-		pR->pId = (char*) malloc(sizeId + 1);
-		if (pR->pId == 0)
-		{
-			cancelScenario(pScenario);
-			return EXPECTATION_FAIL;
-		}
-		strcpy(pR->pId, id);
-	}
-	else pR->pId = 0;
 
 	if (pointer != 0)
 		pR->result = EXPECTATION_PASS;
@@ -114,50 +73,23 @@ char expectPointerInitialized(struct CTestScenario* pScenario, const char* id, v
 		cancelScenario(pScenario);
 	}
 
-	if (pScenario->pResults)
-	{
-		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext)
-		{
-			if (strcmp(pRes->pId, id) == 0) pR->index++;
-			pRes = pRes->pNext;
-		}
-		if (strcmp(pRes->pId, id) == 0) pR->index++;
-		pRes->pNext = pR;
-	}
-	else
-		pScenario->pResults = pR;
-
+	addResultToScenario(pScenario, pR);
 	return pR->result;
 }
 
 char expectToEqualPointer(struct CTestScenario* pScenario, const char* id, void* pActual, void* pExpected)
 {
-	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	struct CTestExpectationResult* pR = initExpectationResult(id);
 	if (pR == 0)
 	{
 		cancelScenario(pScenario);
 		return EXPECTATION_FAIL;
 	}
 
-	pR->index = 0;
 	pR->type = EXPECTATION_POINTER;
+	pR->comparison = EXPECTATION_EQUAL;
 	pR->actual.pointerValue = pActual;
 	pR->expected.pointerValue = pExpected;
-	pR->pNext = 0;
-
-	size_t sizeId = strlen(id);
-	if (sizeId > 0)
-	{
-		pR->pId = (char*) malloc(sizeId + 1);
-		if (pR->pId == 0)
-		{
-			cancelScenario(pScenario);
-			return EXPECTATION_FAIL;
-		}
-		strcpy(pR->pId, id);
-	}
-	else pR->pId = 0;
 
 	if (pActual == pExpected)
 		pR->result = EXPECTATION_PASS;
@@ -167,50 +99,23 @@ char expectToEqualPointer(struct CTestScenario* pScenario, const char* id, void*
 		cancelScenario(pScenario);
 	}
 
-	if (pScenario->pResults)
-	{
-		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext)
-		{
-			if (strcmp(pRes->pId, id) == 0) pR->index++;
-			pRes = pRes->pNext;
-		}
-		if (strcmp(pRes->pId, id) == 0) pR->index++;
-		pRes->pNext = pR;
-	}
-	else
-		pScenario->pResults = pR;
-
+	addResultToScenario(pScenario, pR);
 	return pR->result;
 }
 
 char expectToEqualInt(struct CTestScenario* pScenario, const char* id, int actual, int expected)
 {
-	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	struct CTestExpectationResult* pR = initExpectationResult(id);
 	if (pR == 0)
 	{
 		cancelScenario(pScenario);
 		return EXPECTATION_FAIL;
 	}
 
-	pR->index = 0;
 	pR->type = EXPECTATION_INT;
+	pR->comparison = EXPECTATION_EQUAL;
 	pR->actual.intValue = actual;
 	pR->expected.intValue = expected;
-	pR->pNext = 0;
-
-	size_t sizeId = strlen(id);
-	if (sizeId > 0)
-	{
-		pR->pId = (char*) malloc(sizeId + 1);
-		if (pR->pId == 0)
-		{
-			cancelScenario(pScenario);
-			return EXPECTATION_FAIL;
-		}
-		strcpy(pR->pId, id);
-	}
-	else pR->pId = 0;
 
 	if (actual == expected)
 		pR->result = EXPECTATION_PASS;
@@ -220,50 +125,24 @@ char expectToEqualInt(struct CTestScenario* pScenario, const char* id, int actua
 		cancelScenario(pScenario);
 	}
 
-	if (pScenario->pResults)
-	{
-		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext)
-		{
-			if (strcmp(pRes->pId, id) == 0) pR->index++;
-			pRes = pRes->pNext;
-		}
-		if (strcmp(pRes->pId, id) == 0) pR->index++;
-		pRes->pNext = pR;
-	}
-	else
-		pScenario->pResults = pR;
-
+	addResultToScenario(pScenario, pR);
 	return pR->result;
 }
 
 char expectToEqualFloat(struct CTestScenario* pScenario, const char* id, float actual, float expected)
 {
-	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	struct CTestExpectationResult* pR = initExpectationResult(id);
 	if (pR == 0)
 	{
 		cancelScenario(pScenario);
 		return EXPECTATION_FAIL;
 	}
 
-	pR->index = 0;
 	pR->type = EXPECTATION_FLOAT;
+	pR->comparison = EXPECTATION_EQUAL;
 	pR->actual.floatValue = actual;
 	pR->expected.floatValue = expected;
 	pR->pNext = 0;
-
-	size_t sizeId = strlen(id);
-	if (sizeId > 0)
-	{
-		pR->pId = (char*) malloc(sizeId + 1);
-		if (pR->pId == 0)
-		{
-			cancelScenario(pScenario);
-			return EXPECTATION_FAIL;
-		}
-		strcpy(pR->pId, id);
-	}
-	else pR->pId = 0;
 
 	if ((actual >= expected - 0.1) && (actual <= expected + 0.1))
 		pR->result = EXPECTATION_PASS;
@@ -273,50 +152,23 @@ char expectToEqualFloat(struct CTestScenario* pScenario, const char* id, float a
 		cancelScenario(pScenario);
 	}
 
-	if (pScenario->pResults)
-	{
-		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext)
-		{
-			if (strcmp(pRes->pId, id) == 0) pR->index++;
-			pRes = pRes->pNext;
-		}
-		if (strcmp(pRes->pId, id) == 0) pR->index++;
-		pRes->pNext = pR;
-	}
-	else
-		pScenario->pResults = pR;
-
+	addResultToScenario(pScenario, pR);
 	return pR->result;
 }
 
 char expectToEqualDouble(struct CTestScenario* pScenario, const char* id, double actual, double expected)
 {
-	struct CTestExpectationResult* pR = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	struct CTestExpectationResult* pR = initExpectationResult(id);
 	if (pR == 0)
 	{
 		cancelScenario(pScenario);
 		return EXPECTATION_FAIL;
 	}
 
-	pR->index = 0;
 	pR->type = EXPECTATION_DOUBLE;
+	pR->comparison = EXPECTATION_EQUAL;
 	pR->actual.doubleValue = actual;
 	pR->expected.doubleValue = expected;
-	pR->pNext = 0;
-
-	size_t sizeId = strlen(id);
-	if (sizeId > 0)
-	{
-		pR->pId = (char*) malloc(sizeId + 1);
-		if (pR->pId == 0)
-		{
-			cancelScenario(pScenario);
-			return EXPECTATION_FAIL;
-		}
-		strcpy(pR->pId, id);
-	}
-	else pR->pId = 0;
 
 	if ((actual >= expected - 0.1) && (actual <= expected + 0.1))
 		pR->result = EXPECTATION_PASS;
@@ -326,19 +178,6 @@ char expectToEqualDouble(struct CTestScenario* pScenario, const char* id, double
 		cancelScenario(pScenario);
 	}
 
-	if (pScenario->pResults)
-	{
-		struct CTestExpectationResult* pRes = pScenario->pResults;
-		while (pRes->pNext)
-		{
-			if (strcmp(pRes->pId, id) == 0) pR->index++;
-			pRes = pRes->pNext;
-		}
-		if (strcmp(pRes->pId, id) == 0) pR->index++;
-		pRes->pNext = pR;
-	}
-	else
-		pScenario->pResults = pR;
-
+	addResultToScenario(pScenario, pR);
 	return pR->result;
 }

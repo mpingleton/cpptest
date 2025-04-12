@@ -25,20 +25,11 @@ namespace cpptest
 		}
 		id.append(inputId);
 
-		int i = 0;
-		for (int e = 0; e < results.size(); e++)
-		{
-			if (id.compare(results[e]->getId()) == 0) i++;
-		}
-
 		int a = 0;
 		if (shouldBeTrue) a = 1;
+		else cancel();
 
-		ExpectationResultInt* pR = new ExpectationResultInt(i, id, a, 1, shouldBeTrue);
-		results.push_back(pR);
-
-		if (!shouldBeTrue) cancel();
-
+		addResult(new ExpectationResultInt(id, a, 1, EXPECTATION_EQUAL, shouldBeTrue));
 		return shouldBeTrue;
 	}
 
@@ -52,18 +43,10 @@ namespace cpptest
 		}
 		id.append(inputId);
 
-		int i = 0;
-		for (int e = 0; e < results.size(); e++)
-		{
-			if (id.compare(results[e]->getId()) == 0) i++;
-		}
-
 		bool p = pointer == 0;
-		ExpectationResultPointer* pR = new ExpectationResultPointer(i, id, pointer, 0, p);
-		results.push_back(pR);
-
 		if (!p) cancel();
 
+		addResult(new ExpectationResultPointer(id, pointer, 0, EXPECTATION_EQUAL, p));
 		return p;
 	}
 
@@ -77,18 +60,10 @@ namespace cpptest
 		}
 		id.append(inputId);
 
-		int i = 0;
-		for (int e = 0; e < results.size(); e++)
-		{
-			if (id.compare(results[e]->getId()) == 0) i++;
-		}
-
 		bool p = pointer != 0;
-		ExpectationResultPointer* pR = new ExpectationResultPointer(i, id, pointer, 0, p);
-		results.push_back(pR);
-
 		if (!p) cancel();
 
+		addResult(new ExpectationResultPointer(id, pointer, 0, EXPECTATION_NOT_EQUAL, p));
 		return p;
 	}
 
@@ -102,18 +77,10 @@ namespace cpptest
 		}
 		id.append(inputId);
 
-		int i = 0;
-		for (int e = 0; e < results.size(); e++)
-		{
-			if (id.compare(results[e]->getId()) == 0) i++;
-		}
-
 		bool p = pActual == pExpected;
-		ExpectationResultPointer* pR = new ExpectationResultPointer(i, id, pActual, pExpected, p);
-		results.push_back(pR);
-
 		if (!p) cancel();
 
+		addResult(new ExpectationResultPointer(id, pActual, pExpected, EXPECTATION_EQUAL, p));
 		return p;
 	}
 
@@ -127,18 +94,10 @@ namespace cpptest
 		}
 		id.append(inputId);
 
-		int i = 0;
-		for (int e = 0; e < results.size(); e++)
-		{
-			if (id.compare(results[e]->getId()) == 0) i++;
-		}
-
 		bool p = actual == expected;
-		ExpectationResultInt* pR = new ExpectationResultInt(i, id, actual, expected, p);
-		results.push_back(pR);
-
 		if (!p) cancel();
 
+		addResult(new ExpectationResultInt(id, actual, expected, EXPECTATION_EQUAL, p));
 		return p;
 	}
 
@@ -152,18 +111,10 @@ namespace cpptest
 		}
 		id.append(inputId);
 
-		int i = 0;
-		for (int e = 0; e < results.size(); e++)
-		{
-			if (id.compare(results[e]->getId()) == 0) i++;
-		}
-
 		bool p = (actual >= expected - 0.1f) && (actual <= expected + 0.1f);
-		ExpectationResultFloat* pR = new ExpectationResultFloat(i, id, actual, expected, p);
-		results.push_back(pR);
-
 		if (!p) cancel();
 
+		addResult(new ExpectationResultFloat(id, actual, expected, EXPECTATION_EQUAL, p));
 		return p;
 	}
 
@@ -177,18 +128,10 @@ namespace cpptest
 		}
 		id.append(inputId);
 
-		int i = 0;
-		for (int e = 0; e < results.size(); e++)
-		{
-			if (id.compare(results[e]->getId()) == 0) i++;
-		}
-
 		bool p = (actual >= expected - 0.1) && (actual <= expected + 0.1);
-		ExpectationResultDouble* pR = new ExpectationResultDouble(i, id, actual, expected, p);
-		results.push_back(pR);
-
 		if (!p) cancel();
 
+		addResult(new ExpectationResultDouble(id, actual, expected, EXPECTATION_EQUAL, p));
 		return p;
 	}
 };
