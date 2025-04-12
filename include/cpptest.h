@@ -21,6 +21,13 @@
 #define EXPECTATION_FLOAT 3
 #define EXPECTATION_DOUBLE 4
 
+#define EXPECTATION_EQUAL 0
+#define EXPECTATION_NOT_EQUAL 1
+#define EXPECTATION_GREATER 2
+#define EXPECTATION_SMALLER 3
+#define EXPECTATION_GREATER_OR_EQUAL 4
+#define EXPECTATION_SMALLER_OR_EQUAL 5
+
 #define EXPECTATION_FAIL 0
 #define EXPECTATION_PASS 1
 
@@ -49,6 +56,7 @@ struct CTestExpectationResult
 	struct CTestExpectationResult* pNext;
 
 	char type;
+	char comparison;
 	char result;
 	union CTestExpectationValue actual;
 	union CTestExpectationValue expected;
@@ -63,13 +71,15 @@ struct CTestScenario
 {
 	char status;
 	char* pDesc;
-	struct CTestExpectationResult* pResults;
+	struct CTestExpectationResult* pFirstResult;
+	struct CTestExpectationResult* pLastResult;
 	void (*pFunc)(struct CTestScenario* pScenario);
 };
 
 // scenario.c
 void initScenario(struct CTestScenario* pScenario, const char* pDesc, void (*pFunc)(struct CTestScenario* pScenario));
 void freeScenario(struct CTestScenario* pScenario);
+void addResultToScenario(struct CTestScenario* pScenario, struct CTestExpectationResult* pResult);
 void runScenario(struct CTestScenario* pScenario, char show);
 void cancelScenario(struct CTestScenario* pScenario);
 char isScenarioCanceled(struct CTestScenario* pScenario);

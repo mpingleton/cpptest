@@ -17,10 +17,9 @@
 void freeExpectationResult(struct CTestExpectationResult* pResult)
 {
 	struct CTestExpectationResult* pCurrent = pResult;
-	struct CTestExpectationResult* pNext = 0;
 	while (pCurrent)
 	{
-		pNext = pCurrent->pNext;
+		struct CTestExpectationResult* pNext = pCurrent->pNext;
 
 		if (pCurrent->pId)
 		{
@@ -52,6 +51,31 @@ void printExpectationResult(struct CTestExpectationResult* pResult)
 
 	printf(" (%s - %i)\t", pResult->pId, pResult->index);
 
+	char comp[4] = {};
+	switch (pResult->comparison)
+	{
+	case EXPECTATION_GREATER:
+	{
+		strcpy((char*)&comp, ">");
+		break;
+	}
+	case EXPECTATION_GREATER_OR_EQUAL:
+	{
+		strcpy((char*)&comp, ">=");
+		break;
+	}
+	case EXPECTATION_SMALLER:
+	{
+		strcpy((char*)&comp, "<");
+		break;
+	}
+	case EXPECTATION_SMALLER_OR_EQUAL:
+	{
+		strcpy((char*)&comp, "<=");
+		break;
+	}
+	}
+
 	switch (pResult->type)
 	{
 	case EXPECTATION_POINTER:
@@ -65,17 +89,17 @@ void printExpectationResult(struct CTestExpectationResult* pResult)
 	}
 	case EXPECTATION_INT:
 	{
-		printf("Actual: %i\tExpected: %i", pResult->actual.intValue, pResult->expected.intValue);
+		printf("Actual: %i\tExpected: %s%i", pResult->actual.intValue, comp, pResult->expected.intValue);
 		break;
 	}
 	case EXPECTATION_FLOAT:
 	{
-		printf("Actual: %f\tExpected: %f", pResult->actual.floatValue, pResult->expected.floatValue);
+		printf("Actual: %f\tExpected: %s%f", pResult->actual.floatValue, comp, pResult->expected.floatValue);
 		break;
 	}
 	case EXPECTATION_DOUBLE:
 	{
-		printf("Actual: %f\tExpected: %f", pResult->actual.doubleValue, pResult->expected.doubleValue);
+		printf("Actual: %f\tExpected: %s%f", pResult->actual.doubleValue, comp, pResult->expected.doubleValue);
 		break;
 	}
 	default:

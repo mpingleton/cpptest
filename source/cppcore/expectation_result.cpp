@@ -11,12 +11,29 @@
 
 #include "../../include/cpptest.hpp"
 
+#include <string>
+
+using namespace std;
+
+string comp(int comparison)
+{
+	switch (comparison)
+	{
+	case EXPECTATION_GREATER: return ">";
+	case EXPECTATION_GREATER_OR_EQUAL: return ">=";
+	case EXPECTATION_SMALLER: return "<";
+	case EXPECTATION_SMALLER_OR_EQUAL: return "<=";
+	default: return "";
+	}
+}
+
 namespace cpptest
 {
 	ExpectationResult::ExpectationResult()
 	{
 		index = 0;
 		id = "";
+		comparison = EXPECTATION_EQUAL;
 		passing = false;
 	}
 
@@ -24,6 +41,7 @@ namespace cpptest
 	{
 		index = 0;
 		id = "";
+		comparison = 0;
 		passing = false;
 	}
 
@@ -91,7 +109,7 @@ namespace cpptest
 	void ExpectationResultInt::print()
 	{
 		ExpectationResult::print();
-		cout << "Actual: " << to_string(actual) << "\tExpected: " << to_string(expected) << endl;
+		cout << "Actual: " << to_string(actual) << "\tExpected: " << comp(comparison) << to_string(expected) << endl;
 	}
 
 	ExpectationResultFloat::ExpectationResultFloat(int i, string inputId, float a, float e, bool pass) : ExpectationResult()
@@ -112,7 +130,7 @@ namespace cpptest
 	void ExpectationResultFloat::print()
 	{
 		ExpectationResult::print();
-		cout << "Actual: " << to_string(actual) << "\tExpected: " << to_string(expected) << endl;
+		cout << "Actual: " << to_string(actual) << "\tExpected: " << comp(comparison) << to_string(expected) << endl;
 	}
 
 	ExpectationResultDouble::ExpectationResultDouble(int i, string inputId, double a, double e, bool pass) : ExpectationResult()
@@ -133,6 +151,6 @@ namespace cpptest
 	void ExpectationResultDouble::print()
 	{
 		ExpectationResult::print();
-		cout << "Actual: " << to_string(actual) << "\tExpected: " << to_string(expected) << endl;
+		cout << "Actual: " << to_string(actual) << "\tExpected: " << comp(comparison) << to_string(expected) << endl;
 	}
 };

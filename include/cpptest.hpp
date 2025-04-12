@@ -27,6 +27,7 @@ namespace cpptest
 	protected:
 		int index;
 		string id;
+		char comparison;
 		bool passing;
 
 	public:
