@@ -110,6 +110,27 @@ public:
 	}
 };
 
+class FineOneMoreScenario1 : public Scenario
+{
+public:
+	FineOneMoreScenario1() : Scenario("Test 5")
+	{}
+
+	~FineOneMoreScenario1()
+	{}
+
+	void test()
+	{
+		sleep(2);
+
+		for (int i = 0; i < 40000; i++)
+		{
+			expectToEqual("", "1", 3.14f, 3.14f);
+			expectToEqual("", "2", 1.4, 1.4);
+		}
+	}
+};
+
 class SectionOne1 : public Section
 {
 public:
@@ -128,6 +149,15 @@ public:
 	}
 };
 
+class SectionFour : public Section
+{
+public:
+	SectionFour() : Section("Section Four")
+	{
+		add(new FineOneMoreScenario1());
+	}
+};
+
 class SectionThr1 : public Section
 {
 public:
@@ -135,6 +165,7 @@ public:
 	{
 		add(new SomeOtherScenario1());
 		add(new YetOtherScenario1());
+		add(new SectionFour());
 	}
 };
 

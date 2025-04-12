@@ -11,6 +11,8 @@
 
 #include "../../include/cpptest.hpp"
 
+#include <string.h>
+
 namespace cpptest
 {
 	Scenario::Scenario()
@@ -71,7 +73,7 @@ namespace cpptest
 			ExpectationResult* pCurrent = pFirstResult;
 			while (pCurrent)
 			{
-				if (pCurrent->getId().compare(pResult->getId()) == 0)
+				if (strcmp(pCurrent->getId().c_str(), pResult->getId().c_str()) == 0)
 					pResult->index++;
 
 				pCurrent = pCurrent->pNext;

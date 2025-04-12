@@ -68,6 +68,17 @@ void yetotherScenario1(struct CTestScenario* pScenario)
 	}
 }
 
+void fineonemoreScenario1(struct CTestScenario* pScenario)
+{
+	sleep(2);
+
+	for (int i = 0; i < 40000; i++)
+	{
+		expectToEqualFloat(pScenario, "1", 3.14f, 3.14f);
+		expectToEqualDouble(pScenario, "2", 1.4, 1.4);
+	}
+}
+
 struct CTestSection* initSectionOne()
 {
 	struct CTestSection* pSection = initSection("Section One");
@@ -93,12 +104,21 @@ struct CTestSection* initSectionThr()
 	return pSection;
 }
 
+struct CTestSection* initSectionFour()
+{
+	struct CTestSection* pSection = initSection("Section Four");
+	addScenarioToSection(pSection, "Test 5", &fineonemoreScenario1);
+
+	return pSection;
+}
+
 int cTestRunner()
 {
-	struct CTestSection* pSections[3];
+	struct CTestSection* pSections[4];
 	pSections[0] = initSectionOne();
 	pSections[1] = initSectionTwo();
 	pSections[2] = initSectionThr();
+	pSections[3] = initSectionFour();
 
 	struct CTestRunner runner1 = {};
 	initTests(&runner1);
@@ -114,6 +134,7 @@ int cTestRunner()
 
 	struct CTestRunner runner2 = {};
 	initTests(&runner2);
+	addSubsectionToSection(pSections[2], pSections[3]);
 	addSectionToTest(&runner2, pSections[2]);
 
 	runTests(&runner2, SHOW_EVERYTHING);
