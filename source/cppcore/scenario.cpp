@@ -17,14 +17,16 @@ namespace cpptest
 	{
 		status = SCENARIO_STATUS_PENDING;
 		desc = "";
-		results.clear();
+		pFirstResult = 0;
+		pLastResult = 0;
 	}
 
 	Scenario::Scenario(string inputDesc)
 	{
 		status = SCENARIO_STATUS_PENDING;
 		desc = inputDesc;
-		results.clear();
+		pFirstResult = 0;
+		pLastResult = 0;
 	}
 
 	Scenario::~Scenario()
@@ -32,9 +34,16 @@ namespace cpptest
 		status = SCENARIO_STATUS_PENDING;
 		desc = "";
 
-		for (int i = 0; i < results.size(); i++)
-			delete results[i];
-		results.clear();
+		ExpectationResult* pCurrent = pFirstResult;
+		while (pCurrent)
+		{
+			ExpectationResult* pNext = pCurrent->pNext;
+			delete pCurrent;
+			pCurrent = pNext;
+		}
+
+		pFirstResult = 0;
+		pLastResult = 0;
 	}
 
 	void Scenario::test()
@@ -55,11 +64,22 @@ namespace cpptest
 			return false;
 	}
 
+	void Scenario::addResult(ExpectationResult* pResult)
+	{
+		if (pFirstResult)
+			pLastResult->pNext = pResult;
+		else
+			pFirstResult = pResult;
+
+		pLastResult = pResult;
+	}
+
 	void Scenario::run(char show)
 	{
 		if (status == SCENARIO_STATUS_PENDING)
 		{
 			status = SCENARIO_STATUS_RUNNING;
+
 			if (show)
 			{
 				if (show > SHOW_NOTHING) print(show);
@@ -79,12 +99,15 @@ namespace cpptest
 		if (status == SCENARIO_STATUS_COMPLETE)
 		{
 			int numberPassed = 0, numberFailed = 0;
-			for (int i = 0; i < results.size(); i++)
+			ExpectationResult* pR = pFirstResult;
+			while (pR != 0)
 			{
-				if (results[i]->didPass())
+				if (pR->didPass())
 					numberPassed++;
 				else
 					numberFailed++;
+
+				pR = pR->pNext;
 			}
 
 			if (numberPassed > 0 && numberFailed == 0)
@@ -98,18 +121,18 @@ namespace cpptest
 	{
 		cout << " ";
 		if (status == SCENARIO_STATUS_RUNNING)
-			cout << "[  ++  ]\t";
+			cout << "[ >>>> ]";
 		else if (status == SCENARIO_STATUS_CANCELED)
-			cout << "[CANCEL]\t";
+			cout << "[CANCEL]";
 		else if (status == SCENARIO_STATUS_COMPLETE)
 		{
-			if (didPass()) cout << "[  OK  ]\t";
-			else cout << "[ FAIL ]\t";
+			if (didPass()) cout << "[  OK  ]";
+			else cout << "[ FAIL ]";
 		}
 		else
-			cout << "[  --  ]\t";
+			cout << "[  --  ]";
 
-		cout << desc;
+		cout << "\t" << desc;
 
 		if (status == SCENARIO_STATUS_RUNNING)
 			cout << "\r";
@@ -119,15 +142,22 @@ namespace cpptest
 
 			if (show == SHOW_EVERYTHING)
 			{
-				for (int i = 0; i < results.size(); i++)
-					results[i]->print();
+				ExpectationResult* pR = pFirstResult;
+				while (pR)
+				{
+					pR->print();
+					pR = pR->pNext;
+				}
 			}
 			else if (show == SHOW_ONLY_FAILING)
 			{
-				for (int i = 0; i < results.size(); i++)
+				ExpectationResult* pR = pFirstResult;
+				while (pR)
 				{
-					if (!results[i]->didPass())
-						results[i]->print();
+					if (!pR->didPass())
+						pR->print();
+
+					pR = pR->pNext;
 				}
 			}
 		}

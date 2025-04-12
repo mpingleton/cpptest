@@ -64,7 +64,7 @@ int cTestScenario()
 		return 0;
 	}
 
-	struct CTestExpectationResult* pE = pScenario1->pResults;
+	struct CTestExpectationResult* pE = pScenario1->pFirstResult;
 	if (pE == 0)
 	{
 		printf("First result not present\n");
@@ -82,6 +82,11 @@ int cTestScenario()
 	if (pE == 0)
 	{
 		printf("Third result not present\n");
+		return 0;
+	}
+	else if (pE != pScenario1->pLastResult)
+	{
+		printf("Last result mismatch\n");
 		return 0;
 	}
 	else if (pE->pNext != 0)
@@ -110,7 +115,7 @@ int cTestScenario()
 		return 0;
 	}
 
-	pE = pScenario2->pResults;
+	pE = pScenario2->pFirstResult;
 	if (pE == 0)
 	{
 		printf("First result not present\n");
@@ -128,6 +133,11 @@ int cTestScenario()
 	if (pE == 0)
 	{
 		printf("Third result not present\n");
+		return 0;
+	}
+	else if (pE != pScenario2->pLastResult)
+	{
+		printf("Last result mismatch\n");
 		return 0;
 	}
 	else if (pE->pNext == 0)

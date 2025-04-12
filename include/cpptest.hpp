@@ -116,7 +116,7 @@ namespace cpptest
 		bool expectToEqual(string parentId, string inputId, float actual, float expected);
 		bool expectToEqual(string parentId, string inputId, double actual, double expected);
 
-		void addResult(ExpectationResult result);
+		void addResult(ExpectationResult* pResult);
 		void run(char show);
 		bool didPass();
 		void print(char show);
