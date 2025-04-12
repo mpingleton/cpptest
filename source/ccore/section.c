@@ -14,19 +14,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-void initSection(struct CTestSection* pSection, const char* pDesc)
+struct CTestSection* initSection(const char* pDesc)
 {
-	size_t lenDesc = strlen(pDesc);
-	if (lenDesc > 0)
+	struct CTestSection* pNew = (struct CTestSection*)malloc(sizeof(struct CTestSection));
+	if (pNew == 0) return 0;
+
+	memset(pNew, 0, sizeof(struct CTestSection));
+
+	if (pDesc)
 	{
-		pSection->pDesc = (char*)malloc(lenDesc + 1);
-		strcpy(pSection->pDesc, pDesc);
+		size_t l = strlen(pDesc);
+		pNew->pDesc = (char*)malloc(l + 1);
+		strcpy(pNew->pDesc, pDesc);
 	}
 
-	pSection->numberScenarios = 0;
-	pSection->numberSubsections = 0;
-	pSection->pScenarios = 0;
-	pSection->pSubsections = 0;
+	return pNew;
 }
 
 void addScenarioToSection(struct CTestSection* pSection, const char* pDesc, void (*pFunc)(struct CTestScenario* pScenario))

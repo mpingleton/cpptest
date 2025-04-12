@@ -105,7 +105,7 @@ struct CTestSection
 };
 
 // section.c
-void initSection(struct CTestSection* pSection, const char* pDesc);
+struct CTestSection* initSection(const char* pDesc);
 void addScenarioToSection(struct CTestSection* pSection, const char* pDesc, void (*pFunc)(struct CTestScenario* pScenario));
 void addSubsectionToSection(struct CTestSection* pSection, struct CTestSection* pSubsection);
 void freeSection(struct CTestSection* pSection);

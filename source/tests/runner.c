@@ -68,36 +68,42 @@ void yetotherScenario1(struct CTestScenario* pScenario)
 	}
 }
 
-void initSectionOne(struct CTestSection* pSection)
+struct CTestSection* initSectionOne()
 {
-	initSection(pSection, "Section One");
+	struct CTestSection* pSection = initSection("Section One");
 	addScenarioToSection(pSection, "Test 1", &someScenario1);
+
+	return pSection;
 }
 
-void initSectionTwo(struct CTestSection* pSection)
+struct CTestSection* initSectionTwo()
 {
-	initSection(pSection, "Section Two");
+	struct CTestSection* pSection = initSection("Section Two");
 	addScenarioToSection(pSection, "Test 2", &anotherScenario1);
+
+	return pSection;
 }
 
-void initSectionThr(struct CTestSection* pSection)
+struct CTestSection* initSectionThr()
 {
-	initSection(pSection, "Section Three");
+	struct CTestSection* pSection = initSection("Section Three");
 	addScenarioToSection(pSection, "Test 3", &someotherScenario1);
 	addScenarioToSection(pSection, "Test 4", &yetotherScenario1);
+
+	return pSection;
 }
 
 int cTestRunner()
 {
-	struct CTestSection one, two, three;
-	initSectionOne(&one);
-	initSectionTwo(&two);
-	initSectionThr(&three);
+	struct CTestSection* pSections[3];
+	pSections[0] = initSectionOne();
+	pSections[1] = initSectionTwo();
+	pSections[2] = initSectionThr();
 
 	struct CTestRunner runner1 = {};
 	initTests(&runner1);
-	addSectionToTest(&runner1, &one);
-	addSectionToTest(&runner1, &two);
+	addSectionToTest(&runner1, pSections[0]);
+	addSectionToTest(&runner1, pSections[1]);
 
 	runTests(&runner1, SHOW_EVERYTHING);
 	if (didTestsPass(&runner1))
@@ -108,7 +114,7 @@ int cTestRunner()
 
 	struct CTestRunner runner2 = {};
 	initTests(&runner2);
-	addSectionToTest(&runner2, &three);
+	addSectionToTest(&runner2, pSections[2]);
 
 	runTests(&runner2, SHOW_EVERYTHING);
 	if (!didTestsPass(&runner2))

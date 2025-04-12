@@ -39,67 +39,72 @@ void scenario4(struct CTestScenario* pScenario)
 	expectToEqualFloat(pScenario, "1", 3.14f, 3.14f);
 }
 
-void initSection1(struct CTestSection* pSection)
+struct CTestSection* initSection1()
 {
-	initSection(pSection, "Section One");
+	struct CTestSection* pSection = initSection("Section One");
 	addScenarioToSection(pSection, "Test 1", &scenario1);
 	addScenarioToSection(pSection, "Test 2", &scenario2);
+
+	return pSection;
 }
 
-void initSection2(struct CTestSection* pSection)
+struct CTestSection* initSection2()
 {
-	initSection(pSection, "Section Two");
+	struct CTestSection* pSection = initSection("Section Two");
 	addScenarioToSection(pSection, "Test 3", &scenario3);
+
+	return pSection;
 }
 
-void initSection3(struct CTestSection* pSection)
+struct CTestSection* initSection3()
 {
-	initSection(pSection, "Section Three");
+	struct CTestSection* pSection = initSection("Section Three");
 	addScenarioToSection(pSection, "Test 4", &scenario4);
+
+	return pSection;
 }
 
 int cTestSection()
 {
-	struct CTestSection* pSections = (struct CTestSection*)malloc(sizeof(struct CTestSection) * 3);
-	memset(pSections, 0, sizeof(struct CTestSection) * 3);
+	struct CTestSection* pSections[3];
+	pSections[0] = initSection1();
+	pSections[1] = initSection2();
+	pSections[2] = initSection3();
 
-	initSection1(&pSections[0]);
-	initSection2(&pSections[1]);
-	initSection3(&pSections[2]);
+	printSection(pSections[0], SHOW_EVERYTHING);
+	printSection(pSections[1], SHOW_EVERYTHING);
+	printSection(pSections[2], SHOW_EVERYTHING);
 
-	printSection(&pSections[0], SHOW_EVERYTHING);
-	printSection(&pSections[1], SHOW_EVERYTHING);
-	printSection(&pSections[2], SHOW_EVERYTHING);
+	runSection(pSections[0], SHOW_EVERYTHING);
+	runSection(pSections[1], SHOW_EVERYTHING);
+	runSection(pSections[2], SHOW_EVERYTHING);
 
-	runSection(&pSections[0], SHOW_EVERYTHING);
-	runSection(&pSections[1], SHOW_EVERYTHING);
-	runSection(&pSections[2], SHOW_EVERYTHING);
+	printSection(pSections[0], SHOW_EVERYTHING);
+	printSection(pSections[1], SHOW_EVERYTHING);
+	printSection(pSections[2], SHOW_EVERYTHING);
 
-	printSection(&pSections[0], SHOW_EVERYTHING);
-	printSection(&pSections[1], SHOW_EVERYTHING);
-	printSection(&pSections[2], SHOW_EVERYTHING);
-
-	if (didSectionPass(&pSections[0]))
+	if (didSectionPass(pSections[0]))
 	{
 		printf("Section one should not have passed\n");
 		return 0;
 	}
-	else if (didSectionPass(&pSections[1]))
+	else if (didSectionPass(pSections[1]))
 	{
 		printf("Section two should not have passed\n");
 		return 0;
 	}
-	else if (!didSectionPass(&pSections[2]))
+	else if (!didSectionPass(pSections[2]))
 	{
 		printf("Section three should have passed\n");
 		return 0;
 	}
 
-	freeSection(&pSections[0]);
-	freeSection(&pSections[1]);
-	freeSection(&pSections[2]);
+	freeSection(pSections[0]);
+	freeSection(pSections[1]);
+	freeSection(pSections[2]);
+	free(pSections[0]);
+	free(pSections[1]);
+	free(pSections[2]);
 
-	memset(pSections, 0, sizeof(struct CTestSection) * 3);
-	free(pSections);
 	return 1;
 }
