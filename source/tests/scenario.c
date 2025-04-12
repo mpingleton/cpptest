@@ -84,14 +84,14 @@ int cTestScenario()
 		printf("Third result not present\n");
 		return 0;
 	}
-	else if (pE != pScenario1->pLastResult)
-	{
-		printf("Last result mismatch\n");
-		return 0;
-	}
 	else if (pE->pNext != 0)
 	{
 		printf("A fourth result is present where it shouldn't be\n");
+		return 0;
+	}
+	else if (pE != pScenario1->pLastResult)
+	{
+		printf("Last result mismatch\n");
 		return 0;
 	}
 
@@ -133,11 +133,6 @@ int cTestScenario()
 	if (pE == 0)
 	{
 		printf("Third result not present\n");
-		return 0;
-	}
-	else if (pE != pScenario2->pLastResult)
-	{
-		printf("Last result mismatch\n");
 		return 0;
 	}
 	else if (pE->pNext == 0)
