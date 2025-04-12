@@ -102,8 +102,11 @@ public:
 	{
 		sleep(3);
 
-		expectToEqual("", "1", 3.14f, 3.14f);
-		expectToEqual("", "2", 1.4, 1.4);
+		for (int i = 0; i < 10000; i++)
+		{
+			expectToEqual("", "1", 3.14f, 3.14f);
+			expectToEqual("", "2", 1.4, 1.4);
+		}
 	}
 };
 

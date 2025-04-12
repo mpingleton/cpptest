@@ -61,35 +61,43 @@ void yetotherScenario1(struct CTestScenario* pScenario)
 {
 	sleep(3);
 
-	expectToEqualFloat(pScenario, "1", 3.14f, 3.14f);
-	expectToEqualDouble(pScenario, "2", 1.4, 1.4);
+	for (int i = 0; i < 10000; i++)
+	{
+		expectToEqualFloat(pScenario, "1", 3.14f, 3.14f);
+		expectToEqualDouble(pScenario, "2", 1.4, 1.4);
+	}
 }
 
 void initSectionOne(struct CTestSection* pSection)
 {
-	initSection(pSection, "Section One", 1);
-	initScenario(&pSection->pScenarios[0], "Test 1", &someScenario1);
+	initSection(pSection, "Section One");
+	addScenarioToSection(pSection, "Test 1", &someScenario1);
 }
 
 void initSectionTwo(struct CTestSection* pSection)
 {
-	initSection(pSection, "Section Two", 1);
-	initScenario(&pSection->pScenarios[0], "Test 2", &anotherScenario1);
+	initSection(pSection, "Section Two");
+	addScenarioToSection(pSection, "Test 2", &anotherScenario1);
 }
 
 void initSectionThr(struct CTestSection* pSection)
 {
-	initSection(pSection, "Section Three", 2);
-	initScenario(&pSection->pScenarios[0], "Test 3", &someotherScenario1);
-	initScenario(&pSection->pScenarios[1], "Test 4", &yetotherScenario1);
+	initSection(pSection, "Section Three");
+	addScenarioToSection(pSection, "Test 3", &someotherScenario1);
+	addScenarioToSection(pSection, "Test 4", &yetotherScenario1);
 }
 
 int cTestRunner()
 {
+	struct CTestSection one, two, three;
+	initSectionOne(&one);
+	initSectionTwo(&two);
+	initSectionThr(&three);
+
 	struct CTestRunner runner1 = {};
-	initTests(&runner1, 2);
-	initSectionOne(&runner1.pSection[0]);
-	initSectionTwo(&runner1.pSection[1]);
+	initTests(&runner1);
+	addSectionToTest(&runner1, &one);
+	addSectionToTest(&runner1, &two);
 
 	runTests(&runner1, SHOW_EVERYTHING);
 	if (didTestsPass(&runner1))
@@ -99,8 +107,8 @@ int cTestRunner()
 	}
 
 	struct CTestRunner runner2 = {};
-	initTests(&runner2, 1);
-	initSectionThr(&runner2.pSection[0]);
+	initTests(&runner2);
+	addSectionToTest(&runner2, &three);
 
 	runTests(&runner2, SHOW_EVERYTHING);
 	if (!didTestsPass(&runner2))

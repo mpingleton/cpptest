@@ -120,7 +120,8 @@ struct CTestRunner
 };
 
 // runner.c
-void initTests(struct CTestRunner* pRunner, int numberSections);
+void initTests(struct CTestRunner* pRunner);
+void addSectionToTest(struct CTestRunner* pRunner, struct CTestSection* pSection);
 void freeTests(struct CTestRunner* pRunner);
 void runTests(struct CTestRunner* pRunner, char show);
 char didTestsPass(struct CTestRunner* pRunner);
