@@ -31,6 +31,8 @@ namespace cpptest
 		bool passing;
 
 	public:
+		ExpectationResult* pNext;
+
 		ExpectationResult();
 		virtual ~ExpectationResult();
 
@@ -91,7 +93,8 @@ namespace cpptest
 	{
 		char status;
 		string desc;
-		vector<ExpectationResult*> results;
+		ExpectationResult* pFirstResult;
+		ExpectationResult* pLastResult;
 
 	protected:
 		virtual void test();
@@ -112,6 +115,7 @@ namespace cpptest
 		bool expectToEqual(string parentId, string inputId, float actual, float expected);
 		bool expectToEqual(string parentId, string inputId, double actual, double expected);
 
+		void addResult(ExpectationResult result);
 		void run(char show);
 		bool didPass();
 		void print(char show);

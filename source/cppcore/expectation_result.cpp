@@ -35,6 +35,7 @@ namespace cpptest
 		id = "";
 		comparison = EXPECTATION_EQUAL;
 		passing = false;
+		pNext = 0;
 	}
 
 	ExpectationResult::~ExpectationResult()
@@ -43,6 +44,7 @@ namespace cpptest
 		id = "";
 		comparison = 0;
 		passing = false;
+		pNext = 0;
 	}
 
 	string ExpectationResult::getId()
