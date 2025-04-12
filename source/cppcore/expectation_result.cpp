@@ -42,7 +42,7 @@ namespace cpptest
 	ExpectationResult::ExpectationResult(string inputId, char c, bool pass)
 	{
 		index = 0;
-		id = "";
+		id = inputId;
 		comparison = c;
 		passing = pass;
 		pNext = 0;
