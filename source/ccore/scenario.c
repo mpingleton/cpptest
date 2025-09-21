@@ -78,7 +78,12 @@ void runScenario(struct CTestScenario* pScenario, char show)
 
 		if (show)
 		{
-			if (show > SHOW_NOTHING) printScenario(pScenario, show, "");
+			if (show > SHOW_NOTHING)
+			{
+				printScenario(pScenario, show, "");
+				printf("\t\t\t\t\t\t\t\t");
+			}
+
 			fflush(0);
 		}
 

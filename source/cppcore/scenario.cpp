@@ -98,7 +98,12 @@ namespace cpptest
 
 			if (show)
 			{
-				if (show > SHOW_NOTHING) print(show, "");
+				if (show > SHOW_NOTHING)
+				{
+					print(show, "");
+					cout << "\t\t\t\t\t\t\t\t";
+				}
+
 				fflush(0);
 			}
 

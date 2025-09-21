@@ -107,7 +107,7 @@ void runSection(struct CTestSection* pSection, char show)
 
 		runScenario(&pSection->pScenarios[i], show);
 		
-		if (show > SHOW_NOTHING) printf("\x1b[1F");
+		if (show > SHOW_NOTHING) printf("\x1b[2K\x1b[1F");
 	}
 
 	for (int i = 0; i < pSection->numberSubsections; i++)
