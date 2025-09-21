@@ -98,15 +98,23 @@ namespace cpptest
 		else if (didPass())
 			cout << "[  \x1b[32mOK\x1b[0m  ]";
 		else
-			cout << "[ \x1b[31mFAIL\x1b[0m ]";
+			cout << "[ \x1b[91mFAIL\x1b[0m ]";
 
 		if (!desc.empty())
-			cout << "\t" << desc << endl;
+			cout << " " << desc << endl;
 		else
 			cout << endl;
 
 		for (int i = 0; i < scenarios.size(); i++)
-			scenarios[i]->print(show);
+		{
+			if (i == scenarios.size() - 1)
+			{
+				cout << " \x1b[30m\\-\x1b[0m ";
+				scenarios[i]->print(show, "");
+			}
+			else
+				scenarios[i]->print(show, " \x1b[30m|-\x1b[0m");
+		}
 
 		for (int i = 0; i < subsections.size(); i++)
 			subsections[i]->print(show);

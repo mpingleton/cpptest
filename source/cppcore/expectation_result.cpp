@@ -69,11 +69,12 @@ namespace cpptest
 
 	void ExpectationResult::print()
 	{
-		cout << '\t';
+		cout << ' ';
+
 		if (didPass())
 			cout << "[  \x1b[32mOK\x1b[0m  ]";
 		else
-			cout << "[ \x1b[31mFAIL\x1b[0m ]";
+			cout << "[ \x1b[91mFAIL\x1b[0m ]";
 
 		cout << " (" << id << " - " << to_string(index) << ")\t";
 	}

@@ -140,15 +140,23 @@ void printSection(struct CTestSection* pSection, char show)
 	else if (didSectionPass(pSection))
 		printf("[  \x1b[32mOK\x1b[0m  ]");
 	else
-		printf("[ \x1b[31mFAIL\x1b[0m ]");
+		printf("[ \x1b[91mFAIL\x1b[0m ]");
 
 	if (pSection->pDesc)
-		printf("\t%s\n", pSection->pDesc);
+		printf(" %s\n", pSection->pDesc);
 	else
 		printf("\n");
 
 	for (int i = 0; i < pSection->numberScenarios; i++)
-		printScenario(&pSection->pScenarios[i], show);
+	{
+		if (i == pSection->numberScenarios - 1)
+		{
+			printf(" \x1b[30m\\-\x1b[0m ");
+			printScenario(&pSection->pScenarios[i], show, "");
+		}
+		else	
+			printScenario(&pSection->pScenarios[i], show, " \x1b[30m|-\x1b[0m ");
+	}
 
 	for (int i = 0; i < pSection->numberSubsections; i++)
 		printSection(pSection->pSubsections[i], show);

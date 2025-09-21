@@ -121,7 +121,7 @@ namespace cpptest
 		void addResult(ExpectationResult* pResult);
 		void run(char show);
 		bool didPass();
-		void print(char show);
+		void print(char show, const string& startLine);
 	};
 
 	class Section

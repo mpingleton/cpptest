@@ -101,7 +101,7 @@ bool cppTestScenario()
 		cout << "Scenario is passing when it shouldn't" << endl;
 		return false;
 	}
-	pScenario1->print(SHOW_EVERYTHING);
+	pScenario1->print(SHOW_EVERYTHING, "");
 	delete pScenario1;
 
 	Scenario* pScenario2 = new AnotherScenario();
@@ -116,7 +116,7 @@ bool cppTestScenario()
 		cout << "Scenario failed when it should have passed" << endl;
 		return false;
 	}
-	pScenario2->print(SHOW_EVERYTHING);
+	pScenario2->print(SHOW_EVERYTHING, "");
 	delete pScenario2;
 
 	Scenario* pScenario3 = new OkayOneMoreWontHurt();
@@ -131,7 +131,7 @@ bool cppTestScenario()
 		cout << "Scenario passed when it should have failed" << endl;
 		return false;
 	}
-	pScenario3->print(SHOW_EVERYTHING);
+	pScenario3->print(SHOW_EVERYTHING, "");
 	delete pScenario3;
 
 	return true;

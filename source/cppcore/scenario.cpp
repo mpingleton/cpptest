@@ -98,7 +98,7 @@ namespace cpptest
 
 			if (show)
 			{
-				if (show > SHOW_NOTHING) print(show);
+				if (show > SHOW_NOTHING) print(show, "");
 				fflush(0);
 			}
 
@@ -116,7 +116,7 @@ namespace cpptest
 			if (status == SCENARIO_STATUS_RUNNING)
 				status = SCENARIO_STATUS_COMPLETE;
 
-			if (show > SHOW_NOTHING) print(show);
+			if (show > SHOW_NOTHING) print(show, "");
 		}
 	}
 
@@ -145,22 +145,23 @@ namespace cpptest
 		return false;
 	}
 
-	void Scenario::print(char show)
+	void Scenario::print(char show, const string& startLine)
 	{
-		cout << " ";
+		cout << startLine;
+
 		if (status == SCENARIO_STATUS_RUNNING)
-			cout << "[ \x1b[34m>>>>\x1b[0m ]";
+			cout << "[ \x1b[94m>>>>\x1b[0m ]";
 		else if (status == SCENARIO_STATUS_CANCELED)
-			cout << "[\x1b[31mCANCEL\x1b[0m]";
+			cout << "[\x1b[91mCANCEL\x1b[0m]";
 		else if (status == SCENARIO_STATUS_COMPLETE)
 		{
 			if (didPass()) cout << "[  \x1b[32mOK\x1b[0m  ]";
-			else cout << "[ \x1b[31mFAIL\x1b[0m ]";
+			else cout << "[ \x1b[91mFAIL\x1b[0m ]";
 		}
 		else
 			cout << "[  --  ]";
 
-		cout << "\t" << desc;
+		cout << " " << desc;
 
 		if (status == SCENARIO_STATUS_RUNNING)
 			cout << "\r";
@@ -173,6 +174,12 @@ namespace cpptest
 				ExpectationResult* pR = pFirstResult;
 				while (pR)
 				{
+					cout << startLine;
+					if (pR->pNext || didExc)
+						cout << "   \x1b[90m|---\x1b[0m";
+					else
+						cout << "   \x1b[90m\\---\x1b[0m";
+
 					pR->print();
 					pR = pR->pNext;
 				}
@@ -182,6 +189,12 @@ namespace cpptest
 				ExpectationResult* pR = pFirstResult;
 				while (pR)
 				{
+					cout << startLine;
+					if (pR->pNext && !didExc)
+						cout << "   \x1b[90m|---\x1b[0m";
+					else
+						cout << "   \x1b[90m\\---\x1b[0m";
+
 					if (!pR->didPass())
 						pR->print();
 
@@ -191,8 +204,10 @@ namespace cpptest
 
 			if (didExc && show >= SHOW_ONLY_FAILING)
 			{
-				cout << "\t[ \x1b[31mFAIL\x1b[0m ]";
-				cout << " Threw Exception:\t\x1b[31m" << strExc;
+				cout << startLine;
+				cout << "   \x1b[90m\\---\x1b[0m";
+				cout << " [ \x1b[91mFAIL\x1b[0m ]";
+				cout << " Threw Exception:\t\x1b[91m" << strExc;
 				cout << "\x1b[0m" << endl;
 			}
 		}

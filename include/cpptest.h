@@ -85,7 +85,7 @@ void runScenario(struct CTestScenario* pScenario, char show);
 void cancelScenario(struct CTestScenario* pScenario);
 char isScenarioCanceled(struct CTestScenario* pScenario);
 char didScenarioPass(struct CTestScenario* pScenario);
-void printScenario(struct CTestScenario* pScenario, char show);
+void printScenario(struct CTestScenario* pScenario, char show, char* pStartLine);
 
 // expectation.c
 char* expectId(char* pBuffer, size_t maxLen, const char* pParentId, const char* pChildId);

@@ -59,12 +59,12 @@ char didExpectationResultPass(struct CTestExpectationResult* pResult)
 
 void printExpectationResult(struct CTestExpectationResult* pResult)
 {
-	putchar('\t');
+	putchar(' ');
 
 	if (didExpectationResultPass(pResult))
 		printf("[  \x1b[32mOK\x1b[0m  ]");
 	else
-		printf("[ \x1b[31mFAIL\x1b[0m ]");
+		printf("[ \x1b[91mFAIL\x1b[0m ]");
 
 	printf(" (%s - %i)\t", pResult->pId, pResult->index);
 
