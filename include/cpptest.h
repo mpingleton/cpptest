@@ -127,4 +127,7 @@ void runTests(struct CTestRunner* pRunner, char show);
 char didTestsPass(struct CTestRunner* pRunner);
 void printTests(struct CTestRunner* pRunner, char show);
 
+// progress.c
+void printProgress(const char* pCaption, int numerator, int denominator);
+
 #endif

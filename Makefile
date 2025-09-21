@@ -40,8 +40,8 @@ uninstall:
 	rm /usr/local/lib/libctest.a
 	rm /usr/local/lib/libcpptest.a
 
-binary/ccore.a: objects/ccore/expectation_result.o objects/ccore/scenario.o objects/ccore/expectation.o objects/ccore/section.o objects/ccore/runner.o
-	ar rc binary/ccore.a objects/ccore/expectation_result.o objects/ccore/scenario.o objects/ccore/expectation.o objects/ccore/section.o objects/ccore/runner.o
+binary/ccore.a: objects/ccore/expectation_result.o objects/ccore/scenario.o objects/ccore/expectation.o objects/ccore/section.o objects/ccore/runner.o objects/ccore/progress.o
+	ar rc binary/ccore.a objects/ccore/expectation_result.o objects/ccore/scenario.o objects/ccore/expectation.o objects/ccore/section.o objects/ccore/runner.o objects/ccore/progress.o
 
 objects/ccore/expectation_result.o: source/ccore/expectation_result.c
 	clang source/ccore/expectation_result.c -c $(CFLAGS) -o objects/ccore/expectation_result.o
@@ -58,8 +58,11 @@ objects/ccore/section.o: source/ccore/section.c
 objects/ccore/runner.o: source/ccore/runner.c
 	clang source/ccore/runner.c -c $(CFLAGS) -o objects/ccore/runner.o
 
-binary/cppcore.a: objects/cppcore/expectation_result.o objects/cppcore/scenario.o objects/cppcore/expectation.o objects/cppcore/section.o objects/cppcore/runner.o
-	ar rc binary/cppcore.a objects/cppcore/expectation_result.o objects/cppcore/scenario.o objects/cppcore/expectation.o objects/cppcore/section.o objects/cppcore/runner.o
+objects/ccore/progress.o: source/ccore/progress.c
+	clang source/ccore/progress.c -c $(CFLAGS) -o objects/ccore/progress.o
+
+binary/cppcore.a: objects/cppcore/expectation_result.o objects/cppcore/scenario.o objects/cppcore/expectation.o objects/cppcore/section.o objects/cppcore/runner.o objects/cppcore/progress.o
+	ar rc binary/cppcore.a objects/cppcore/expectation_result.o objects/cppcore/scenario.o objects/cppcore/expectation.o objects/cppcore/section.o objects/cppcore/runner.o objects/cppcore/progress.o
 
 objects/cppcore/expectation_result.o: source/cppcore/expectation_result.cpp
 	clang++ source/cppcore/expectation_result.cpp -c $(CPPFLAGS) -o objects/cppcore/expectation_result.o
@@ -75,6 +78,9 @@ objects/cppcore/section.o: source/cppcore/section.cpp
 
 objects/cppcore/runner.o: source/cppcore/runner.cpp
 	clang++ source/cppcore/runner.cpp -c $(CPPFLAGS) -o objects/cppcore/runner.o
+
+objects/cppcore/progress.o: source/cppcore/progress.cpp
+	clang++ source/cppcore/progress.cpp -c $(CPPFLAGS) -o objects/cppcore/progress.o
 
 binary/ctests.a: objects/ctests/expectation_result.o objects/ctests/scenario.o objects/ctests/section.o objects/ctests/runner.o
 	ar rc binary/ctests.a objects/ctests/expectation_result.o objects/ctests/scenario.o objects/ctests/section.o objects/ctests/runner.o

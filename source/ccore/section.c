@@ -97,40 +97,12 @@ void runSection(struct CTestSection* pSection, char show)
 {
 	for (int i = 0; i < pSection->numberScenarios; i++)
 	{
-		char prog[101] = {};
 		if (show > SHOW_NOTHING)
 		{
 			printf("\x1b[2K");
-			int pn = i * 100 / pSection->numberScenarios;
+			printProgress("Running Section", i + 1, pSection->numberScenarios);
 
-			char progStr[100] = {};
-			sprintf(progStr, "<Running Scenario \x1b[1m%i/%i\x1b[0m>", i + 1, pSection->numberScenarios);
-
-			size_t progLen = strlen(progStr);
-			if (progLen > 0)
-			{
-				int progStrS = 50 - progLen / 2;
-				for (int pi = 0; pi < progLen; pi++)
-					prog[progStrS + pi] = progStr[pi];
-			}
-			
-			for (int pi = 0; pi < 100; pi++)
-			{
-				if (prog[pi] == 0)
-				{
-					if ((pi < 90 && i == pSection->numberScenarios - 1) || pi < pn)
-						prog[pi] = '=';
-					else
-						prog[pi] = ' ';
-				}
-				else if (prog[pi] == ' ')
-				{
-					if ((pi < 90 && i == pSection->numberScenarios - 1) || pi < pn)
-						prog[pi] = '-';
-				}
-			}
-
-			printf("[%s]\n\x1b[2K", prog);
+			printf("\n\x1b[2K");
 		}
 
 		runScenario(&pSection->pScenarios[i], show);

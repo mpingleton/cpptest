@@ -157,6 +157,8 @@ namespace cpptest
 		bool didPass();
 		void print(char show);
 	};
+
+	void coutProgress(const string& caption, int numerator, int denominator);
 };
 
 #endif
