@@ -96,9 +96,9 @@ namespace cpptest
 		if (scenarios.empty() && subsections.empty())
 			cout << "[      ]";
 		else if (didPass())
-			cout << "[  OK  ]";
+			cout << "[  \x1b[32mOK\x1b[0m  ]";
 		else
-			cout << "[ FAIL ]";
+			cout << "[ \x1b[31mFAIL\x1b[0m ]";
 
 		if (!desc.empty())
 			cout << "\t" << desc << endl;

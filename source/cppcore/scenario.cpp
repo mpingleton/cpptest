@@ -134,13 +134,13 @@ namespace cpptest
 	{
 		cout << " ";
 		if (status == SCENARIO_STATUS_RUNNING)
-			cout << "[ >>>> ]";
+			cout << "[ \x1b[34m>>>>\x1b[0m ]";
 		else if (status == SCENARIO_STATUS_CANCELED)
-			cout << "[CANCEL]";
+			cout << "[\x1b[31mCANCEL\x1b[0m]";
 		else if (status == SCENARIO_STATUS_COMPLETE)
 		{
-			if (didPass()) cout << "[  OK  ]";
-			else cout << "[ FAIL ]";
+			if (didPass()) cout << "[  \x1b[32mOK\x1b[0m  ]";
+			else cout << "[ \x1b[31mFAIL\x1b[0m ]";
 		}
 		else
 			cout << "[  --  ]";
