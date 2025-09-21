@@ -101,6 +101,7 @@ bool cppTestScenario()
 		cout << "Scenario is passing when it shouldn't" << endl;
 		return false;
 	}
+	cout << "\r";
 	pScenario1->print(SHOW_EVERYTHING, "");
 	delete pScenario1;
 
@@ -116,6 +117,7 @@ bool cppTestScenario()
 		cout << "Scenario failed when it should have passed" << endl;
 		return false;
 	}
+	cout << "\r";
 	pScenario2->print(SHOW_EVERYTHING, "");
 	delete pScenario2;
 
@@ -131,6 +133,7 @@ bool cppTestScenario()
 		cout << "Scenario passed when it should have failed" << endl;
 		return false;
 	}
+	cout << "\r";
 	pScenario3->print(SHOW_EVERYTHING, "");
 	delete pScenario3;
 

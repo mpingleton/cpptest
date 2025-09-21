@@ -95,6 +95,7 @@ int cTestScenario()
 		return 0;
 	}
 
+	printf("\r");
 	printScenario(pScenario1, SHOW_EVERYTHING, "");
 	freeScenario(pScenario1);
 	free(pScenario1);
@@ -141,6 +142,7 @@ int cTestScenario()
 		return 0;
 	}
 
+	printf("\r");
 	printScenario(pScenario2, SHOW_EVERYTHING, "");
 	freeScenario(pScenario2);
 	free(pScenario2);
