@@ -121,5 +121,7 @@ namespace cpptest
 
 		for (int i = 0; i < subsections.size(); i++)
 			subsections[i]->print(show);
+
+		cout << endl;
 	}
 };

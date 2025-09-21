@@ -163,4 +163,6 @@ void printSection(struct CTestSection* pSection, char show)
 
 	for (int i = 0; i < pSection->numberSubsections; i++)
 		printSection(pSection->pSubsections[i], show);
+
+	putchar('\n');
 }
