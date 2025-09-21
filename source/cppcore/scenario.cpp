@@ -21,6 +21,7 @@ namespace cpptest
 		desc = "";
 		pFirstResult = 0;
 		pLastResult = 0;
+		didExc = false;
 	}
 
 	Scenario::Scenario(string inputDesc)
@@ -29,6 +30,7 @@ namespace cpptest
 		desc = inputDesc;
 		pFirstResult = 0;
 		pLastResult = 0;
+		didExc = false;
 	}
 
 	Scenario::~Scenario()
@@ -46,6 +48,7 @@ namespace cpptest
 
 		pFirstResult = 0;
 		pLastResult = 0;
+		didExc = false;
 	}
 
 	void Scenario::test()
@@ -99,7 +102,17 @@ namespace cpptest
 				fflush(0);
 			}
 
-			test();
+			try
+			{
+				test();
+			}
+			catch (const exception& e)
+			{
+				cancel();
+				didExc = true;
+				strExc = e.what();
+			}
+
 			if (status == SCENARIO_STATUS_RUNNING)
 				status = SCENARIO_STATUS_COMPLETE;
 
@@ -111,6 +124,8 @@ namespace cpptest
 	{
 		if (status == SCENARIO_STATUS_COMPLETE)
 		{
+			if (didExc) return false;
+
 			int numberPassed = 0, numberFailed = 0;
 			ExpectationResult* pR = pFirstResult;
 			while (pR != 0)
@@ -172,6 +187,13 @@ namespace cpptest
 
 					pR = pR->pNext;
 				}
+			}
+
+			if (didExc && show >= SHOW_ONLY_FAILING)
+			{
+				cout << "\t[ \x1b[31mFAIL\x1b[0m ]";
+				cout << " Threw Exception:\t\x1b[31m" << strExc;
+				cout << "\x1b[0m" << endl;
 			}
 		}
 	}

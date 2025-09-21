@@ -123,10 +123,33 @@ public:
 	{
 		sleep(2);
 
-		for (int i = 0; i < 40000; i++)
+		for (int i = 0; i < 10000; i++)
 		{
 			expectToEqual("", "1", 3.14f, 3.14f);
 			expectToEqual("", "2", 1.4, 1.4);
+		}
+	}
+};
+
+class FineOneMoreScenario2 : public Scenario
+{
+public:
+	FineOneMoreScenario2() : Scenario("Test 6")
+	{}
+
+	~FineOneMoreScenario2()
+	{}
+
+	void test()
+	{
+		sleep(2);
+
+		for (int i = 0; i < 10000; i++)
+		{
+			expectToEqual("", "1", 3.14f, 3.14f);
+			expectToEqual("", "2", 1.4, 1.4);
+
+			if (i == 4000) throw runtime_error("This is a test exception which should be caught by the base class Scenario at i = 4000");
 		}
 	}
 };
@@ -149,12 +172,21 @@ public:
 	}
 };
 
-class SectionFour : public Section
+class SectionFour1 : public Section
 {
 public:
-	SectionFour() : Section("Section Four")
+	SectionFour1() : Section("Section Four")
 	{
 		add(new FineOneMoreScenario1());
+	}
+};
+
+class SectionFive1 : public Section
+{
+public:
+	SectionFive1() : Section("Section Five")
+	{
+		add(new FineOneMoreScenario2());
 	}
 };
 
@@ -165,7 +197,7 @@ public:
 	{
 		add(new SomeOtherScenario1());
 		add(new YetOtherScenario1());
-		add(new SectionFour());
+		add(new SectionFour1());
 	}
 };
 
@@ -173,9 +205,10 @@ bool cppTestRunner()
 {
 	Runner runner1 = Runner();
 	runner1.add(new SectionOne1());
-	runner1.add(new SectionTwo1());
+	runner1.add(new SectionFive1());
+	runner1.add(new SectionTwo1());	
 
-	runner1.run(true);
+	runner1.run(SHOW_EVERYTHING);
 	if (runner1.didPass())
 	{
 		cout << "Tests should not have passed" << endl;
@@ -185,7 +218,7 @@ bool cppTestRunner()
 	Runner runner2 = Runner();
 	runner2.add(new SectionThr1());
 
-	runner2.run(true);
+	runner2.run(SHOW_EVERYTHING);
 	if (!runner2.didPass())
 	{
 		cout << "Tests should have passed" << endl;

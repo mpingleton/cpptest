@@ -66,6 +66,27 @@ public:
 	}
 };
 
+class OkayOneMoreWontHurt : public Scenario
+{
+public:
+	OkayOneMoreWontHurt() : Scenario("Test 3")
+	{}
+
+	~OkayOneMoreWontHurt()
+	{}
+
+	void test()
+	{
+		expectToEqual("", "1", 10, 10);
+		expectToEqual("", "1", 2, 2);
+		expectToEqual("", "1", 3.14f, 3.14f);
+
+		if (isCanceled()) return;
+
+		throw runtime_error("This is a test exception which should be caught by the base class Scenario");
+	}
+};
+
 bool cppTestScenario()
 {
 	Scenario* pScenario1 = new SomeScenario();
@@ -97,6 +118,21 @@ bool cppTestScenario()
 	}
 	pScenario2->print(SHOW_EVERYTHING);
 	delete pScenario2;
+
+	Scenario* pScenario3 = new OkayOneMoreWontHurt();
+	pScenario3->run(SHOW_EVERYTHING);
+	if (!pScenario3->isCanceled())
+	{
+		cout << "Scenario should have been canceled" << endl;
+		return false;
+	}
+	else if (pScenario3->didPass())
+	{
+		cout << "Scenario passed when it should have failed" << endl;
+		return false;
+	}
+	pScenario3->print(SHOW_EVERYTHING);
+	delete pScenario3;
 
 	return true;
 }

@@ -96,6 +96,8 @@ namespace cpptest
 		string desc;
 		ExpectationResult* pFirstResult;
 		ExpectationResult* pLastResult;
+		bool didExc;
+		string strExc;
 
 	protected:
 		virtual void test();
