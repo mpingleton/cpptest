@@ -52,6 +52,8 @@ void freeTests(struct CTestRunner* pRunner)
 
 void runTests(struct CTestRunner* pRunner, char show)
 {
+	if (pRunner->numberSections == 0) return;
+
 	for (int i = 0; i < pRunner->numberSections; i++)
 	{
 		struct CTestSection* pS = pRunner->pSection[i];

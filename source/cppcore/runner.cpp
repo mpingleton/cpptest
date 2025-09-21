@@ -33,6 +33,8 @@ namespace cpptest
 
 	void Runner::run(char show)
 	{
+		if (sections.size() == 0) return;
+
 		for (int i = 0; i < sections.size(); i++)
 		{
 			Section& s = *sections.at(i);
