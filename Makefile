@@ -1,5 +1,5 @@
 CFLAGS = -Wall
-CPPFLAGS = -Wall
+CPPFLAGS = -Wall -std=c++23
 
 all: binary/ctests binary/cpptests binary/ccore.a binary/cppcore.a
 
