@@ -22,7 +22,7 @@ void cpptest::coutProgress(const string& caption, int numerator, int denominator
 	int pn = (numerator * PROGRESS_WIDTH) / denominator;
 
 	char progStr[PROGRESS_WIDTH] = {};
-	sprintf(progStr, "<%s \x1b[1m%i/%i\x1b[0m>", caption.c_str(), numerator, denominator);
+	snprintf(progStr, PROGRESS_WIDTH, "<%s \x1b[1m%i/%i\x1b[0m>", caption.c_str(), numerator, denominator);
 
 	size_t progLen = strlen(progStr);
 	if (progLen > 0)

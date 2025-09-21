@@ -22,7 +22,7 @@ void printProgress(const char* pCaption, int numerator, int denominator)
 	int pn = (numerator * PROGRESS_WIDTH) / denominator;
 
 	char progStr[PROGRESS_WIDTH] = {};
-	sprintf(progStr, "<%s \x1b[1m%i/%i\x1b[0m>", pCaption, numerator, denominator);
+	snprintf(progStr, PROGRESS_WIDTH, "<%s \x1b[1m%i/%i\x1b[0m>", pCaption, numerator, denominator);
 
 	size_t progLen = strlen(progStr);
 	if (progLen > 0)
