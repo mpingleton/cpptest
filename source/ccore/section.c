@@ -138,9 +138,9 @@ void printSection(struct CTestSection* pSection, char show)
 	if (pSection->numberScenarios == 0 && pSection->numberSubsections == 0)
 		printf("[      ]");
 	else if (didSectionPass(pSection))
-		printf("[  OK  ]");
+		printf("[  \x1b[32mOK\x1b[0m  ]");
 	else
-		printf("[ FAIL ]");
+		printf("[ \x1b[31mFAIL\x1b[0m ]");
 
 	if (pSection->pDesc)
 		printf("\t%s\n", pSection->pDesc);

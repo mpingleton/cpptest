@@ -130,13 +130,13 @@ void printScenario(struct CTestScenario* pScenario, char show)
 {
 	putchar(' ');
 	if (pScenario->status == SCENARIO_STATUS_RUNNING)
-		printf("[ >>>> ]");
+		printf("[ \x1b[34m>>>>\x1b[0m ]");
 	else if (pScenario->status == SCENARIO_STATUS_CANCELED)
-		printf("[CANCEL]");
+		printf("[\x1b[31mCANCEL\x1b[0m]");
 	else if (pScenario->status == SCENARIO_STATUS_COMPLETE)
 	{
-		if (didScenarioPass(pScenario)) printf("[  OK  ]");
-		else printf("[ FAIL ]");
+		if (didScenarioPass(pScenario)) printf("[  \x1b[32mOK\x1b[0m  ]");
+		else printf("[ \x1b[31mFAIL\x1b[0m ]");
 	}
 	else
 		printf("[  --  ]");
