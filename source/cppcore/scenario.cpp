@@ -115,8 +115,6 @@ namespace cpptest
 
 			if (status == SCENARIO_STATUS_RUNNING)
 				status = SCENARIO_STATUS_COMPLETE;
-
-			if (show > SHOW_NOTHING) print(show, "");
 		}
 	}
 
@@ -148,22 +146,20 @@ namespace cpptest
 	void Scenario::print(char show, const string& startLine)
 	{
 		if (status == SCENARIO_STATUS_RUNNING)
-			cout << "[ \x1b[94m>>>>\x1b[0m ]";
+			cout << "[ \x1b[94m\x1b[1m>>>>\x1b[0m ]";
 		else if (status == SCENARIO_STATUS_CANCELED)
-			cout << "[\x1b[91mCANCEL\x1b[0m]";
+			cout << "[\x1b[91m\x1b[1mCANCEL\x1b[0m]";
 		else if (status == SCENARIO_STATUS_COMPLETE)
 		{
-			if (didPass()) cout << "[  \x1b[32mOK\x1b[0m  ]";
-			else cout << "[ \x1b[91mFAIL\x1b[0m ]";
+			if (didPass()) cout << "[  \x1b[32m\x1b[1mOK\x1b[0m  ]";
+			else cout << "[ \x1b[91m\x1b[1mFAIL\x1b[0m ]";
 		}
 		else
 			cout << "[  --  ]";
 
 		cout << " " << desc;
 
-		if (status == SCENARIO_STATUS_RUNNING)
-			cout << "\r";
-		else
+		if (status != SCENARIO_STATUS_RUNNING)
 		{
 			cout << endl;
 
@@ -187,14 +183,16 @@ namespace cpptest
 				ExpectationResult* pR = pFirstResult;
 				while (pR)
 				{
-					cout << startLine;
-					if (pR->pNext || didExc)
-						cout << "   \x1b[90m|---\x1b[0m";
-					else
-						cout << "   \x1b[90m\\---\x1b[0m";
-
 					if (!pR->didPass())
+					{
+						cout << startLine;
+						if (pR->pNext || didExc)
+							cout << "   \x1b[90m|---\x1b[0m";
+						else
+							cout << "   \x1b[90m\\---\x1b[0m";
+				
 						pR->print();
+					}
 
 					pR = pR->pNext;
 				}
@@ -204,8 +202,8 @@ namespace cpptest
 			{
 				cout << startLine;
 				cout << "   \x1b[90m\\---\x1b[0m";
-				cout << " [ \x1b[91mFAIL\x1b[0m ]";
-				cout << " Threw Exception:\t\x1b[91m" << strExc;
+				cout << " [ \x1b[91m\x1b[1mFAIL\x1b[0m ]";
+				cout << " \x1b[1mThrew Exception:\t\x1b[91m" << strExc;
 				cout << "\x1b[0m" << endl;
 			}
 		}

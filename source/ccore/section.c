@@ -95,14 +95,48 @@ void freeSection(struct CTestSection* pSection)
 
 void runSection(struct CTestSection* pSection, char show)
 {
-	if (show > SHOW_NOTHING)
-	{
-		if (pSection->pDesc) printf("Section: %s\n", pSection->pDesc);
-		else printf("Section: \n");
-	}
-
 	for (int i = 0; i < pSection->numberScenarios; i++)
+	{
+		char prog[101] = {};
+		if (show > SHOW_NOTHING)
+		{
+			printf("\x1b[2K");
+			int pn = i * 100 / pSection->numberScenarios;
+
+			char progStr[100] = {};
+			sprintf(progStr, "<Running Scenario \x1b[1m%i/%i\x1b[0m>", i + 1, pSection->numberScenarios);
+
+			size_t progLen = strlen(progStr);
+			if (progLen > 0)
+			{
+				int progStrS = 50 - progLen / 2;
+				for (int pi = 0; pi < progLen; pi++)
+					prog[progStrS + pi] = progStr[pi];
+			}
+			
+			for (int pi = 0; pi < 100; pi++)
+			{
+				if (prog[pi] == 0)
+				{
+					if ((pi < 90 && i == pSection->numberScenarios - 1) || pi < pn)
+						prog[pi] = '=';
+					else
+						prog[pi] = ' ';
+				}
+				else if (prog[pi] == ' ')
+				{
+					if ((pi < 90 && i == pSection->numberScenarios - 1) || pi < pn)
+						prog[pi] = '-';
+				}
+			}
+
+			printf("[%s]\n\x1b[2K", prog);
+		}
+
 		runScenario(&pSection->pScenarios[i], show);
+		
+		if (show > SHOW_NOTHING) printf("\x1b[1F");
+	}
 
 	for (int i = 0; i < pSection->numberSubsections; i++)
 		runSection(pSection->pSubsections[i], show);
@@ -138,9 +172,9 @@ void printSection(struct CTestSection* pSection, char show)
 	if (pSection->numberScenarios == 0 && pSection->numberSubsections == 0)
 		printf("[      ]");
 	else if (didSectionPass(pSection))
-		printf("[  \x1b[32mOK\x1b[0m  ]");
+		printf("[  \x1b[32m\x1b[1mOK\x1b[0m  ]");
 	else
-		printf("[ \x1b[91mFAIL\x1b[0m ]");
+		printf("[ \x1b[91m\x1b[1mFAIL\x1b[0m ]");
 
 	if (pSection->pDesc)
 		printf(" %s\n", pSection->pDesc);

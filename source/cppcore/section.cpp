@@ -11,6 +11,8 @@
 
 #include "../../include/cpptest.hpp"
 
+#include <string.h>
+
 namespace cpptest
 {
 	Section::Section()
@@ -53,14 +55,48 @@ namespace cpptest
 
 	void Section::run(char show)
 	{
-		if (show > SHOW_NOTHING)
-		{
-			if (!desc.empty()) cout << "Section: " << desc << endl;
-			else cout << "Section: " << endl;
-		}
-
 		for (int i = 0; i < scenarios.size(); i++)
+		{
+			char prog[101] = {};
+			if (show > SHOW_NOTHING)
+			{
+				printf("\x1b[2K");
+				int pn = i * 100 / scenarios.size();
+
+				char progStr[100] = {};
+				sprintf(progStr, "<Running Scenario \x1b[1m%i/%li\x1b[0m>", i + 1, scenarios.size());
+
+				size_t progLen = strlen(progStr);
+				if (progLen > 0)
+				{
+					int progStrS = 50 - progLen / 2;
+					for (int pi = 0; pi < progLen; pi++)
+						prog[progStrS + pi] = progStr[pi];
+				}
+				
+				for (int pi = 0; pi < 100; pi++)
+				{
+					if (prog[pi] == 0)
+					{
+						if ((pi < 90 && i == scenarios.size() - 1) || pi < pn)
+							prog[pi] = '=';
+						else
+							prog[pi] = ' ';
+					}
+					else if (prog[pi] == ' ')
+					{
+						if ((pi < 90 && i == scenarios.size() - 1) || pi < pn)
+							prog[pi] = '-';
+					}
+				}
+
+				printf("[%s]\n\x1b[2K", prog);
+			}
+
 			scenarios[i]->run(show);
+
+			if (show > SHOW_NOTHING) printf("\x1b[1F");
+		}
 
 		for (int i = 0; i < subsections.size(); i++)
 			subsections[i]->run(show);
@@ -96,9 +132,9 @@ namespace cpptest
 		if (scenarios.empty() && subsections.empty())
 			cout << "[      ]";
 		else if (didPass())
-			cout << "[  \x1b[32mOK\x1b[0m  ]";
+			cout << "[  \x1b[32m\x1b[1mOK\x1b[0m  ]";
 		else
-			cout << "[ \x1b[91mFAIL\x1b[0m ]";
+			cout << "[ \x1b[91m\x1b[1mFAIL\x1b[0m ]";
 
 		if (!desc.empty())
 			cout << " " << desc << endl;

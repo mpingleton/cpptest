@@ -85,8 +85,6 @@ void runScenario(struct CTestScenario* pScenario, char show)
 		pScenario->pFunc(pScenario);
 		if (pScenario->status == SCENARIO_STATUS_RUNNING)
 			pScenario->status = SCENARIO_STATUS_COMPLETE;
-
-		if (show > SHOW_NOTHING) printScenario(pScenario, show, "");
 	}
 }
 
@@ -129,22 +127,20 @@ char didScenarioPass(struct CTestScenario* pScenario)
 void printScenario(struct CTestScenario* pScenario, char show, char* pStartLine)
 {
 	if (pScenario->status == SCENARIO_STATUS_RUNNING)
-		printf("[ \x1b[94m>>>>\x1b[0m ]");
+		printf("[ \x1b[94m\x1b[1m>>>>\x1b[0m ]");
 	else if (pScenario->status == SCENARIO_STATUS_CANCELED)
-		printf("[\x1b[91mCANCEL\x1b[0m]");
+		printf("[\x1b[91m\x1b[1mCANCEL\x1b[0m]");
 	else if (pScenario->status == SCENARIO_STATUS_COMPLETE)
 	{
-		if (didScenarioPass(pScenario)) printf("[  \x1b[32mOK\x1b[0m  ]");
-		else printf("[ \x1b[91mFAIL\x1b[0m ]");
+		if (didScenarioPass(pScenario)) printf("[  \x1b[32m\x1b[1mOK\x1b[0m  ]");
+		else printf("[ \x1b[91m\x1b[1mFAIL\x1b[0m ]");
 	}
 	else
 		printf("[  --  ]");
 
 	if (pScenario->pDesc) printf(" %s", pScenario->pDesc);
 
-	if (pScenario->status == SCENARIO_STATUS_RUNNING)
-		printf("\r");
-	else
+	if (pScenario->status != SCENARIO_STATUS_RUNNING)
 	{
 		printf("\n");
 
@@ -168,14 +164,16 @@ void printScenario(struct CTestScenario* pScenario, char show, char* pStartLine)
 			struct CTestExpectationResult* pR = pScenario->pFirstResult;
 			while (pR)
 			{
-				printf("%s", pStartLine);
-				if (pR->pNext)
-					printf("   \x1b[90m|---\x1b[0m");
-				else
-					printf("   \x1b[90m\\---\x1b[0m");
-
 				if (!didExpectationResultPass(pR))
+				{
+					printf("%s", pStartLine);
+					if (pR->pNext)
+						printf("   \x1b[90m|---\x1b[0m");
+					else
+						printf("   \x1b[90m\\---\x1b[0m");
+				
 					printExpectationResult(pR);
+				}
 
 				pR = pR->pNext;
 			}
