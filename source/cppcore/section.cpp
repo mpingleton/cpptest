@@ -60,7 +60,7 @@ namespace cpptest
 			if (show > SHOW_NOTHING)
 			{
 				printf("\x1b[2K");
-				coutProgress("Running Section", i + 1, scenarios.size());
+				coutProgress("Running Scenario", i + 1, scenarios.size());
 
 				printf("\n\x1b[2K");
 			}
@@ -133,5 +133,10 @@ namespace cpptest
 			subsections[i]->print(show);
 
 		cout << endl;
+	}
+
+	const string& Section::getDesc()
+	{
+		return desc;
 	}
 };

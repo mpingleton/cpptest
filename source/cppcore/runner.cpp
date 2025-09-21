@@ -34,7 +34,37 @@ namespace cpptest
 	void Runner::run(char show)
 	{
 		for (int i = 0; i < sections.size(); i++)
+		{
+			Section& s = *sections.at(i);
+
+			if (show > SHOW_NOTHING)
+			{
+				printf("\x1b[2K");
+
+				char pc[101] = {};
+				if (s.getDesc().empty())
+					snprintf(pc, 100, "Running \"%s\"", s.getDesc().c_str());
+				else
+					snprintf(pc, 100, "Running Section");
+				
+				coutProgress(pc, i, sections.size());
+				printf("\n");				
+			}
+
 			sections[i]->run(show);
+
+			if (show > SHOW_NOTHING) printf("\x1b[1F");
+		}
+			
+		if (show > SHOW_NOTHING)
+		{
+			printf("\x1b[2K");
+
+			int i = sections.size();
+			coutProgress("All Sections Finished", i, i);
+
+			printf("\n");
+		}
 	}
 
 	bool Runner::didPass()

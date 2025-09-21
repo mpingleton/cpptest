@@ -53,7 +53,37 @@ void freeTests(struct CTestRunner* pRunner)
 void runTests(struct CTestRunner* pRunner, char show)
 {
 	for (int i = 0; i < pRunner->numberSections; i++)
-		runSection(pRunner->pSection[i], show);
+	{
+		struct CTestSection* pS = pRunner->pSection[i];
+
+		if (show > SHOW_NOTHING)
+		{
+			printf("\x1b[2K");
+
+			char pc[101] = {};
+			if (pS->pDesc)
+				snprintf(pc, 100, "Running \"%s\"", pS->pDesc);
+			else
+				snprintf(pc, 100, "Running Section");
+				
+			printProgress(pc, i, pRunner->numberSections);
+			printf("\n");
+		}
+
+		runSection(pS, show);
+
+		if (show > SHOW_NOTHING) printf("\x1b[1F");
+	}
+
+	if (show > SHOW_NOTHING)
+	{
+		printf("\x1b[2K");
+
+		int i = pRunner->numberSections;
+		printProgress("All Sections Finished", i, i);
+		
+		printf("\n");
+	}
 }
 
 char didTestsPass(struct CTestRunner* pRunner)

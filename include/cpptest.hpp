@@ -142,6 +142,8 @@ namespace cpptest
 		void run(char show);
 		bool didPass();
 		void print(char show);
+
+		const string& getDesc();
 	};
 
 	class Runner
