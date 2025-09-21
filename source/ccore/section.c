@@ -152,10 +152,13 @@ void printSection(struct CTestSection* pSection, char show)
 		if (i == pSection->numberScenarios - 1)
 		{
 			printf(" \x1b[30m\\-\x1b[0m ");
-			printScenario(&pSection->pScenarios[i], show, "");
+			printScenario(&pSection->pScenarios[i], show, "    ");
 		}
-		else	
-			printScenario(&pSection->pScenarios[i], show, " \x1b[30m|-\x1b[0m ");
+		else
+		{
+			printf(" \x1b[30m|-\x1b[0m ");
+			printScenario(&pSection->pScenarios[i], show, " \x1b[30m| \x1b[0m ");
+		}
 	}
 
 	for (int i = 0; i < pSection->numberSubsections; i++)

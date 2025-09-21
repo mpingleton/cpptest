@@ -147,8 +147,6 @@ namespace cpptest
 
 	void Scenario::print(char show, const string& startLine)
 	{
-		cout << startLine;
-
 		if (status == SCENARIO_STATUS_RUNNING)
 			cout << "[ \x1b[94m>>>>\x1b[0m ]";
 		else if (status == SCENARIO_STATUS_CANCELED)
@@ -190,7 +188,7 @@ namespace cpptest
 				while (pR)
 				{
 					cout << startLine;
-					if (pR->pNext && !didExc)
+					if (pR->pNext || didExc)
 						cout << "   \x1b[90m|---\x1b[0m";
 					else
 						cout << "   \x1b[90m\\---\x1b[0m";

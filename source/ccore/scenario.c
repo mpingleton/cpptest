@@ -128,8 +128,6 @@ char didScenarioPass(struct CTestScenario* pScenario)
 
 void printScenario(struct CTestScenario* pScenario, char show, char* pStartLine)
 {
-	printf("%s", pStartLine);
-
 	if (pScenario->status == SCENARIO_STATUS_RUNNING)
 		printf("[ \x1b[94m>>>>\x1b[0m ]");
 	else if (pScenario->status == SCENARIO_STATUS_CANCELED)

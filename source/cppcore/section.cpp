@@ -110,10 +110,13 @@ namespace cpptest
 			if (i == scenarios.size() - 1)
 			{
 				cout << " \x1b[30m\\-\x1b[0m ";
-				scenarios[i]->print(show, "");
+				scenarios[i]->print(show, "    ");
 			}
 			else
-				scenarios[i]->print(show, " \x1b[30m|-\x1b[0m");
+			{
+				cout << " \x1b[30m|-\x1b[0m ";
+				scenarios[i]->print(show, " \x1b[30m| \x1b[0m ");
+			}
 		}
 
 		for (int i = 0; i < subsections.size(); i++)
