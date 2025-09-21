@@ -107,11 +107,13 @@ void runSection(struct CTestSection* pSection, char show)
 
 		runScenario(&pSection->pScenarios[i], show);
 		
-		if (show > SHOW_NOTHING) printf("\x1b[2K\x1b[1F");
+		if (show > SHOW_NOTHING) printf("\x1b[2K\x1b[1F\x1b[2K");
 	}
 
 	for (int i = 0; i < pSection->numberSubsections; i++)
 		runSection(pSection->pSubsections[i], show);
+
+	fflush(0);
 }
 
 char didSectionPass(struct CTestSection* pSection)
