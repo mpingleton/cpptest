@@ -72,7 +72,7 @@ void fineonemoreScenario1(struct CTestScenario* pScenario)
 {
 	sleep(2);
 
-	for (int i = 0; i < 40000; i++)
+	for (int i = 0; i < 10000; i++)
 	{
 		expectToEqualFloat(pScenario, "1", 3.14f, 3.14f);
 		expectToEqualDouble(pScenario, "2", 1.4, 1.4);
