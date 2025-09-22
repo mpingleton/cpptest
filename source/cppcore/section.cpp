@@ -60,7 +60,7 @@ namespace cpptest
 			if (show > SHOW_NOTHING)
 			{
 				printf("\x1b[2K");
-				coutProgress("Running Scenario", i + 1, scenarios.size());
+				coutProgress("\x1b[34m\x1b[1mRunning Scenario\x1b[0m", i + 1, scenarios.size());
 
 				printf("\n\x1b[2K");
 			}

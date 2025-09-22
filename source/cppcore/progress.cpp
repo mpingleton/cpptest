@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define PROGRESS_WIDTH 100
+#define PROGRESS_WIDTH 125
 
 void cpptest::coutProgress(const string& caption, int numerator, int denominator)
 {
@@ -22,12 +22,12 @@ void cpptest::coutProgress(const string& caption, int numerator, int denominator
 	int pn = (numerator * PROGRESS_WIDTH) / denominator;
 
 	char progStr[PROGRESS_WIDTH] = {};
-	snprintf(progStr, PROGRESS_WIDTH, "<%s \x1b[1m%i/%i\x1b[0m>", caption.c_str(), numerator, denominator);
+	snprintf(progStr, PROGRESS_WIDTH, "<%s \x1b[1m(%i/%i)\x1b[0m>", caption.c_str(), numerator, denominator);
 
 	size_t progLen = strlen(progStr);
 	if (progLen > 0)
 	{
-		int progStrS = 50 - progLen / 2;
+		int progStrS = (PROGRESS_WIDTH / 2) - (progLen / 2);
 		for (int pi = 0; pi < progLen; pi++)
 			prog[progStrS + pi] = progStr[pi];
 	}

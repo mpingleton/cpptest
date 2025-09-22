@@ -45,9 +45,9 @@ namespace cpptest
 
 				char pc[101] = {};
 				if (s.getDesc().empty())
-					snprintf(pc, 100, "Running \"%s\"", s.getDesc().c_str());
+					snprintf(pc, 100, "Running \x1b[94m\x1b[1m\"%s\"\x1b[0m Section", s.getDesc().c_str());
 				else
-					snprintf(pc, 100, "Running Section");
+					snprintf(pc, 100, "Running \x1b[94m\x1b[1mUnnamed\x1b[0m Section");
 				
 				coutProgress(pc, i, sections.size());
 				printf("\n");				
@@ -62,8 +62,18 @@ namespace cpptest
 		{
 			printf("\x1b[2K");
 
-			int i = sections.size();
-			coutProgress("All Sections Finished", i, i);
+			int p = 0;
+			int d = sections.size();
+			for (int i = 0; i < d; i++)
+			{
+				if (sections.at(i)->didPass())
+					p++;
+			}
+
+			if (p == d)
+				coutProgress("\x1b[32m\x1b[1mAll Sections Passed\x1b[0m", p, d);
+			else
+				coutProgress("\x1b[91m\x1b[1mSome Sections Failed\x1b[0m", p, d);
 
 			printf("\n");
 		}

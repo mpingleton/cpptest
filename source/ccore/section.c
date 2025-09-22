@@ -100,7 +100,7 @@ void runSection(struct CTestSection* pSection, char show)
 		if (show > SHOW_NOTHING)
 		{
 			printf("\x1b[2K");
-			printProgress("Running Scenario", i + 1, pSection->numberScenarios);
+			printProgress("\x1b[34m\x1b[1mRunning Scenario\x1b[0m", i + 1, pSection->numberScenarios);
 
 			printf("\n\x1b[2K");
 		}

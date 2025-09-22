@@ -64,9 +64,9 @@ void runTests(struct CTestRunner* pRunner, char show)
 
 			char pc[101] = {};
 			if (pS->pDesc)
-				snprintf(pc, 100, "Running \"%s\"", pS->pDesc);
-			else
-				snprintf(pc, 100, "Running Section");
+					snprintf(pc, 100, "Running \x1b[94m\x1b[1m\"%s\"\x1b[0m Section", pS->pDesc);
+				else
+					snprintf(pc, 100, "Running \x1b[94m\x1b[1mUnnamed\x1b[0m Section");
 				
 			printProgress(pc, i, pRunner->numberSections);
 			printf("\n");
@@ -81,9 +81,19 @@ void runTests(struct CTestRunner* pRunner, char show)
 	{
 		printf("\x1b[2K");
 
-		int i = pRunner->numberSections;
-		printProgress("All Sections Finished", i, i);
-		
+		int p = 0;
+		int d = pRunner->numberSections;
+		for (int i = 0; i < d; i++)
+		{
+			if (didSectionPass(pRunner->pSection[i]))
+				p++;
+		}
+
+		if (p == d)
+			printProgress("\x1b[32m\x1b[1mAll Sections Passed\x1b[0m", p, d);
+		else
+			printProgress("\x1b[91m\x1b[1mSome Sections Failed\x1b[0m", p, d);
+
 		printf("\n");
 	}
 }
