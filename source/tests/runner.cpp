@@ -154,6 +154,173 @@ public:
 	}
 };
 
+class FirstStressTest : public Scenario
+{
+	int r = 0;
+	int suO = 0, suE = 0;
+	int tdO = 0, tdE = 0;
+
+public:
+	FirstStressTest() : Scenario("Stress Test Scenario 1")
+	{}
+
+	~FirstStressTest()
+	{}
+
+	void setupOnce()
+	{
+		suO++;
+	}
+
+	void teardownOnce()
+	{
+		tdO++;
+	}
+
+	void setupEach()
+	{
+		suE++;
+	}
+
+	void teardownEach()
+	{
+		tdE++;
+	}
+
+	bool shouldRepeat()
+	{
+		if (r >= 10)
+			return false;
+		
+		r++;
+		return true;
+	}
+
+	void test()
+	{
+		sleep(1);
+
+		expectToEqual("", "setupOnce called", suO, 1);
+		expectToEqual("", "teardownOnce called", tdO, 0);
+
+		expectToEqual("", "setupEach", suE, r + 1);
+		expectToEqual("", "teardownEach", tdE, r);
+	}
+};
+
+class SecondStressTest : public Scenario
+{
+	int r = 0, t = 0;
+	int suO = 0, suE = 0;
+	int tdO = 0, tdE = 0;
+
+public:
+	SecondStressTest() : Scenario("Stress Test Scenario 2")
+	{}
+
+	~SecondStressTest()
+	{}
+
+	void setupOnce()
+	{
+		suO++;
+	}
+
+	void teardownOnce()
+	{
+		tdO++;
+	}
+
+	void setupEach()
+	{
+		suE++;
+	}
+
+	void teardownEach()
+	{
+		tdE++;
+	}
+
+	bool shouldRepeat()
+	{
+		if (r >= 10000)
+			return false;
+		
+		r++;
+		return true;
+	}
+	
+	void test()
+	{
+		t++;
+
+		if (r < 10000) return;
+
+		expectToEqual("", "r", r, t - 1);
+
+		expectToEqual("", "setupOnce called", suO, 1);
+		expectToEqual("", "teardownOnce called", tdO, 0);
+
+		expectToEqual("", "setupEach", suE, r + 1);
+		expectToEqual("", "teardownEach", tdE, r);
+	}
+};
+
+class ThirdStressTest : public Scenario
+{
+	int r = 0, t = 0;
+	int suO = 0, suE = 0;
+	int tdO = 0, tdE = 0;
+
+public:
+	ThirdStressTest() : Scenario("Stress Test Scenario 3")
+	{}
+
+	~ThirdStressTest()
+	{}
+
+	void setupOnce()
+	{
+		suO++;
+	}
+
+	void teardownOnce()
+	{
+		tdO++;
+	}
+
+	void setupEach()
+	{
+		suE++;
+	}
+
+	void teardownEach()
+	{
+		tdE++;
+	}
+
+	bool shouldRepeat()
+	{
+		if (r >= 10000)
+			return false;
+		
+		r++;
+		return true;
+	}
+	
+	void test()
+	{
+		t++;
+		expectToEqual("", "r", r, t - 1);
+
+		expectToEqual("", "setupOnce called", suO, 1);
+		expectToEqual("", "teardownOnce called", tdO, 0);
+
+		expectToEqual("", "setupEach", suE, r + 1);
+		expectToEqual("", "teardownEach", tdE, r);
+	}
+};
+
 class SectionOne1 : public Section
 {
 public:
@@ -201,6 +368,25 @@ public:
 	}
 };
 
+class StressTestSectionA : public Section
+{
+public:
+	StressTestSectionA() : Section("Stress Testing A")
+	{
+		add(new FirstStressTest());
+	}
+};
+
+class StressTestSectionB : public Section
+{
+public:
+	StressTestSectionB() : Section("Stress Testing B")
+	{
+		add(new SecondStressTest());
+		add(new ThirdStressTest());
+	}
+};
+
 bool cppTestRunner()
 {
 	Runner runner1 = Runner();
@@ -227,6 +413,19 @@ bool cppTestRunner()
 
 	runner1.print(SHOW_EVERYTHING);
 	runner2.print(SHOW_EVERYTHING);
+
+	Runner runner3 = Runner();
+	runner3.add(new StressTestSectionA());
+	runner3.add(new StressTestSectionB());
+
+	runner3.run(SHOW_EVERYTHING);
+	if (!runner3.didPass())
+	{
+		cout << "Tests should have passed" << endl;
+		return false;
+	}
+
+	runner3.print(SHOW_ONLY_FAILING);
 
 	return true;
 }

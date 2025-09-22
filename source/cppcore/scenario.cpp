@@ -22,6 +22,7 @@ namespace cpptest
 		pFirstResult = 0;
 		pLastResult = 0;
 		didExc = false;
+		loops = 0;
 	}
 
 	Scenario::Scenario(string inputDesc)
@@ -31,6 +32,7 @@ namespace cpptest
 		pFirstResult = 0;
 		pLastResult = 0;
 		didExc = false;
+		loops = 0;
 	}
 
 	Scenario::~Scenario()
@@ -49,6 +51,24 @@ namespace cpptest
 		pFirstResult = 0;
 		pLastResult = 0;
 		didExc = false;
+		loops = 0;
+	}
+
+	void Scenario::setupOnce()
+	{}
+
+	void Scenario::setupEach()
+	{}
+
+	void Scenario::teardownOnce()
+	{}
+
+	void Scenario::teardownEach()
+	{}
+
+	bool Scenario::shouldRepeat()
+	{
+		return false;
 	}
 
 	void Scenario::test()
@@ -109,7 +129,32 @@ namespace cpptest
 
 			try
 			{
-				test();
+				setupOnce();
+
+				do
+				{
+					setupEach();
+					test();
+					teardownEach();
+					loops++;
+
+					if (status != SCENARIO_STATUS_RUNNING) break;
+
+					if (show)
+					{
+						if (show > SHOW_NOTHING)
+						{
+							cout << "\r\x1b[2K";
+							print(show, "");
+							cout << "\t\t\t\t\t\t\t\t";
+						}
+
+						fflush(0);
+					}
+				}
+				while (shouldRepeat());
+
+				teardownOnce();
 			}
 			catch (const exception& e)
 			{
@@ -151,7 +196,22 @@ namespace cpptest
 	void Scenario::print(char show, const string& startLine)
 	{
 		if (status == SCENARIO_STATUS_RUNNING)
-			cout << "[ \x1b[94m\x1b[1m>>>>\x1b[0m ]";
+		{
+			cout << "[ \x1b[34m\x1b[1m";
+
+			if (loops > 0)
+			{
+				int ml = loops % 4;
+				for (int i = 0; i < 4; i++)
+				{
+					if (i == ml) cout << "\x1b[93m>\x1b[34m";
+					else cout << ">";
+				}
+			}
+			else cout << ">>>>";
+
+			cout << "\x1b[0m ]";
+		}
 		else if (status == SCENARIO_STATUS_CANCELED)
 			cout << "[\x1b[91m\x1b[1mCANCEL\x1b[0m]";
 		else if (status == SCENARIO_STATUS_COMPLETE)

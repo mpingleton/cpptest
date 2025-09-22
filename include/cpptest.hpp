@@ -98,8 +98,14 @@ namespace cpptest
 		ExpectationResult* pLastResult;
 		bool didExc;
 		string strExc;
+		int loops;
 
 	protected:
+		virtual void setupOnce();
+		virtual void setupEach();
+		virtual void teardownOnce();
+		virtual void teardownEach();
+		virtual bool shouldRepeat();
 		virtual void test();
 		void cancel();
 
