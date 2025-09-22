@@ -48,6 +48,30 @@ void addScenarioToSection(struct CTestSection* pSection, const char* pDesc, void
 	}
 }
 
+void addScenarioToSectionByParams(struct CTestSection* pSection, const char* pDesc, struct CTestScenarioInitParams* pParams)
+{
+	int i = pSection->numberScenarios;
+	pSection->numberScenarios++;
+
+	if (i == 0)
+	{
+		pSection->pScenarios = (struct CTestScenario*)malloc(sizeof(struct CTestScenario));
+		initScenario(pSection->pScenarios, pDesc, pParams->pFuncTest);
+	}
+	else
+	{
+		pSection->pScenarios = (struct CTestScenario*)realloc(pSection->pScenarios, sizeof(struct CTestScenario) * pSection->numberScenarios);
+		initScenario(&pSection->pScenarios[i], pDesc, pParams->pFuncTest);
+	}
+
+	pSection->pScenarios[i].pState = pParams->pState;
+	pSection->pScenarios[i].pFuncSetupOnce = pParams->pFuncSetupOnce;
+	pSection->pScenarios[i].pFuncSetupEach = pParams->pFuncSetupEach;
+	pSection->pScenarios[i].pFuncTeardownOnce = pParams->pFuncTeardownOnce;
+	pSection->pScenarios[i].pFuncTeardownEach = pParams->pFuncTeardownEach;
+	pSection->pScenarios[i].pFuncShouldRepeat = pParams->pFuncShouldRepeat;
+}
+
 void addSubsectionToSection(struct CTestSection* pSection, struct CTestSection* pSubsection)
 {
 	int i = pSection->numberSubsections;

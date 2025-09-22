@@ -70,11 +70,29 @@ void printExpectationResult(struct CTestExpectationResult* pResult);
 
 struct CTestScenario
 {
+	void* pState;
 	char status;
+	int loops;
 	char* pDesc;
 	struct CTestExpectationResult* pFirstResult;
 	struct CTestExpectationResult* pLastResult;
-	void (*pFunc)(struct CTestScenario* pScenario);
+	void (*pFuncSetupOnce)(void* pScenario);
+	void (*pFuncSetupEach)(void* pScenario);
+	void (*pFuncTeardownOnce)(void* pState);
+	void (*pFuncTeardownEach)(void* pState);
+	int (*pFuncShouldRepeat)(struct CTestScenario* pScenario);
+	void (*pFuncTest)(struct CTestScenario* pScenario);
+};
+
+struct CTestScenarioInitParams
+{
+	void* pState;
+	void (*pFuncSetupOnce)(void* pScenario);
+	void (*pFuncSetupEach)(void* pScenario);
+	void (*pFuncTeardownOnce)(void* pState);
+	void (*pFuncTeardownEach)(void* pState);
+	int (*pFuncShouldRepeat)(struct CTestScenario* pScenario);
+	void (*pFuncTest)(struct CTestScenario* pScenario);
 };
 
 // scenario.c
@@ -107,6 +125,7 @@ struct CTestSection
 // section.c
 struct CTestSection* initSection(const char* pDesc);
 void addScenarioToSection(struct CTestSection* pSection, const char* pDesc, void (*pFunc)(struct CTestScenario* pScenario));
+void addScenarioToSectionByParams(struct CTestSection* pSection, const char* pDesc, struct CTestScenarioInitParams* pParams);
 void addSubsectionToSection(struct CTestSection* pSection, struct CTestSection* pSubsection);
 void freeSection(struct CTestSection* pSection);
 void runSection(struct CTestSection* pSection, char show);
