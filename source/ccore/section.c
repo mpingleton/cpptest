@@ -165,8 +165,10 @@ char didSectionPass(struct CTestSection* pSection)
 	return EXPECTATION_FAIL;
 }
 
-void printSection(struct CTestSection* pSection, char show)
+void printSection(struct CTestSection* pSection, char show, char* pStartLine)
 {
+	if (pStartLine) printf("%s", pStartLine);
+
 	if (pSection->numberScenarios == 0 && pSection->numberSubsections == 0)
 		printf("[      ]");
 	else if (didSectionPass(pSection))
@@ -179,22 +181,82 @@ void printSection(struct CTestSection* pSection, char show)
 	else
 		printf("\n");
 
+	const char* pSubStartLineA = "    ";
+	const char* pSubStartLineB = " \x1b[30m| \x1b[0m ";
+	const char* pSubStartLineC = " \x1b[30m\\ \x1b[0m ";
+	size_t lenSubStartLineA = strlen(pSubStartLineA);
+	size_t lenSubStartLineB = strlen(pSubStartLineB);
+	size_t lenSubStartLineC = strlen(pSubStartLineC);
+
+	char* pStartLineA = 0;
+	char* pStartLineB = 0;
+	char* pStartLineC = 0;
+	if (pStartLine)
+	{
+		size_t lenStartLine = strlen(pStartLine);
+
+		pStartLineA = (char*)malloc(lenStartLine + lenSubStartLineA + 1);
+		pStartLineB = (char*)malloc(lenStartLine + lenSubStartLineB + 1);
+		pStartLineC = (char*)malloc(lenStartLine + lenSubStartLineC + 1);
+		memset(pStartLineA, 0, lenStartLine + lenSubStartLineA + 1);
+		memset(pStartLineB, 0, lenStartLine + lenSubStartLineB + 1);
+		memset(pStartLineC, 0, lenStartLine + lenSubStartLineC + 1);
+
+		strcpy(pStartLineA, pStartLine);
+		strcpy(&pStartLineA[lenStartLine], pSubStartLineA);
+
+		strcpy(pStartLineB, pStartLine);
+		strcpy(&pStartLineB[lenStartLine], pSubStartLineB);
+		
+		strcpy(pStartLineC, pStartLine);
+		strcpy(&pStartLineC[lenStartLine], pSubStartLineC);
+	}
+	else
+	{
+		pStartLineA = (char*)malloc(lenSubStartLineA + 1);
+		pStartLineB = (char*)malloc(lenSubStartLineB + 1);
+		pStartLineC = (char*)malloc(lenSubStartLineC + 1);
+		memset(pStartLineA, 0, lenSubStartLineA + 1);
+		memset(pStartLineB, 0, lenSubStartLineB + 1);
+		memset(pStartLineC, 0, lenSubStartLineC + 1);
+		
+		strcpy(pStartLineA, pSubStartLineA);
+		strcpy(pStartLineB, pSubStartLineB);
+		strcpy(pStartLineC, pSubStartLineC);
+	}
+
 	for (int i = 0; i < pSection->numberScenarios; i++)
 	{
+		if (pStartLine) printf("%s", pStartLine);
+
 		if (i == pSection->numberScenarios - 1)
 		{
 			printf(" \x1b[30m\\-\x1b[0m ");
-			printScenario(&pSection->pScenarios[i], show, "    ");
+			printScenario(&pSection->pScenarios[i], show, pStartLineA);
 		}
 		else
 		{
 			printf(" \x1b[30m|-\x1b[0m ");
-			printScenario(&pSection->pScenarios[i], show, " \x1b[30m| \x1b[0m ");
+			printScenario(&pSection->pScenarios[i], show, pStartLineB);
 		}
 	}
 
-	for (int i = 0; i < pSection->numberSubsections; i++)
-		printSection(pSection->pSubsections[i], show);
+	if (pSection->numberSubsections == 0 && pStartLine == 0)
+	{
+		printf("%s\n", pStartLineA);
+	}
 
-	putchar('\n');
+	for (int i = 0; i < pSection->numberSubsections; i++)
+	{
+		printSection(pSection->pSubsections[i], show, pStartLineB);
+
+		if (i == pSection->numberSubsections - 1)
+			printf("%s\n\n", pStartLineC);
+		else
+			printf("%s\n", pStartLineB);
+	}
+
+	free(pStartLineA);
+	free(pStartLineB);
+	free(pStartLineC);
 }

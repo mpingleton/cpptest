@@ -130,7 +130,7 @@ void addSubsectionToSection(struct CTestSection* pSection, struct CTestSection* 
 void freeSection(struct CTestSection* pSection);
 void runSection(struct CTestSection* pSection, char show);
 char didSectionPass(struct CTestSection* pSection);
-void printSection(struct CTestSection* pSection, char show);
+void printSection(struct CTestSection* pSection, char show, char* pStartLine);
 
 struct CTestRunner
 {

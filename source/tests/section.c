@@ -71,17 +71,17 @@ int cTestSection()
 	pSections[1] = initSection2();
 	pSections[2] = initSection3();
 
-	printSection(pSections[0], SHOW_EVERYTHING);
-	printSection(pSections[1], SHOW_EVERYTHING);
-	printSection(pSections[2], SHOW_EVERYTHING);
+	printSection(pSections[0], SHOW_EVERYTHING, 0);
+	printSection(pSections[1], SHOW_EVERYTHING, 0);
+	printSection(pSections[2], SHOW_EVERYTHING, 0);
 
 	runSection(pSections[0], SHOW_EVERYTHING);
 	runSection(pSections[1], SHOW_EVERYTHING);
 	runSection(pSections[2], SHOW_EVERYTHING);
 
-	printSection(pSections[0], SHOW_EVERYTHING);
-	printSection(pSections[1], SHOW_EVERYTHING);
-	printSection(pSections[2], SHOW_EVERYTHING);
+	printSection(pSections[0], SHOW_EVERYTHING, 0);
+	printSection(pSections[1], SHOW_EVERYTHING, 0);
+	printSection(pSections[2], SHOW_EVERYTHING, 0);
 
 	if (didSectionPass(pSections[0]))
 	{

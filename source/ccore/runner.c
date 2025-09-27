@@ -119,5 +119,5 @@ void printTests(struct CTestRunner* pRunner, char show)
 {
 	if (show == SHOW_NOTHING) return;
 	for (int i = 0; i < pRunner->numberSections; i++)
-		printSection(pRunner->pSection[i], show);
+		printSection(pRunner->pSection[i], show, 0);
 }
