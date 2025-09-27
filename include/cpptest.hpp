@@ -147,7 +147,7 @@ namespace cpptest
 
 		void run(char show);
 		bool didPass();
-		void print(char show);
+		void print(char show, const string& startLine);
 
 		const string& getDesc();
 	};

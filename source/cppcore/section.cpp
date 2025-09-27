@@ -101,8 +101,10 @@ namespace cpptest
 		return false;
 	}
 
-	void Section::print(char show)
+	void Section::print(char show, const string& startLine)
 	{
+		if (!startLine.empty()) cout << startLine;
+
 		if (scenarios.empty() && subsections.empty())
 			cout << "[      ]";
 		else if (didPass())
@@ -115,24 +117,43 @@ namespace cpptest
 		else
 			cout << endl;
 
+		string startLineA = startLine;
+		startLineA.append("    ");
+
+		string startLineB = startLine;
+		startLineB.append(" \x1b[30m| \x1b[0m ");
+
+		string startLineC = startLine;
+		startLineC.append(" \x1b[30m\\ \x1b[0m ");
+
 		for (int i = 0; i < scenarios.size(); i++)
 		{
+			if (!startLine.empty()) cout << startLine;
+
 			if (i == scenarios.size() - 1)
 			{
 				cout << " \x1b[30m\\-\x1b[0m ";
-				scenarios[i]->print(show, "    ");
+				scenarios[i]->print(show, startLineA);
 			}
 			else
 			{
 				cout << " \x1b[30m|-\x1b[0m ";
-				scenarios[i]->print(show, " \x1b[30m| \x1b[0m ");
+				scenarios[i]->print(show, startLineB);
 			}
 		}
 
-		for (int i = 0; i < subsections.size(); i++)
-			subsections[i]->print(show);
+		if (subsections.size() == 0 && startLine.empty())
+			cout << startLineA << endl;
 
-		cout << endl;
+		for (int i = 0; i < subsections.size(); i++)
+		{
+			subsections[i]->print(show, startLineB);
+
+			if (i == subsections.size() - 1)
+				cout << startLineC << endl << endl;
+			else
+				cout << startLineB << endl;
+		}
 	}
 
 	const string& Section::getDesc()

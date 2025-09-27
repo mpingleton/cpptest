@@ -100,6 +100,6 @@ namespace cpptest
 	{
 		if (show == SHOW_NOTHING) return;
 		for (int i = 0; i < sections.size(); i++)
-			sections[i]->print(show);
+			sections[i]->print(show, "");
 	}
 };
