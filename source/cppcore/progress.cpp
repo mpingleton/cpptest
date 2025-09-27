@@ -11,42 +11,92 @@
 
 #include "../../include/cpptest.hpp"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
 
-#define PROGRESS_WIDTH 125
+#define PROGRESS_BUFFER_LEN 4096
 
 void cpptest::coutProgress(const string& caption, int numerator, int denominator)
 {
-	char prog[PROGRESS_WIDTH + 1] = {};
-	int pn = (numerator * PROGRESS_WIDTH) / denominator;
+	struct winsize ws;
+	ioctl(0, TIOCGWINSZ, &ws);
+	int progWidth = ws.ws_col - 2;
+	if (progWidth >= PROGRESS_BUFFER_LEN)
+		return;
 
-	char progStr[PROGRESS_WIDTH] = {};
-	snprintf(progStr, PROGRESS_WIDTH, "<%s \x1b[1m(%i/%i)\x1b[0m>", caption.c_str(), numerator, denominator);
+	char prog[PROGRESS_BUFFER_LEN];
+	memset(&prog, 0, PROGRESS_BUFFER_LEN);
 
-	size_t progLen = strlen(progStr);
-	if (progLen > 0)
+	int pn = (numerator * progWidth) / denominator;
+
+	char progStr[PROGRESS_BUFFER_LEN];
+	memset(&progStr, 0, PROGRESS_BUFFER_LEN);
+	snprintf(progStr, PROGRESS_BUFFER_LEN, "<%s \x1b[1m(%i/%i)\x1b[0m>", caption.c_str(), numerator, denominator);
+
+	int progStrLen = strlen(progStr);
+	int progLen = 0;
+	
+	int es = 0;
+	for (int i = 0; i < progStrLen; i++)
 	{
-		int progStrS = (PROGRESS_WIDTH / 2) - (progLen / 2);
-		for (int pi = 0; pi < progLen; pi++)
-			prog[progStrS + pi] = progStr[pi];
-	}
-		
-	for (int pi = 0; pi < PROGRESS_WIDTH; pi++)
-	{
-		if (prog[pi] == 0)
+		char c = progStr[i];
+
+		if (es)
 		{
-			if ((pi < 90 && numerator == denominator - 1) || pi < pn)
-				prog[pi] = '=';
+			if (c == 'm')
+				es = 0;
+		}
+		else
+		{
+			if (c == '\x1b')
+				es = 1;
 			else
-				prog[pi] = ' ';
-		}
-		else if (prog[pi] == ' ')
-		{
-			if ((pi < 90 && numerator == denominator - 1) || pi < pn)
-				prog[pi] = '-';
+				progLen++;
 		}
 	}
 
-	printf("[%s]", prog);
+	int progPos = (progWidth / 2) - (progLen / 2);
+
+	int progI = 0;
+	prog[progI] = '[';
+	progI++;
+	
+	for (int pi = 0; pi < progPos; pi++)
+	{
+		if (numerator >= denominator || pi < pn)
+			prog[progI] = '=';
+		else
+			prog[progI] = ' ';
+
+		progI++;
+	}
+
+	for (int pi = 0; pi < progStrLen; pi++)
+	{
+		char c = progStr[pi];
+
+		if ((c == ' ' || c == '\t') && (pi < pn))
+			prog[progI] = '~';
+		else
+			prog[progI] = c;
+
+		progI++;
+	}
+
+	for (int pi = progPos + progLen; pi < progWidth; pi++)
+	{
+		if (numerator >= denominator || pi < pn)
+			prog[progI] = '=';
+		else
+			prog[progI] = ' ';
+
+		progI++;
+	}
+	
+	prog[progI] = ']';
+	progI++;
+
+	cout << prog;
 }
