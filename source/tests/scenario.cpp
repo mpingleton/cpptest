@@ -31,6 +31,8 @@ public:
 		expectToEqual("", "1", 10, 10);
 		expectToEqual("", "1", 3, 2);
 		expectToEqual("", "1", 3.14f, 3.14f);
+		expectToEqual("", "1", "Hello", "Hello");
+		expectToEqual("", "1", "Bye", "Hello");
 
 		if (isCanceled()) return;
 
@@ -52,6 +54,7 @@ public:
 		expectToEqual("", "1", 10, 10);
 		expectToEqual("", "1", 2, 2);
 		expectToEqual("", "1", 3.14f, 3.14f);
+		expectToEqual("", "1", "Hello World!", "Hello World!");
 
 		if (isCanceled()) return;
 

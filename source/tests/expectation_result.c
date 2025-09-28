@@ -15,6 +15,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+const char* pHello = "Hello world!";
+const char* pBye = "Goodbye world!";
+
 int cTestExpectationResult()
 {
 	struct CTestExpectationResult* pResult1 = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
@@ -49,11 +52,38 @@ int cTestExpectationResult()
 	pResult3->actual.doubleValue = 3.0;
 	pResult3->expected.doubleValue = 3.0;
 
+	struct CTestExpectationResult* pResult4 = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	pResult3->pNext = pResult4;
+	pResult4->index = 0;
+	pResult4->pId = (char*)malloc(sizeof("TEST4"));
+	strcpy(pResult4->pId, "TEST4");
+	pResult4->type = EXPECTATION_STRING;
+	pResult4->comparison = EXPECTATION_EQUAL;
+	pResult4->result = EXPECTATION_PASS;
+	pResult4->actual.pStringValue = (char*)malloc(strlen(pHello));
+	pResult4->expected.pStringValue = (char*)malloc(strlen(pHello));
+	strcpy(pResult4->actual.pStringValue, pHello);
+	strcpy(pResult4->expected.pStringValue, pHello);
+	
+	struct CTestExpectationResult* pResult5 = (struct CTestExpectationResult*)malloc(sizeof(struct CTestExpectationResult));
+	pResult4->pNext = pResult5;
+	pResult5->index = 0;
+	pResult5->pId = (char*)malloc(sizeof("TEST5"));
+	strcpy(pResult5->pId, "TEST5");
+	pResult5->type = EXPECTATION_STRING;
+	pResult5->comparison = EXPECTATION_EQUAL;
+	pResult5->result = EXPECTATION_FAIL;
+	pResult5->actual.pStringValue = (char*)malloc(strlen(pBye));
+	pResult5->expected.pStringValue = (char*)malloc(strlen(pHello));
+	strcpy(pResult5->actual.pStringValue, pBye);
+	strcpy(pResult5->expected.pStringValue, pHello);
+
 	printExpectationResult(pResult1);
 	printExpectationResult(pResult2);
 	printExpectationResult(pResult3);
+	printExpectationResult(pResult4);
+	printExpectationResult(pResult5);
 
-	// TODO: Did they pass?
 	if (!didExpectationResultPass(pResult1))
 	{
 		printf("\tresult1 is not passing\n");
@@ -69,8 +99,17 @@ int cTestExpectationResult()
 		printf("\tresult3 is not passing\n");
 		return 0;
 	}
+	else if (!didExpectationResultPass(pResult4))
+	{
+		printf("\tresult4 is not passing\n");
+		return 0;
+	}
+	else if (didExpectationResultPass(pResult5))
+	{
+		printf("\tresult5 is passing\n");
+		return 0;
+	}
 
-	// TODO: Free them.
 	freeExpectationResult(pResult1);
 
 	return 1;

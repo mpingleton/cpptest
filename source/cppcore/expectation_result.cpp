@@ -154,4 +154,22 @@ namespace cpptest
 		ExpectationResult::print();
 		cout << "Actual: " << to_string(actual) << "\tExpected: " << comp(comparison) << to_string(expected) << endl;
 	}
+
+	ExpectationResultString::ExpectationResultString(string inputId, const string& a, const string& e, char c, bool pass) : ExpectationResult(inputId, c, pass)
+	{
+		actual = a;
+		expected = e;
+	}
+
+	ExpectationResultString::~ExpectationResultString()
+	{
+		actual.clear();
+		expected.clear();
+	}
+
+	void ExpectationResultString::print()
+	{
+		ExpectationResult::print();
+		cout << "Actual: " << '\"' << actual << '\"' << "\tExpected: " << comp(comparison) << '\"' << expected << '\"' << endl;
+	}
 };

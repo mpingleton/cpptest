@@ -134,4 +134,21 @@ namespace cpptest
 		addResult(new ExpectationResultDouble(id, actual, expected, EXPECTATION_EQUAL, p));
 		return p;
 	}
+
+	bool Scenario::expectToEqual(string parentId, string inputId, const string& actual, const string& expected)
+	{
+		string id = "";
+		if (!parentId.empty())
+		{
+			id.append(parentId);
+			id.append("\\");
+		}
+		id.append(inputId);
+
+		bool p = (expected.compare(actual) == 0);
+		if (!p) cancel();
+
+		addResult(new ExpectationResultString(id, actual, expected, EXPECTATION_EQUAL, p));
+		return p;
+	}
 };

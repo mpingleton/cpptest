@@ -34,6 +34,8 @@ public:
 		expectToEqual("TEST", "1", 10, 10);
 		expectToEqual("TEST", "1", 3, 2);
 		expectToEqual("TEST", "2", 3.14f, 3.14f);
+		expectToEqual("TEST", "3", "Hello world!", "Hello world!");
+		expectToEqual("TEST", "3", "Hello world", "Hello world!");
 
 		if (isCanceled()) return;
 

@@ -20,6 +20,7 @@
 #define EXPECTATION_INT 2
 #define EXPECTATION_FLOAT 3
 #define EXPECTATION_DOUBLE 4
+#define EXPECTATION_STRING 5
 
 #define EXPECTATION_EQUAL 0
 #define EXPECTATION_NOT_EQUAL 1
@@ -47,6 +48,7 @@ union CTestExpectationValue
 	int intValue;
 	float floatValue;
 	double doubleValue;
+	char* pStringValue;
 };
 
 struct CTestExpectationResult
@@ -113,6 +115,7 @@ char expectToEqualPointer(struct CTestScenario* pScenario, const char* id, void*
 char expectToEqualInt(struct CTestScenario* pScenario, const char* id, int actual, int expected);
 char expectToEqualFloat(struct CTestScenario* pScenario, const char* id, float actual, float expected);
 char expectToEqualDouble(struct CTestScenario* pScenario, const char* id, double actual, double expected);
+char expectToEqualString(struct CTestScenario* pScenario, const char* id, const char* actual, const char* expected);
 
 struct CTestSection
 {

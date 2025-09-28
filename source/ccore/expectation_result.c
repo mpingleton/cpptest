@@ -45,6 +45,23 @@ void freeExpectationResult(struct CTestExpectationResult* pResult)
 			free(pCurrent->pId);
 		}
 
+		if (pCurrent->type == EXPECTATION_STRING)
+		{
+			if (pCurrent->actual.pStringValue)
+			{
+				size_t lenA = strlen(pCurrent->actual.pStringValue);
+				memset(pCurrent->actual.pStringValue, 0, lenA);
+				free(pCurrent->actual.pStringValue);
+			}
+
+			if (pCurrent->expected.pStringValue)
+			{
+				size_t lenE = strlen(pCurrent->expected.pStringValue);
+				memset(pCurrent->expected.pStringValue, 0, lenE);
+				free(pCurrent->expected.pStringValue);	
+			}
+		}
+
 		memset(pCurrent, 0, sizeof(struct CTestExpectationResult));
 		free(pCurrent);
 
@@ -122,6 +139,22 @@ void printExpectationResult(struct CTestExpectationResult* pResult)
 	case EXPECTATION_DOUBLE:
 	{
 		printf("Actual: %f\tExpected: %s%f", pResult->actual.doubleValue, comp, pResult->expected.doubleValue);
+		break;
+	}
+	case EXPECTATION_STRING:
+	{
+		if (pResult->actual.pStringValue)
+			printf("Actual: \"%s\"", pResult->actual.pStringValue);
+		else
+			printf("Actual: (null)");
+
+		putchar('\t');
+
+		if (pResult->expected.pStringValue)
+			printf("Expected: %s\"%s\"", comp, pResult->expected.pStringValue);
+		else
+			printf("Expected: (null)");
+
 		break;
 	}
 	default:

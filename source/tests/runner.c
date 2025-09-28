@@ -23,6 +23,8 @@ void someScenario1(struct CTestScenario* pScenario)
 	expectToEqualInt(pScenario, "1", 10, 10);
 	expectToEqualInt(pScenario, "1", 3, 2);
 	expectToEqualFloat(pScenario, "2", 3.14f, 3.14f);
+	expectToEqualString(pScenario, "3", "Hello world!", "Hello world!");
+	expectToEqualString(pScenario, "3", "Hello world", "Hello world!");
 
 	if (isScenarioCanceled(pScenario)) return;
 

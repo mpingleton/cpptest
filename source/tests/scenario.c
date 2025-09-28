@@ -22,6 +22,8 @@ void someScenario(struct CTestScenario* pScenario)
 	expectToEqualInt(pScenario, expectId((char*)&b, 100, "TEST", "1"), 10, 10);
 	expectToEqualInt(pScenario, expectId((char*)&b, 100, "TEST", "1"), 3, 2);
 	expectToEqualFloat(pScenario, expectId((char*)&b, 100, "TEST", "1"), 3.14f, 3.14f);
+	expectToEqualString(pScenario, expectId((char*)&b, 100, "TEST", "1"), "Hello", "Hello");
+	expectToEqualString(pScenario, expectId((char*)&b, 100, "TEST", "1"), "Bye", "Hello");
 
 	if (isScenarioCanceled(pScenario)) return;
 
@@ -33,6 +35,7 @@ void anotherScenario(struct CTestScenario* pScenario)
 	expectToEqualInt(pScenario, "1", 10, 10);
 	expectToEqualInt(pScenario, "1", 2, 2);
 	expectToEqualFloat(pScenario, "1", 3.14f, 3.14f);
+	expectToEqualString(pScenario, "1", "Hello World!", "Hello World!");
 
 	if (isScenarioCanceled(pScenario)) return;
 
@@ -84,9 +87,23 @@ int cTestScenario()
 		printf("Third result not present\n");
 		return 0;
 	}
+
+	pE = pE->pNext;
+	if (pE == 0)
+	{
+		printf("Fourth result not present\n");
+		return 0;
+	}
+
+	pE = pE->pNext;
+	if (pE == 0)
+	{
+		printf("Fifth result not present\n");
+		return 0;
+	}
 	else if (pE->pNext != 0)
 	{
-		printf("A fourth result is present where it shouldn't be\n");
+		printf("A sixth result is present where it shouldn't be\n");
 		return 0;
 	}
 	else if (pE != pScenario1->pLastResult)

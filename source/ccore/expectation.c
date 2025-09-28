@@ -181,3 +181,62 @@ char expectToEqualDouble(struct CTestScenario* pScenario, const char* id, double
 	addResultToScenario(pScenario, pR);
 	return pR->result;
 }
+
+char expectToEqualString(struct CTestScenario* pScenario, const char* id, const char* actual, const char* expected)
+{
+	struct CTestExpectationResult* pR = initExpectationResult(id);
+	if (pR == 0)
+	{
+		cancelScenario(pScenario);
+		return EXPECTATION_FAIL;
+	}
+
+	pR->type = EXPECTATION_STRING;
+	pR->comparison = EXPECTATION_EQUAL;
+
+	size_t sizeA = 0;
+	if (actual)
+	{
+		sizeA = strlen(actual);
+		if (sizeA > 0)
+		{
+			pR->actual.pStringValue = (char*)malloc(sizeA + 1);
+			strcpy(pR->actual.pStringValue, actual);
+		}
+		else pR->actual.pStringValue = 0;
+	}
+	else pR->actual.pStringValue = 0;
+
+	size_t sizeE = 0;
+	if (expected)
+	{
+		sizeE = strlen(expected);
+		if (sizeE > 0)
+		{
+			pR->expected.pStringValue = (char*)malloc(sizeE + 1);
+			strcpy(pR->expected.pStringValue, expected);
+		}
+		else pR->expected.pStringValue = 0;
+	}
+	else pR->expected.pStringValue = 0;
+	
+	if (actual == 0 || expected == 0)
+	{
+		pR->result = EXPECTATION_FAIL;
+		cancelScenario(pScenario);
+	}
+	else if (sizeA != sizeE)
+	{
+		pR->result = EXPECTATION_FAIL;
+		cancelScenario(pScenario);
+	}
+	else if (strcmp(pR->actual.pStringValue, pR->expected.pStringValue) != 0)
+	{
+		pR->result = EXPECTATION_FAIL;
+		cancelScenario(pScenario);
+	}
+	else pR->result = EXPECTATION_PASS;
+
+	addResultToScenario(pScenario, pR);
+	return pR->result;
+}

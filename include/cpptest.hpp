@@ -90,6 +90,18 @@ namespace cpptest
 		void print();
 	};
 
+	class ExpectationResultString : public ExpectationResult
+	{
+		string actual;
+		string expected;
+
+	public:
+		ExpectationResultString(string inputId, const string& a, const string& e, char c, bool pass);
+		~ExpectationResultString();
+
+		void print();
+	};
+
 	class Scenario
 	{
 		char status;
@@ -123,6 +135,7 @@ namespace cpptest
 		bool expectToEqual(string parentId, string inputId, int actual, int expected);
 		bool expectToEqual(string parentId, string inputId, float actual, float expected);
 		bool expectToEqual(string parentId, string inputId, double actual, double expected);
+		bool expectToEqual(string parentId, string inputId, const string& actual, const string& expected);
 
 		void addResult(ExpectationResult* pResult);
 		void run(char show);
