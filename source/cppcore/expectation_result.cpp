@@ -170,6 +170,97 @@ namespace cpptest
 	void ExpectationResultString::print()
 	{
 		ExpectationResult::print();
-		cout << "Actual: " << '\"' << actual << '\"' << "\tExpected: " << comp(comparison) << '\"' << expected << '\"' << endl;
+
+		cout << "Actual: ";
+		cout << '\"';
+		for (int i = 0; i < actual.size(); i++)
+		{
+			char c = actual.at(i);
+			switch (c)
+			{
+			case '\a':
+			{
+				cout << "\x1b[36m";
+				cout << "\\a";
+				cout << "\x1b[0m";
+				break;
+			}
+			case '\r':
+			{
+				cout << "\x1b[36m";
+				cout << "\\r";
+				cout << "\x1b[0m";
+				break;
+			}
+			case '\n':
+			{
+				cout << "\x1b[36m";
+				cout << "\\n";
+				cout << "\x1b[0m";
+				break;
+			}
+			case '\t':
+			{
+				cout << "\x1b[36m";
+				cout << "\\t";
+				cout << "\x1b[0m";
+				break;
+			}
+			default:
+			{
+				cout << c;
+				break;
+			}
+			}
+		}
+		cout << '\"';
+
+		cout << '\t';
+
+		cout << "Expected: " << comp(comparison);
+		cout << '\"';
+		for (int i = 0; i < expected.size(); i++)
+		{
+			char c = expected.at(i);
+			switch (c)
+			{
+			case '\a':
+			{
+				cout << "\x1b[36m";
+				cout << "\\a";
+				cout << "\x1b[0m";
+				break;
+			}
+			case '\r':
+			{
+				cout << "\x1b[36m";
+				cout << "\\r";
+				cout << "\x1b[0m";
+				break;
+			}
+			case '\n':
+			{
+				cout << "\x1b[36m";
+				cout << "\\n";
+				cout << "\x1b[0m";
+				break;
+			}
+			case '\t':
+			{
+				cout << "\x1b[36m";
+				cout << "\\t";
+				cout << "\x1b[0m";
+				break;
+			}
+			default:
+			{
+				cout << c;
+				break;
+			}
+			}
+		}
+		cout << '\"';
+
+		cout << endl;
 	}
 };

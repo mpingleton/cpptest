@@ -144,16 +144,114 @@ void printExpectationResult(struct CTestExpectationResult* pResult)
 	case EXPECTATION_STRING:
 	{
 		if (pResult->actual.pStringValue)
-			printf("Actual: \"%s\"", pResult->actual.pStringValue);
-		else
-			printf("Actual: (null)");
+		{
+			printf("Actual: ");
+
+			putchar('\"');
+
+			int i = 0;
+			while (pResult->actual.pStringValue[i])
+			{
+				char c = pResult->actual.pStringValue[i];
+				switch (c)
+				{
+				case '\a':
+				{
+					printf("\x1b[36m");
+					printf("\\a");
+					printf("\x1b[0m");
+					break;
+				}
+				case '\r':
+				{
+					printf("\x1b[36m");
+					printf("\\r");
+					printf("\x1b[0m");
+					break;
+				}
+				case '\n':
+				{
+					printf("\x1b[36m");
+					printf("\\n");
+					printf("\x1b[0m");
+					break;
+				}
+				case '\t':
+				{
+					printf("\x1b[36m");
+					printf("\\t");
+					printf("\x1b[0m");
+					break;
+				}
+				default:
+				{
+					putchar(c);
+					break;
+				}
+				}
+
+				i++;
+			}
+
+			putchar('\"');
+		}
+		else printf("Actual: (null)");
 
 		putchar('\t');
 
 		if (pResult->expected.pStringValue)
-			printf("Expected: %s\"%s\"", comp, pResult->expected.pStringValue);
-		else
-			printf("Expected: (null)");
+		{
+			printf("Expected: ");
+			
+			putchar('\"');
+
+			int i = 0;
+			while (pResult->expected.pStringValue[i])
+			{
+				char c = pResult->expected.pStringValue[i];
+				switch (c)
+				{
+				case '\a':
+				{
+					printf("\x1b[36m");
+					printf("\\a");
+					printf("\x1b[0m");
+					break;
+				}
+				case '\r':
+				{
+					printf("\x1b[36m");
+					printf("\\r");
+					printf("\x1b[0m");
+					break;
+				}
+				case '\n':
+				{
+					printf("\x1b[36m");
+					printf("\\n");
+					printf("\x1b[0m");
+					break;
+				}
+				case '\t':
+				{
+					printf("\x1b[36m");
+					printf("\\t");
+					printf("\x1b[0m");
+					break;
+				}
+				default:
+				{
+					putchar(c);
+					break;
+				}
+				}
+
+				i++;
+			}
+
+			putchar('\"');
+		}
+		else printf("Expected: (null)");
 
 		break;
 	}
