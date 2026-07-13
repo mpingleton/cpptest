@@ -167,22 +167,26 @@ public:
 
 Next, create an empty test runner:
 
+C
 ```c
 struct CTestRunner runner = {};
 initTests(&runner);
 ```
 
+C++
 ```cpp
 Runner runner = Runner();
 ```
 
 Then, add the previously-created sections to the runner:
 
+C
 ```c
 addSectionToTest(&runner, testSectionAdd());
 addSectionToTest(&runner, testSectionSub());
 ```
 
+C++
 ```cpp
 runner.add(new AddSection());
 runner.add(new SubSection());
@@ -190,32 +194,38 @@ runner.add(new SubSection());
 
 Run the tests by calling `runTests()` or `run()`.  The `SHOW_EVERYTHING` flag instructs the runner to display the status on of the tests on the terminal as they are executed.
 
+C
 ```c
 runTests(&runner, SHOW_EVERYTHING);
 ```
 
+C++
 ```cpp
 runner.run(SHOW_EVERYTHING);
 ```
 
 Once the tests are finished, calling `printTests()` or `print()` will display the test results on the terminal.
 
+C
 ```c
 printTests(&runner, SHOW_EVERYTHING);
 ```
 
+C++
 ```cpp
 runner.print(SHOW_EVERYTHING);
 ```
 
 Finally, call `freeTests()` to free the heap memory that was requested by the test runner.  This step is only required in C.
 
+C
 ```c
 freeTests(&runner);
 ```
 
 Finally, calling `didTestsPass()` or `didPass()` will check if all the tests passed.
 
+C
 ```c
 if (didTestsPass(&runner) == EXPECTATION_PASS)
 	return 0;
@@ -223,6 +233,7 @@ if (didTestsPass(&runner) == EXPECTATION_PASS)
 return 1;
 ```
 
+C++
 ```cpp
 if (runner.didPass())
 	return 0;
@@ -235,6 +246,7 @@ return 1;
 
 Below are the steps for working with the test runner within the `main()` function.
 
+C
 ```c
 int main(int argc, char** argv)
 {
@@ -256,6 +268,7 @@ int main(int argc, char** argv)
 }
 ```
 
+C++
 ```cpp
 int main(int argc, char** argv)
 {
