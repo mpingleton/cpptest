@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // CPPTEST
 //
-// tests/expectation_result.c
+// expectation_result.c
 //
 // Tests for expectation results.
 //

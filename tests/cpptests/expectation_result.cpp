@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // CPPTEST
 //
-// tests/expectation_result.cpp
+// expectation_result.cpp
 //
 // Tests for expectation results.
 //

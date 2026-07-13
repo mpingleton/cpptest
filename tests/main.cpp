@@ -29,7 +29,7 @@ int main(int argc, char** argv)
 	if (!cppTestExpectationResult())
 	{
 		cout << "Test Section Failed: Expectation Result" << endl;
-		return -1;
+		return 1;
 	}
 
 	cout << "2. Scenarios: ";
@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 	if (!cppTestScenario())
 	{
 		cout << "Test Section Failed: Scenario" << endl;
-		return -2;
+		return 2;
 	}
 
 	cout << "3. Sections: ";
@@ -45,7 +45,7 @@ int main(int argc, char** argv)
 	if (!cppTestSection())
 	{
 		cout << "Test Section Failed: Section" << endl;
-		return -3;
+		return 3;
 	}
 
 	cout << "4. Runner: ";
@@ -53,7 +53,7 @@ int main(int argc, char** argv)
 	if (!cppTestRunner())
 	{
 		cout << "Test Section Failed: Runner" << endl;
-		return -4;
+		return 4;
 	}
 
 	printSep();

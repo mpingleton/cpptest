@@ -1,17 +1,9 @@
+.PHONY: uninstall install clean test build
+
 CFLAGS = -Wall
 CPPFLAGS = -Wall -std=c++23
 
-all: binary/ctests binary/cpptests binary/ccore.a binary/cppcore.a
-
-test: binary/ctests binary/cpptests
-	binary/ctests
-	binary/cpptests
-
-binary/ctests: source/main.c binary/ctests.a binary/ccore.a
-	clang source/main.c binary/ctests.a binary/ccore.a -o binary/ctests
-
-binary/cpptests: source/main.cpp binary/cpptests.a binary/cppcore.a
-	clang++ source/main.cpp binary/cpptests.a binary/cppcore.a -o binary/cpptests
+build: binary/ccore.a binary/cppcore.a
 
 init:
 	mkdir -p binary
@@ -27,8 +19,9 @@ clean:
 	rm -rf objects/ctests/*
 	rm -rf objects/cppcore/*
 	rm -rf objects/cpptests/*
+	$(MAKE) -C tests clean
 
-install: binary/ccore.a binary/cppcore.a
+install: binary/ccore.a binary/cppcore.a test
 	cp include/cpptest.h /usr/local/include
 	cp include/cpptest.hpp /usr/local/include
 	cp binary/ccore.a /usr/local/lib/libctest.a
@@ -40,8 +33,14 @@ uninstall:
 	rm /usr/local/lib/libctest.a
 	rm /usr/local/lib/libcpptest.a
 
-binary/ccore.a: objects/ccore/expectation_result.o objects/ccore/scenario.o objects/ccore/expectation.o objects/ccore/section.o objects/ccore/runner.o objects/ccore/progress.o
-	ar rc binary/ccore.a objects/ccore/expectation_result.o objects/ccore/scenario.o objects/ccore/expectation.o objects/ccore/section.o objects/ccore/runner.o objects/ccore/progress.o
+
+test: binary/ccore.a binary/cppcore.a
+	$(MAKE) -C tests test
+
+CCORE = objects/ccore/expectation_result.o objects/ccore/scenario.o objects/ccore/expectation.o objects/ccore/section.o objects/ccore/runner.o objects/ccore/progress.o
+
+binary/ccore.a: $(CCORE)
+	ar rc binary/ccore.a $(CCORE)
 
 objects/ccore/expectation_result.o: source/ccore/expectation_result.c
 	clang source/ccore/expectation_result.c -c $(CFLAGS) -o objects/ccore/expectation_result.o
@@ -61,8 +60,10 @@ objects/ccore/runner.o: source/ccore/runner.c
 objects/ccore/progress.o: source/ccore/progress.c
 	clang source/ccore/progress.c -c $(CFLAGS) -o objects/ccore/progress.o
 
-binary/cppcore.a: objects/cppcore/expectation_result.o objects/cppcore/scenario.o objects/cppcore/expectation.o objects/cppcore/section.o objects/cppcore/runner.o objects/cppcore/progress.o
-	ar rc binary/cppcore.a objects/cppcore/expectation_result.o objects/cppcore/scenario.o objects/cppcore/expectation.o objects/cppcore/section.o objects/cppcore/runner.o objects/cppcore/progress.o
+CPPCORE = objects/cppcore/expectation_result.o objects/cppcore/scenario.o objects/cppcore/expectation.o objects/cppcore/section.o objects/cppcore/runner.o objects/cppcore/progress.o
+
+binary/cppcore.a: $(CPPCORE)
+	ar rc binary/cppcore.a $(CPPCORE)
 
 objects/cppcore/expectation_result.o: source/cppcore/expectation_result.cpp
 	clang++ source/cppcore/expectation_result.cpp -c $(CPPFLAGS) -o objects/cppcore/expectation_result.o
@@ -81,33 +82,3 @@ objects/cppcore/runner.o: source/cppcore/runner.cpp
 
 objects/cppcore/progress.o: source/cppcore/progress.cpp
 	clang++ source/cppcore/progress.cpp -c $(CPPFLAGS) -o objects/cppcore/progress.o
-
-binary/ctests.a: objects/ctests/expectation_result.o objects/ctests/scenario.o objects/ctests/section.o objects/ctests/runner.o
-	ar rc binary/ctests.a objects/ctests/expectation_result.o objects/ctests/scenario.o objects/ctests/section.o objects/ctests/runner.o
-
-objects/ctests/expectation_result.o: source/tests/expectation_result.c
-	clang source/tests/expectation_result.c -c $(CFLAGS) -o objects/ctests/expectation_result.o
-
-objects/ctests/scenario.o: source/tests/scenario.c
-	clang source/tests/scenario.c -c $(CFLAGS) -o objects/ctests/scenario.o
-
-objects/ctests/section.o: source/tests/section.c
-	clang source/tests/section.c -c $(CFLAGS) -o objects/ctests/section.o
-
-objects/ctests/runner.o: source/tests/runner.c
-	clang source/tests/runner.c -c $(CFLAGS) -o objects/ctests/runner.o
-
-binary/cpptests.a: objects/cpptests/expectation_result.o objects/cpptests/scenario.o objects/cpptests/section.o objects/cpptests/runner.o
-	ar rc binary/cpptests.a objects/cpptests/expectation_result.o objects/cpptests/scenario.o objects/cpptests/section.o objects/cpptests/runner.o
-
-objects/cpptests/expectation_result.o: source/tests/expectation_result.cpp
-	clang++ source/tests/expectation_result.cpp -c $(CPPFLAGS) -o objects/cpptests/expectation_result.o
-
-objects/cpptests/scenario.o: source/tests/scenario.cpp
-	clang++ source/tests/scenario.cpp -c $(CPPFLAGS) -o objects/cpptests/scenario.o
-
-objects/cpptests/section.o: source/tests/section.cpp
-	clang++ source/tests/section.cpp -c $(CPPFLAGS) -o objects/cpptests/section.o
-
-objects/cpptests/runner.o: source/tests/runner.cpp
-	clang++ source/tests/runner.cpp -c $(CPPFLAGS) -o objects/cpptests/runner.o

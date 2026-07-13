@@ -2,3 +2,6 @@
 /.idea
 /binary
 /objects
+*.o
+*.a
+/tests/binary

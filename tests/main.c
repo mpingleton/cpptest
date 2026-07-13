@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 	if (!cTestExpectationResult())
 	{
 		printf("Test Section Failed: Expectation Result\n");
-		return -1;
+		return 1;
 	}
 
 	printf("2. Scenarios: ");
@@ -35,7 +35,7 @@ int main(int argc, char** argv)
 	if (!cTestScenario())
 	{
 		printf("Test Section Failed: Scenario\n");
-		return -2;
+		return 2;
 	}
 
 	printf("3. Sections: ");
@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 	if (!cTestSection())
 	{
 		printf("Test Section Failed: Section\n");
-		return -3;
+		return 3;
 	}
 
 	printf("4. Runners: ");
@@ -51,7 +51,7 @@ int main(int argc, char** argv)
 	if (!cTestRunner())
 	{
 		printf("Test Section Failed: Runner\n");
-		return -4;
+		return 4;
 	}
 
 	printSep();

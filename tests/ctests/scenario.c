@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // CPPTEST
 //
-// tests/scenario.c
+// scenario.c
 //
 // Tests for scenarios and expectations.
 //

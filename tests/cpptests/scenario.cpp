@@ -1,7 +1,7 @@
 //-----------------------------------------------------------------------------
 // CPPTEST
 //
-// tests/scenario.cpp
+// scenario.cpp
 //
 // Tests for scenarios and expectations.
 //
