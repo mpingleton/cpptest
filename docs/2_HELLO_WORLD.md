@@ -22,10 +22,12 @@ int sub(int a, int b)
 
 Include the `cpptest.h` for C code, or include the `cpptest.hpp` for C++ code.  In the case of C++ code, you may use the `cpptest` namespace.
 
+C
 ```c
 #include <cpptest.h>
 ```
 
+C++
 ```cpp
 #include <cpptest.hpp>
 
