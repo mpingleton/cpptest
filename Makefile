@@ -11,17 +11,17 @@ clean:
 	rm -rf source/cppcore/*.o
 	$(MAKE) -C tests clean
 
-install: libraries/libctest.a libraries/libcpptest.a
+install: libraries/libctest.a libraries/libcpptest.a init
 	cp include/cpptest.h /usr/local/include
 	cp include/cpptest.hpp /usr/local/include
 	cp libraries/libctest.a /usr/local/lib
 	cp libraries/libcpptest.a /usr/local/lib
 
 uninstall:
-	rm /usr/local/include/cpptest.h
-	rm /usr/local/include/cpptest.hpp
-	rm /usr/local/lib/libctest.a
-	rm /usr/local/lib/libcpptest.a
+	rm -f /usr/local/include/cpptest.h
+	rm -f /usr/local/include/cpptest.hpp
+	rm -f /usr/local/lib/libctest.a
+	rm -f /usr/local/lib/libcpptest.a
 
 test: libraries/libctest.a libraries/libcpptest.a
 	$(MAKE) -C tests test
