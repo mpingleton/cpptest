@@ -1,16 +1,19 @@
 # CPPTEST
 
-Version: 0.0
+Version: A.1
 
 A simple automated testing framework for projects written in C and C++.
 
 It will also serve as a prototype for the automated testing framework of Iridium programming language.
 
-This software has not yet been released under any liscense; it is not permitted to be distributed.
+CPPTEST is released under the MIT license. 
 
 ## Dependencies
 
-(Nothing to show)
+| Dependency | Purpose |
+| --- | --- |
+| clang | Compiler |
+| make | Automated build system |
 
 ## Getting Started
 
@@ -20,16 +23,31 @@ This software has not yet been released under any liscense; it is not permitted 
 $ git clone git@github.com:mpingleton/cpptest.git
 ```
 
-2. Initialize directory structure
-
-```shell
-$ make init
-```
-
-3. Compile
+2. Compile
 
 ```shell
 $ make
+```
+
+3. Run the self-test
+
+```shell
+$ make test
+```
+
+4. Install
+
+> [!IMPORTANT]
+> Root privileges are necessary for installation.
+
+```shell
+# make install
+```
+
+### OR
+
+```shell
+$ sudo make install
 ```
 
 ## Contributions
