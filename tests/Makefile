@@ -1,10 +1,12 @@
-.PHONY: init clean test
+.PHONY: init clean test build
 
 CFLAGS = -Wall
 CPPFLAGS = -Wall -std=c++23
 
 TEST_SUBJECT_C = ../libraries/libctest.a
 TEST_SUBJECT_CPP = ../libraries/libcpptest.a
+
+build: binary/ctests binary/cpptests
 
 test: binary/ctests binary/cpptests
 	binary/ctests

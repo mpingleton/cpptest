@@ -4,6 +4,7 @@ CFLAGS = -Wall
 CPPFLAGS = -Wall -std=c++23
 
 build: libraries/libctest.a libraries/libcpptest.a
+	$(MAKE) -C tests build
 
 clean:
 	rm -rf libraries
@@ -11,7 +12,7 @@ clean:
 	rm -rf source/cppcore/*.o
 	$(MAKE) -C tests clean
 
-install: libraries/libctest.a libraries/libcpptest.a init
+install: libraries/libctest.a libraries/libcpptest.a test
 	cp include/cpptest.h /usr/local/include
 	cp include/cpptest.hpp /usr/local/include
 	cp libraries/libctest.a /usr/local/lib
