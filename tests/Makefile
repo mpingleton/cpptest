@@ -3,8 +3,8 @@
 CFLAGS = -Wall
 CPPFLAGS = -Wall -std=c++23
 
-TEST_SUBJECT_C = ../binary/ccore.a
-TEST_SUBJECT_CPP = ../binary/cppcore.a
+TEST_SUBJECT_C = ../libraries/libctest.a
+TEST_SUBJECT_CPP = ../libraries/libcpptest.a
 
 test: binary/ctests binary/cpptests
 	binary/ctests
