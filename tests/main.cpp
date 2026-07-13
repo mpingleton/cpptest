@@ -24,40 +24,42 @@ void printSep()
 
 int main(int argc, char** argv)
 {
-	cout << "1. Expectation Results: ";
-	printSep();
+	cout << "Self-tests are running for the C++-side of the testing framework.  This may take several minutes." << endl;
+
+	//cout << "1. Expectation Results: ";
+	//printSep();
 	if (!cppTestExpectationResult())
 	{
 		cout << "Test Section Failed: Expectation Result" << endl;
 		return 1;
 	}
 
-	cout << "2. Scenarios: ";
-	printSep();
+	//cout << "2. Scenarios: ";
+	//printSep();
 	if (!cppTestScenario())
 	{
 		cout << "Test Section Failed: Scenario" << endl;
 		return 2;
 	}
 
-	cout << "3. Sections: ";
-	printSep();
+	//cout << "3. Sections: ";
+	//printSep();
 	if (!cppTestSection())
 	{
 		cout << "Test Section Failed: Section" << endl;
 		return 3;
 	}
 
-	cout << "4. Runner: ";
-	printSep();
+	//cout << "4. Runner: ";
+	//printSep();
 	if (!cppTestRunner())
 	{
 		cout << "Test Section Failed: Runner" << endl;
 		return 4;
 	}
 
-	printSep();
-	printSep();
+	//printSep();
+	//printSep();
 	cout << "All tests passed." << endl;
 	return 0;
 }

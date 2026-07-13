@@ -93,7 +93,7 @@ public:
 bool cppTestScenario()
 {
 	Scenario* pScenario1 = new SomeScenario();
-	pScenario1->run(SHOW_EVERYTHING);
+	pScenario1->run(SHOW_NOTHING);
 	if (!pScenario1->isCanceled())
 	{
 		cout << "Scenario should have been canceled" << endl;
@@ -104,12 +104,12 @@ bool cppTestScenario()
 		cout << "Scenario is passing when it shouldn't" << endl;
 		return false;
 	}
-	cout << "\r";
-	pScenario1->print(SHOW_EVERYTHING, "");
+	//cout << "\r";
+	//pScenario1->print(SHOW_EVERYTHING, "");
 	delete pScenario1;
 
 	Scenario* pScenario2 = new AnotherScenario();
-	pScenario2->run(SHOW_EVERYTHING);
+	pScenario2->run(SHOW_NOTHING);
 	if (pScenario2->isCanceled())
 	{
 		cout << "Scenario was unduly canceled" << endl;
@@ -120,12 +120,12 @@ bool cppTestScenario()
 		cout << "Scenario failed when it should have passed" << endl;
 		return false;
 	}
-	cout << "\r";
-	pScenario2->print(SHOW_EVERYTHING, "");
+	//cout << "\r";
+	//pScenario2->print(SHOW_EVERYTHING, "");
 	delete pScenario2;
 
 	Scenario* pScenario3 = new OkayOneMoreWontHurt();
-	pScenario3->run(SHOW_EVERYTHING);
+	pScenario3->run(SHOW_NOTHING);
 	if (!pScenario3->isCanceled())
 	{
 		cout << "Scenario should have been canceled" << endl;
@@ -136,8 +136,8 @@ bool cppTestScenario()
 		cout << "Scenario passed when it should have failed" << endl;
 		return false;
 	}
-	cout << "\r";
-	pScenario3->print(SHOW_EVERYTHING, "");
+	//cout << "\r";
+	//pScenario3->print(SHOW_EVERYTHING, "");
 	delete pScenario3;
 
 	return true;

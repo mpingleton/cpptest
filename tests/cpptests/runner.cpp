@@ -396,7 +396,7 @@ bool cppTestRunner()
 	runner1.add(new SectionFive1());
 	runner1.add(new SectionTwo1());	
 
-	runner1.run(SHOW_EVERYTHING);
+	runner1.run(SHOW_NOTHING);
 	if (runner1.didPass())
 	{
 		cout << "Tests should not have passed" << endl;
@@ -406,28 +406,28 @@ bool cppTestRunner()
 	Runner runner2 = Runner();
 	runner2.add(new SectionThr1());
 
-	runner2.run(SHOW_EVERYTHING);
+	runner2.run(SHOW_NOTHING);
 	if (!runner2.didPass())
 	{
 		cout << "Tests should have passed" << endl;
 		return false;
 	}
 
-	runner1.print(SHOW_EVERYTHING);
-	runner2.print(SHOW_EVERYTHING);
+	//runner1.print(SHOW_EVERYTHING);
+	//runner2.print(SHOW_EVERYTHING);
 
 	Runner runner3 = Runner();
 	runner3.add(new StressTestSectionA());
 	runner3.add(new StressTestSectionB());
 
-	runner3.run(SHOW_EVERYTHING);
+	runner3.run(SHOW_NOTHING);
 	if (!runner3.didPass())
 	{
 		cout << "Tests should have passed" << endl;
 		return false;
 	}
 
-	runner3.print(SHOW_ONLY_FAILING);
+	//runner3.print(SHOW_ONLY_FAILING);
 
 	return true;
 }

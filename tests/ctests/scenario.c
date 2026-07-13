@@ -55,7 +55,7 @@ int cTestScenario()
 	memset(pScenario1, 0, sizeof(struct CTestScenario));
 	initScenario(pScenario1, "Test 1", &someScenario);
 
-	runScenario(pScenario1, 1);
+	runScenario(pScenario1, SHOW_NOTHING);
 	if (!isScenarioCanceled(pScenario1))
 	{
 		printf("Scenario should have been canceled\n");
@@ -112,8 +112,8 @@ int cTestScenario()
 		return 0;
 	}
 
-	printf("\r");
-	printScenario(pScenario1, SHOW_EVERYTHING, "");
+	//printf("\r");
+	//printScenario(pScenario1, SHOW_NOTHING, "");
 	freeScenario(pScenario1);
 	free(pScenario1);
 
@@ -121,7 +121,7 @@ int cTestScenario()
 	memset(pScenario2, 0, sizeof(struct CTestScenario));
 	initScenario(pScenario2, "Test 2", &anotherScenario);
 
-	runScenario(pScenario2, SHOW_EVERYTHING);
+	runScenario(pScenario2, SHOW_NOTHING);
 	if (isScenarioCanceled(pScenario2))
 	{
 		printf("Scenario was unduly canceled\n");
@@ -159,8 +159,8 @@ int cTestScenario()
 		return 0;
 	}
 
-	printf("\r");
-	printScenario(pScenario2, SHOW_EVERYTHING, "");
+	//printf("\r");
+	//printScenario(pScenario2, SHOW_NOTHING, "");
 	freeScenario(pScenario2);
 	free(pScenario2);
 

@@ -164,20 +164,20 @@ bool cppTestSection()
 	Section* pThree = new SectionThree();
 	Section* pFour = new SectionFour();
 
-	pOne->print(SHOW_EVERYTHING, "");
-	pTwo->print(SHOW_EVERYTHING, "");
-	pThree->print(SHOW_EVERYTHING, "");
-	pFour->print(SHOW_EVERYTHING, "");
+	//pOne->print(SHOW_EVERYTHING, "");
+	//pTwo->print(SHOW_EVERYTHING, "");
+	//pThree->print(SHOW_EVERYTHING, "");
+	//pFour->print(SHOW_EVERYTHING, "");
 
-	pOne->run(SHOW_EVERYTHING);
-	pTwo->run(SHOW_EVERYTHING);
-	pThree->run(SHOW_EVERYTHING);
-	pFour->run(SHOW_EVERYTHING);
+	pOne->run(SHOW_NOTHING);
+	pTwo->run(SHOW_NOTHING);
+	pThree->run(SHOW_NOTHING);
+	pFour->run(SHOW_NOTHING);
 
-	pOne->print(SHOW_EVERYTHING, "");
-	pTwo->print(SHOW_EVERYTHING, "");
-	pThree->print(SHOW_EVERYTHING, "");
-	pFour->print(SHOW_EVERYTHING, "");
+	//pOne->print(SHOW_EVERYTHING, "");
+	//pTwo->print(SHOW_EVERYTHING, "");
+	//pThree->print(SHOW_EVERYTHING, "");
+	//pFour->print(SHOW_EVERYTHING, "");
 
 	if (pOne->didPass())
 	{

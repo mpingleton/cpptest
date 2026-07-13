@@ -22,40 +22,42 @@ void printSep()
 
 int main(int argc, char** argv)
 {
-	printf("1. Expectation Results: ");
-	printSep();
+	printf("Self-tests are running for the C-side of the testing framework.  This may take several minutes.\n");
+
+	//printf("1. Expectation Results: ");
+	//printSep();
 	if (!cTestExpectationResult())
 	{
 		printf("Test Section Failed: Expectation Result\n");
 		return 1;
 	}
 
-	printf("2. Scenarios: ");
-	printSep();
+	//printf("2. Scenarios: ");
+	//printSep();
 	if (!cTestScenario())
 	{
 		printf("Test Section Failed: Scenario\n");
 		return 2;
 	}
 
-	printf("3. Sections: ");
-	printSep();
+	//printf("3. Sections: ");
+	//printSep();
 	if (!cTestSection())
 	{
 		printf("Test Section Failed: Section\n");
 		return 3;
 	}
 
-	printf("4. Runners: ");
-	printSep();
+	//printf("4. Runners: ");
+	//printSep();
 	if (!cTestRunner())
 	{
 		printf("Test Section Failed: Runner\n");
 		return 4;
 	}
 
-	printSep();
-	printSep();
+	//printSep();
+	//printSep();
 	printf("All tests passed.\n");
 	return 0;
 }

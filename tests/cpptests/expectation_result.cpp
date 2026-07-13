@@ -25,11 +25,11 @@ bool cppTestExpectationResult()
 	ExpectationResultString result4 = ExpectationResultString("4", "Hello world!", "Hello world!", EXPECTATION_EQUAL, true);
 	ExpectationResultString result5 = ExpectationResultString("5", "Goodbye world!", "Hello world!", EXPECTATION_EQUAL, false);
 
-	result1.print();
-	result2.print();
-	result3.print();
-	result4.print();
-	result5.print();
+	//result1.print();
+	//result2.print();
+	//result3.print();
+	//result4.print();
+	//result5.print();
 
 	if (!result1.didPass())
 	{

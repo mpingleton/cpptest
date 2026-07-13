@@ -78,11 +78,11 @@ int cTestExpectationResult()
 	strcpy(pResult5->actual.pStringValue, pBye);
 	strcpy(pResult5->expected.pStringValue, pHello);
 
-	printExpectationResult(pResult1);
-	printExpectationResult(pResult2);
-	printExpectationResult(pResult3);
-	printExpectationResult(pResult4);
-	printExpectationResult(pResult5);
+	//printExpectationResult(pResult1);
+	//printExpectationResult(pResult2);
+	//printExpectationResult(pResult3);
+	//printExpectationResult(pResult4);
+	//printExpectationResult(pResult5);
 
 	if (!didExpectationResultPass(pResult1))
 	{

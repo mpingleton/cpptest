@@ -309,7 +309,7 @@ int cTestRunner()
 	addSectionToTest(&runner1, pSections[0]);
 	addSectionToTest(&runner1, pSections[1]);
 
-	runTests(&runner1, SHOW_EVERYTHING);
+	runTests(&runner1, SHOW_NOTHING);
 	if (didTestsPass(&runner1))
 	{
 		printf("Tests should not have passed\n");
@@ -321,15 +321,15 @@ int cTestRunner()
 	addSubsectionToSection(pSections[2], pSections[3]);
 	addSectionToTest(&runner2, pSections[2]);
 
-	runTests(&runner2, SHOW_EVERYTHING);
+	runTests(&runner2, SHOW_NOTHING);
 	if (!didTestsPass(&runner2))
 	{
 		printf("Tests should have passed\n");
 		return 0;
 	}
 
-	printTests(&runner1, SHOW_EVERYTHING);
-	printTests(&runner2, SHOW_EVERYTHING);
+	//printTests(&runner1, SHOW_NOTHING);
+	//printTests(&runner2, SHOW_NOTHING);
 
 	freeTests(&runner1);
 	freeTests(&runner2);
@@ -344,14 +344,14 @@ int cTestRunner()
 	addSectionToTest(&runner3, pStressTests[0]);
 	addSectionToTest(&runner3, pStressTests[1]);
 
-	runTests(&runner3, SHOW_EVERYTHING);
+	runTests(&runner3, SHOW_NOTHING);
 	if (!didTestsPass(&runner3))
 	{
 		printf("Tests should have passed\n");
 		return 0;
 	}
 
-	printTests(&runner3, SHOW_ONLY_FAILING);
+	//printTests(&runner3, SHOW_NOTHING);
 
 	freeTests(&runner3);
 	
