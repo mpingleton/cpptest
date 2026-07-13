@@ -53,6 +53,20 @@ $ make test
 $ sudo make install
 ```
 
+### 5. Link to your project
+
+In a C project, use the -lctest flag in your compiler:
+
+```make
+$ clang yourtestcode.c -lctest -o yourtestbinary
+```
+
+For C++, use the -lcpptest flag:
+
+```make
+$ clang++ yourtestcode.cpp -lcpptest -o yourtestbinary
+```
+
 ## Contributions
 
 This project is currently not accepting contributions.
