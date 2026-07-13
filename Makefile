@@ -11,7 +11,7 @@ clean:
 	rm -rf source/cppcore/*.o
 	$(MAKE) -C tests clean
 
-install: binary/libctest.a binary/libcpptest.a
+install: libraries/libctest.a libraries/libcpptest.a
 	cp include/cpptest.h /usr/local/include
 	cp include/cpptest.hpp /usr/local/include
 	cp libraries/libctest.a /usr/local/lib
