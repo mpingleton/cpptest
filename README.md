@@ -4,12 +4,16 @@ Version: A.1
 
 A simple automated testing framework for projects written in C and C++.
 
+There are two separate implementations of this testing framework: one for C and the other for C++.  This allows tests to be implemented in an idiomatic manner for either language.
+
 It will also serve as a prototype for the automated testing framework of Iridium programming language.
 
 CPPTEST is released under the MIT license.
 
 > [!WARNING]
-> CPPTEST is still in Alpha-testing; please use with care.  To report issues, use the "Issues" tab on this repository or send a message to mnpingleton@gmail.com. 
+> CPPTEST is still in Alpha-testing; please use with care.  To report issues, use the "Issues" tab on this repository or send a message to mnpingleton@gmail.com.
+
+Documentation and code examples are available in the /docs directory.
 
 ## Dependencies
 
