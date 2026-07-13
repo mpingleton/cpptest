@@ -10,7 +10,7 @@
 //-----------------------------------------------------------------------------
 
 #include "../../include/cpptest.hpp"
-#include "../../include/tests.hpp"
+#include "../tests.hpp"
 
 #include <iostream>
 #include <stdexcept>

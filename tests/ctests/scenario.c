@@ -10,7 +10,7 @@
 //-----------------------------------------------------------------------------
 
 #include "../../include/cpptest.h"
-#include "../../include/tests.h"
+#include "../tests.h"
 
 #include <stdlib.h>
 #include <string.h>
