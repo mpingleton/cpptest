@@ -14,6 +14,11 @@
 #ifndef CPPTEST_H
 #define CPPTEST_H
 
+#define CPPTEST_VERS_MAJOR 0
+#define CPPTEST_VERS_MINOR 1
+#define CPPTEST_VERS_REVIS 0
+#define CPPTEST_VERS_STRING "A.1"
+
 #include <stdio.h>
 
 #define EXPECTATION_POINTER 1
