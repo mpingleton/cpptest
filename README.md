@@ -1,6 +1,6 @@
 # CPPTEST
 
-Version: A.1
+## Version: A.1
 
 A simple automated testing framework for projects written in C and C++.
 
@@ -13,7 +13,7 @@ CPPTEST is released under the MIT license.
 > [!WARNING]
 > CPPTEST is still in Alpha-testing; please use with care.  To report issues, use the "Issues" tab on this repository or send a message to mnpingleton@gmail.com.
 
-Documentation and code examples are available in the /docs directory.
+Documentation and code examples are available in the './docs' directory.
 
 ## Dependencies
 
@@ -59,13 +59,13 @@ $ sudo make install
 
 ### 5. Link to your project
 
-In a C project, use the -lctest flag in your compiler:
+In a C project, use the '-lctest' flag in your compiler:
 
 ```make
 $ clang yourtestcode.c -lctest -o yourtestbinary
 ```
 
-For C++, use the -lcpptest flag:
+For C++, use the '-lcpptest' flag:
 
 ```make
 $ clang++ yourtestcode.cpp -lcpptest -o yourtestbinary
