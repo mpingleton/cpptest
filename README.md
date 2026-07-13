@@ -17,25 +17,25 @@ CPPTEST is released under the MIT license.
 
 ## Getting Started
 
-1. Clone this repository
+### 1. Clone this repository
 
 ```shell
 $ git clone git@github.com:mpingleton/cpptest.git
 ```
 
-2. Compile
+### 2. Compile
 
 ```shell
 $ make
 ```
 
-3. Run the self-test
+### 3. Run the self-test
 
 ```shell
 $ make test
 ```
 
-4. Install
+### 4. Install
 
 > [!IMPORTANT]
 > Root privileges are necessary for installation.
